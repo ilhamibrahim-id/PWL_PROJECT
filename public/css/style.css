@@ -8137,7 +8137,7 @@ body {
   font-size: 14px;
   line-height: 1.8;
   font-weight: normal;
-  background: #fbd1b7;
+  background-color: #fbd1b7;
   color: gray; }
 
 a {
@@ -8163,7 +8163,7 @@ h1, h2, h3, h4, h5,
   background: #b689b0 !important; }
 
 .ftco-section {
-  padding: 7em 0; }
+  padding: 2em 0; }
 
 .ftco-no-pt {
   padding-top: 0; }
@@ -8198,8 +8198,8 @@ h1, h2, h3, h4, h5,
   .login-wrap p {
     color: rgba(255, 255, 255, 0.5); }
   .login-wrap .img {
-    width: 100px;
-    height: 100px;
+    width: 250px;
+    height: 250px;
     border-radius: 50%;
     margin: 0 auto;
     margin-bottom: 20px; }
