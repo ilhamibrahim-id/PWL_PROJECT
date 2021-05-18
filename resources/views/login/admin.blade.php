@@ -9,14 +9,15 @@
                         <h3 class="text-center mb-0">Sistem Informasi Nilai Mahasiswa</h3>
 		      	        <div class="img d-flex align-items-center justify-content-center" style="background-image: url('{{url('images/polinema.png')}}');"></div>
 		      	            <p class="text-center">Login Sebagai Admin </p>
-                              <form action="#" class="login-form">
+                              <form action="{{ route('postlogin') }}" method="POST" class="login-form">
+                                @csrf
                                 <div class="form-group">
                                     <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-user"></span></div>
-                                    <input type="text" class="form-control" placeholder="Masukan Username" required>
+                                    <input name="username" type="text" class="form-control" placeholder="Masukan Username" required>
                                 </div>
                           <div class="form-group">
                               <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-lock"></span></div>
-                            <input type="password" class="form-control" placeholder="Masukan Password" required>
+                            <input name="password" type="password" class="form-control" placeholder="Masukan Password" required>
                           </div>
                            <div class="form-group">
                               <button type="submit" class="btn form-control btn-primary rounded submit px-3">Login</button>
