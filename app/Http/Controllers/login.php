@@ -2,40 +2,36 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class login extends Controller
 {
-    public function welcome()
+    public function index()
     {
-        return view('welcome');
-    }
+        $roles = explode('/', url()->current());
 
-    public function home()
-    {
-        return view('home');
-    }
-
-    public function dosen(){
-        return view('login.dosen');
-    }
-    public function mahasiswa(){
-        return view('login.mahasiswa');
-    }
-    public function admin(){
-        return view('login.admin');
-    }
-
-    public function postlogin(Request $request){
-        if(Auth::attempt(['username'=> $request->username,'password'=> $request->password])){
-            return redirect('home');
+        if(Auth::check()) {
+            if(end($roles) !== Auth::user()->roles)
+                return redirect()->route('index.' . Auth::user()->role);
+                
+            return redirect()->route('index.' . Auth::user()->role);
         }
-        return redirect('welcome');
+
+        return view('login.login', ['roles' => end($roles)]);
     }
 
-    public function logout(){
-        Auth::logout();
-        return redirect('/');
+    public function store(LoginRequest $request)
+    {
+        $credentials = $request->only('username', 'password');
+
+        if(Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            return redirect()->route('index.' . Auth::user()->role);
+        }
+
+        return back()->withErrors(['error' => 'Data Tidak Valid']);
     }
 }

@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Dosen extends Model
 {
     use HasFactory;
+
+    protected $table="table_dosen";
+    protected $primarykey="nip";
+    protected $fillable = [
+        'nip',
+        'nama',
+        'alamat',
+        'password',
+    ];
 }

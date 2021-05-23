@@ -9,7 +9,7 @@
                         <div class="login-wrap py-5">
                             <h3 class="text-center mb-0">Sistem Informasi Nilai Mahasiswa</h3>
                             <div class="img d-flex align-items-center justify-content-center"
-                                style="background-image: url(images/polinema.png);"></div>
+                                style="background-image: url('{{ url('images/polinema.png') }}');"></div>
                             <h3 class="text-center mb-0">Selamat Datang {{ auth()->user()->username }}</h3>
                             <p class="text-center">Logout : </p>
                             <center>
