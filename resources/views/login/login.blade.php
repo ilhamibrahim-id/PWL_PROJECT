@@ -42,7 +42,7 @@
                             </form>
                             <div class="w-100 text-center mt-4 text">
                                 <a href="{{ str_contains($roles, 'mahasiswa') ? route('register.mahasiswa') : (str_contains($roles, 'dosen') ? route('register.dosen') : route('register.admin')) }}"
-                                    class="text-primary mb-0">Tidak Punya Akun?
+                                    class="text-primary mb-0">Tidak Punya Akun ? klik disini <br /><br />
                                 </a>
                                 <a href="{{ url('/') }}" class="btn btn-info btn-lg">
                                     <span class="glyphicon glyphicon-chevron-left"></span> Kembali
