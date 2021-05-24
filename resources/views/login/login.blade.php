@@ -45,7 +45,7 @@
                                     class="text-primary mb-0">Tidak Punya Akun ? klik disini <br /><br />
                                 </a>
                                 <a href="{{ url('/') }}" class="btn btn-info btn-lg">
-                                    <span class="glyphicon glyphicon-chevron-left"></span> Kembali
+                                    <span class="glyphicon glyphicon-home"></span> Halaman Utama
                                 </a>
                             </div>
                         </div>
