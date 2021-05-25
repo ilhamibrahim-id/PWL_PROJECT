@@ -60,11 +60,11 @@
                                 </div>
                             </form>
                             <div class="w-100 text-center mt-4 text">
-                                <a href="{{ str_contains($roles, 'mahasiswa') ? route('login.mahasiswa') : (str_contains($roles, 'dosen') ? route('login.dosen') : route('login.admin')) }}"
+                                <a href="{{ url('/') }}"
                                 class="text-primary mb-0"> Sudah Punya Akun? klik disini <br /><br />
                                 </a>
-                                <a href="{{ url('/') }}" class="btn btn-info btn-lg">
-                                    <span class="glyphicon glyphicon-home"></span> Halaman Utama
+                                <a href="{{ url('daftar') }}" class="btn btn-info btn-lg">
+                                    <span class="glyphicon glyphicon-home"></span> Kembali
                                 </a>
                             </div>
                         </div>

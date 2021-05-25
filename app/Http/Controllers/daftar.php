@@ -8,13 +8,36 @@ use App\Models\Dosen;
 use App\Models\Mahasiswa;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class daftar extends Controller
 {
     public function index()
     {
         $roles = explode('/', url()->current());
+
+        if(Auth::check()) {
+            if(end($roles) !== Auth::user()->roles)
+                return redirect()->route('index.' . Auth::user()->role);
+                
+            return redirect()->route('index.' . Auth::user()->role);
+        }
+
         return view('daftar.daftar', ['roles' => end($roles)]);
+    }
+
+    public function daftar()
+    {
+        $roles = explode('/', url()->current());
+
+        if(Auth::check()) {
+            if(end($roles) !== Auth::user()->roles)
+                return redirect()->route('index.' . Auth::user()->role);
+                
+            return redirect()->route('index.' . Auth::user()->role);
+        }
+
+        return view('welcome');
     }
 
     public function store(RegisterRequest $request)

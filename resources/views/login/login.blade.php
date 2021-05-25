@@ -19,14 +19,14 @@
                             <h3 class="text-center mb-0">Sistem Informasi Nilai Mahasiswa</h3>
                             <div class="img d-flex align-items-center justify-content-center"
                                 style="background-image: url('{{ url('images/polinema.png') }}');"></div>
-                            <p class="text-center">Login Sebagai {{ strtoupper($roles) }}</p>
+                            <p class="text-center">Login : </p>
                             <form action="{{ route('login') }}" method="POST" class="login-form">
                                 @csrf
                                 <div class="form-group">
                                     <div class="icon d-flex align-items-center justify-content-center"><span
                                             class="fa fa-user"></span></div>
                                     <input name="username" type="text" class="form-control"
-                                        placeholder="{{ str_contains($roles, 'mahasiswa') ? 'Masukan Nim' : (str_contains($roles, 'dosen') ? 'Masukan Nip' : 'Username') }}"
+                                        placeholder="Username"
                                         required>
                                 </div>
                                 <div class="form-group">
@@ -41,11 +41,8 @@
                                 </div>
                             </form>
                             <div class="w-100 text-center mt-4 text">
-                                <a href="{{ str_contains($roles, 'mahasiswa') ? route('register.mahasiswa') : (str_contains($roles, 'dosen') ? route('register.dosen') : route('register.admin')) }}"
+                                <a href="{{ url('daftar') }}"
                                     class="text-primary mb-0">Tidak Punya Akun ? klik disini <br /><br />
-                                </a>
-                                <a href="{{ url('/') }}" class="btn btn-info btn-lg">
-                                    <span class="glyphicon glyphicon-home"></span> Halaman Utama
                                 </a>
                             </div>
                         </div>

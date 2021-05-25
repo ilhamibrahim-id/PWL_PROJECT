@@ -3,14 +3,12 @@ use App\Http\Controllers\{main, login, daftar, adminlte};
 use App\Models\Admin;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [login::class, 'index']);
+
+Route::get('daftar', [daftar::class, 'daftar']);
 
 Route::prefix('login')->group(function() {
-    Route::get('mahasiswa', [login::class, 'index'])->name('login.mahasiswa');
-    Route::get('dosen', [login::class, 'index'])->name('login.dosen');
-    Route::get('admin', [login::class, 'index'])->name('login.admin');
+    Route::get('index', [login::class, 'index'])->name('login.main');
     Route::post('/', [login::class, 'store'])->name('login');
 });
 

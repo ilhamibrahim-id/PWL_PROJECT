@@ -11,18 +11,22 @@
                             <div class="img d-flex align-items-center justify-content-center"
                                 style="background-image: url(images/polinema.png);"></div>
                             <h3 class="text-center mb-0">Selamat Datang</h3>
-                            <p class="text-center">Login Sebagai : </p>
+                            <p class="text-center">Daftar Sebagai : </p>
                             <center>
                                 <tr>
-                                    <td><a href="{{ route('login.dosen') }}"><button type="button"
+                                    <td><a href="{{ route('register.dosen') }}"><button type="button"
                                                 class="btn btn-primary">Dosen</button></a></td>
                                     <td>&nbsp;&nbsp;</td>
-                                    <td><a href="{{ route('login.admin') }}"><button type="button"
+                                    <td><a href="{{ route('register.admin') }}"><button type="button"
                                                 class="btn btn-primary">Admin</button></a></td>
                                     <td>&nbsp;&nbsp;</td>
-                                    <td><a href="{{ route('login.mahasiswa') }}"><button type="button"
+                                    <td><a href="{{ route('register.mahasiswa') }}"><button type="button"
                                                 class="btn btn-primary">Mahasiswa</button></a></td>
                                 </tr>
+                                <p></p>
+                                <a href="{{ url('/') }}" class="btn btn-info btn-lg">
+                                    <span class="glyphicon glyphicon-home"></span> Login
+                                </a>
                             </center>
                         </div>
                         <footer class="bg-light text-center text-lg-start">
