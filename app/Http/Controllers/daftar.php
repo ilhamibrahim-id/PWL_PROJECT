@@ -74,6 +74,6 @@ class daftar extends Controller
             ]);
         }
 
-        return redirect('/login/' . $roles)->with('success', 'Data ' . $roles . ' Berhasil terdaftar. Silahkan Login');
+        return redirect('/')->with('success', 'Data ' . $roles . ' Berhasil terdaftar. Silahkan Login');
     }
 }
