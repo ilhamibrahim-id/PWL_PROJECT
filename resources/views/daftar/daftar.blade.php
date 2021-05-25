@@ -19,19 +19,18 @@
                             <h3 class="text-center mb-0">Sistem Informasi Nilai Mahasiswa</h3>
                             <div class="img d-flex align-items-center justify-content-center"
                                 style="background-image: url('{{ url('images/polinema.png') }}');"></div>
-                            <p class="text-center">Daftar Sebagai {{ strtoupper($roles) }}</p>
-                            <center>
-                                <tr>
-                                    <td><a href="{{ route('register.dosen') }}"><button type="button"
-                                                class="btn btn-primary">Dosen</button></a></td>
-                                    <td>&nbsp;&nbsp;</td>
-                                    <td><a href="{{ route('register.admin') }}"><button type="button"
-                                                class="btn btn-primary">Admin</button></a></td>
-                                    <td>&nbsp;&nbsp;</td>
-                                    <td><a href="{{ route('register.mahasiswa') }}"><button type="button"
-                                                class="btn btn-primary">Mahasiswa</button></a></td>
-                                </tr>
-                            </center>
+                            <ul class="nav nav-tabs">
+                                <li class="nav-item">
+                                  <a class="nav-link {{ (request()->is('register/dosen')) ? 'active' : '' }}" aria-current="page" href="{{ route('register.dosen') }}">DOSEN</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ (request()->is('register/admin')) ? 'active' : '' }}" aria-current="page" href="{{ route('register.admin') }}">ADMIN</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ (request()->is('register/mahasiswa')) ? 'active' : '' }}" aria-current="page" href="{{ route('register.mahasiswa') }}">MAHASISWA</a>
+                                </li>
+                              </ul>
+                              <br /><br />
                             <form action="{{ route('register') }}" method="post" class="login-form">
                                 @csrf
                                 <div class="form-group">

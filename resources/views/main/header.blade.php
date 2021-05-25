@@ -40,13 +40,13 @@
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li class="active ">
+            <li class="{{ (request()->is('main/dashboard')) ? 'active' : '' }}">
             <a href="/main/dashboard">
               <i class="nc-icon nc-shop"></i>
               <p>Dashboard</p>
             </a>
           </li>
-          <li>
+          <li class="{{ (request()->is('main/table')) ? 'active' : '' }}">
             <a href="/main/table">
               <i class="nc-icon nc-bank"></i>
               @if(auth()->user()->role =='admin')
