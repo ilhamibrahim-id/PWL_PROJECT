@@ -14,9 +14,9 @@ class login extends Controller
 
         if(Auth::check()) {
             if(end($roles) !== Auth::user()->roles)
-                return redirect()->route('index.' . Auth::user()->role);
+                return redirect()->route('main.dashboard');
                 
-            return redirect()->route('index.' . Auth::user()->role);
+            return redirect()->route('main.dashboard');
         }
 
         return view('login.login', ['roles' => end($roles)]);
@@ -29,7 +29,7 @@ class login extends Controller
         if(Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->route('index.' . Auth::user()->role);
+            return redirect()->route('main.dashboard');
         }
 
         return back()->withErrors(['error' => 'Data Tidak Valid']);

@@ -31,7 +31,7 @@
           <!-- <p>CT</p> -->
         </a>
         <a href="https://www.creative-tim.com" class="simple-text logo-normal">
-          Creative Tim
+          {{ auth()->user()->username }}
           <!-- <div class="logo-image-big">
             <img src="../assets/img/logo-big.png">
           </div> -->
@@ -80,6 +80,12 @@
               <i class="nc-icon nc-caps-small"></i>
               <p>Typography</p>
             </a>
+          </li>
+          <li>
+            <form action="{{ route('logout') }}" method="post">
+              @csrf
+              <input type="submit" value="Logout" class="btn btn-primary">
+            </form>
           </li>
         </ul>
       </div>

@@ -18,9 +18,9 @@ class daftar extends Controller
 
         if(Auth::check()) {
             if(end($roles) !== Auth::user()->roles)
-                return redirect()->route('index.' . Auth::user()->role);
+                return redirect()->route('main.dashboard');
                 
-            return redirect()->route('index.' . Auth::user()->role);
+            return redirect()->route('main.dashboard');
         }
 
         return view('daftar.daftar', ['roles' => end($roles)]);
@@ -32,9 +32,9 @@ class daftar extends Controller
 
         if(Auth::check()) {
             if(end($roles) !== Auth::user()->roles)
-                return redirect()->route('index.' . Auth::user()->role);
+                return redirect()->route('main.dashboard');
                 
-            return redirect()->route('index.' . Auth::user()->role);
+            return redirect()->route('main.dashboard');
         }
 
         return view('welcome');

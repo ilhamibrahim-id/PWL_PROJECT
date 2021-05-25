@@ -20,6 +20,18 @@
                             <div class="img d-flex align-items-center justify-content-center"
                                 style="background-image: url('{{ url('images/polinema.png') }}');"></div>
                             <p class="text-center">Daftar Sebagai {{ strtoupper($roles) }}</p>
+                            <center>
+                                <tr>
+                                    <td><a href="{{ route('register.dosen') }}"><button type="button"
+                                                class="btn btn-primary">Dosen</button></a></td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td><a href="{{ route('register.admin') }}"><button type="button"
+                                                class="btn btn-primary">Admin</button></a></td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td><a href="{{ route('register.mahasiswa') }}"><button type="button"
+                                                class="btn btn-primary">Mahasiswa</button></a></td>
+                                </tr>
+                            </center>
                             <form action="{{ route('register') }}" method="post" class="login-form">
                                 @csrf
                                 <div class="form-group">
@@ -62,9 +74,6 @@
                             <div class="w-100 text-center mt-4 text">
                                 <a href="{{ url('/') }}"
                                 class="text-primary mb-0"> Sudah Punya Akun? klik disini <br /><br />
-                                </a>
-                                <a href="{{ url('daftar') }}" class="btn btn-info btn-lg">
-                                    <span class="glyphicon glyphicon-home"></span> Kembali
                                 </a>
                             </div>
                         </div>

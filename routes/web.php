@@ -3,12 +3,9 @@ use App\Http\Controllers\{main, login, daftar, adminlte};
 use App\Models\Admin;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [login::class, 'index']);
-
-Route::get('daftar', [daftar::class, 'daftar']);
+Route::get('/', [login::class, 'index'])->name('/');
 
 Route::prefix('login')->group(function() {
-    Route::get('index', [login::class, 'index'])->name('login.main');
     Route::post('/', [login::class, 'store'])->name('login');
 });
 
@@ -19,16 +16,10 @@ Route::prefix('register')->group(function() {
     Route::post('/', [daftar::class, 'store'])->name('register');
 });
 
-Route::prefix('main')->group(function() {
-    Route::get('dashboard', [adminlte::class, 'index']);
-    Route::get('table', [adminlte::class, 'table']);
-    Route::get('edituser', [adminlte::class, 'user']);
-});
-
-Route::middleware('auth')->prefix('home')->group(function() {
-    Route::get('admin', [main::class, 'index'])->name('index.admin');
-    Route::get('dosen', [main::class, 'index'])->name('index.dosen');
-    Route::get('mahasiswa', [main::class, 'index'])->name('index.mahasiswa');
+Route::middleware('auth')->prefix('main')->group(function() {
+    Route::get('dashboard', [adminlte::class, 'index'])->name('main.dashboard');
+    Route::get('table', [adminlte::class, 'table'])->name('main.table');
+    Route::get('edituser', [adminlte::class, 'user'])->name('main.user');
     Route::post('logout', [main::class, 'logout'])->name('logout');
 });
 

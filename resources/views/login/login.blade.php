@@ -41,7 +41,7 @@
                                 </div>
                             </form>
                             <div class="w-100 text-center mt-4 text">
-                                <a href="{{ url('daftar') }}"
+                                <a href="{{ route('register.mahasiswa') }}"
                                     class="text-primary mb-0">Tidak Punya Akun ? klik disini <br /><br />
                                 </a>
                             </div>
