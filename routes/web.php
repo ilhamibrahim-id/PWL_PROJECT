@@ -1,5 +1,6 @@
 <?php
-use App\Http\Controllers\{main, login, daftar};
+use App\Http\Controllers\{main, login, daftar, adminlte};
+use App\Models\Admin;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -20,9 +21,18 @@ Route::prefix('register')->group(function() {
     Route::post('/', [daftar::class, 'store'])->name('register');
 });
 
+Route::prefix('main')->group(function() {
+    Route::get('dashboard', [adminlte::class, 'index']);
+    Route::get('table', [adminlte::class, 'table']);
+    Route::get('edituser', [adminlte::class, 'user']);
+});
+
 Route::middleware('auth')->prefix('home')->group(function() {
     Route::get('admin', [main::class, 'index'])->name('index.admin');
     Route::get('dosen', [main::class, 'index'])->name('index.dosen');
     Route::get('mahasiswa', [main::class, 'index'])->name('index.mahasiswa');
     Route::post('logout', [main::class, 'logout'])->name('logout');
 });
+
+
+
