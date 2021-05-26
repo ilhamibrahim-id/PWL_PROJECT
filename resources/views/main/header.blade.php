@@ -46,14 +46,14 @@
               <p>Dashboard</p>
             </a>
           </li>
+          @if(auth()->user()->role =='admin')
           <li class="{{ (request()->is('main/table')) ? 'active' : '' }}">
             <a href="/main/table">
               <i class="nc-icon nc-bank"></i>
-              @if(auth()->user()->role =='admin')
-                  <p> Kelas </p>
-                @endif
+                <p> Kelas </p>
             </a>
           </li>
+          @endif
         </ul>
       </div>
     </div>

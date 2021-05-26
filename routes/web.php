@@ -16,9 +16,12 @@ Route::prefix('register')->group(function() {
     Route::post('/', [daftar::class, 'store'])->name('register');
 });
 
-Route::middleware('auth')->prefix('main')->group(function() {
-    Route::get('dashboard', [adminlte::class, 'index'])->name('main.dashboard');
+Route::middleware(['auth','cekrole:admin'])->prefix('main')->group(function() {
     Route::get('table', [adminlte::class, 'table'])->name('main.table');
+});
+
+Route::middleware(['auth','cekrole:mahasiswa,admin'])->prefix('main')->group(function() {
+    Route::get('dashboard', [adminlte::class, 'index'])->name('main.dashboard');
     Route::get('edituser', [adminlte::class, 'user'])->name('main.user');
     Route::post('logout', [main::class, 'logout'])->name('logout');
 });
