@@ -22,9 +22,12 @@ Route::middleware(['auth','cekrole:admin'])->prefix('main')->group(function() {
 
 Route::middleware(['auth','cekrole:mahasiswa,admin'])->prefix('main')->group(function() {
     Route::get('dashboard', [adminlte::class, 'index'])->name('main.dashboard');
-    Route::get('edituser', [adminlte::class, 'user'])->name('main.user');
     Route::post('logout', [main::class, 'logout'])->name('logout');
 });
 
-
+Route::middleware(['auth','cekrole:mahasiswa,admin,dosen'])->prefix('main')->group(function() {
+    Route::get('dashboard', [adminlte::class, 'index'])->name('main.dashboard');
+    Route::get('edituser', [adminlte::class, 'user'])->name('main.user');
+    Route::post('logout', [main::class, 'logout'])->name('logout');
+});
 

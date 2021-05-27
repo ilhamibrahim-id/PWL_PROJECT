@@ -46,7 +46,7 @@
               <p>Dashboard</p>
             </a>
           </li>
-          @if(auth()->user()->role =='admin')
+          @if(auth()->user()->role == 'admin' || auth()->user()->role == 'dosen')
           <li class="{{ (request()->is('main/table')) ? 'active' : '' }}">
             <a href="/main/table">
               <i class="nc-icon nc-bank"></i>

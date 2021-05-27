@@ -12,16 +12,27 @@
               <div class="author">
                 <a href="#">
                   <img class="avatar border-gray" src="../assets/img/mike.jpg" alt="...">
-                  <h5 class="title">Chet Faker</h5>
+                  <h5 class="title">{{ $data->nama }}</h5>
                 </a>
                 <p class="description">
-                  @chetfaker
+                  @if(auth()->user()->role == 'dosen')
+                    {{ $data->nip }}
+                  @endif
+                  @if(auth()->user()->role == 'mahasiswa')
+                    {{ $data->nim }}
+                  @endif
+                  @if(auth()->user()->role == 'admin')
+                    {{ $data->username }}
+                  @endif
                 </p>
               </div>
               <p class="description text-center">
-                "I like the way you work it <br>
-                No diggity <br>
-                I wanna bag it up"
+                @if(auth()->user()->role == 'dosen' || auth()->user()->role == 'mahasiswa')
+                    {{ $data->alamat }}
+                  @endif
+                  @if(auth()->user()->role == 'admin')
+                    {{ $data->jabatan }}
+                  @endif
               </p>
             </div>
             <div class="card-footer">
