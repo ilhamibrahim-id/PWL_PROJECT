@@ -18,6 +18,7 @@ class CreateTableMahasiswa extends Migration
             $table->string('nama');
             $table->string('alamat');
             $table->string('password');
+            $table->string('kelas');
             $table->timestamps();
         });
     }

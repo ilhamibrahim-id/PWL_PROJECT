@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
+use App\Models\kelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class adminlte extends Controller
 {
@@ -16,7 +18,13 @@ class adminlte extends Controller
     }
     public function table()
     {
-        return view('main.table');
+        $data = DB::table('table_mahasiswa')
+    ->selectRaw('count(kelas) as k')
+    ->where('kelas', '<>', 1)
+    ->groupBy('kelas')
+    ->get();
+        $kelas = DB::table('table_kelas')->paginate(5);
+        return view('main.table',['kelas' => $kelas],['kelas_count' => $data]);
     }
     public function user()
     {
@@ -28,5 +36,9 @@ class adminlte extends Controller
             $data = Mahasiswa::all()->where('nim','=',auth()->user()->username)->first();
         }
         return view('main.edituser',compact('data'));
+    }
+    public function form()
+    {
+        return view('main.form');
     }
 }

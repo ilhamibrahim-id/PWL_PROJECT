@@ -6,254 +6,42 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header">
-              <h4 class="card-title"> Simple Table</h4>
+              <h4 class="card-title">Data Kelas</h4>
             </div>
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table">
-                  <thead class=" text-primary">
-                    <th>
-                      Name
-                    </th>
-                    <th>
-                      Country
-                    </th>
-                    <th>
-                      City
-                    </th>
-                    <th class="text-right">
-                      Salary
-                    </th>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        Dakota Rice
-                      </td>
-                      <td>
-                        Niger
-                      </td>
-                      <td>
-                        Oud-Turnhout
-                      </td>
-                      <td class="text-right">
-                        $36,738
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Minerva Hooper
-                      </td>
-                      <td>
-                        Curaçao
-                      </td>
-                      <td>
-                        Sinaai-Waas
-                      </td>
-                      <td class="text-right">
-                        $23,789
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Sage Rodriguez
-                      </td>
-                      <td>
-                        Netherlands
-                      </td>
-                      <td>
-                        Baileux
-                      </td>
-                      <td class="text-right">
-                        $56,142
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Philip Chaney
-                      </td>
-                      <td>
-                        Korea, South
-                      </td>
-                      <td>
-                        Overland Park
-                      </td>
-                      <td class="text-right">
-                        $38,735
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Doris Greene
-                      </td>
-                      <td>
-                        Malawi
-                      </td>
-                      <td>
-                        Feldkirchen in Kärnten
-                      </td>
-                      <td class="text-right">
-                        $63,542
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Mason Porter
-                      </td>
-                      <td>
-                        Chile
-                      </td>
-                      <td>
-                        Gloucester
-                      </td>
-                      <td class="text-right">
-                        $78,615
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Jon Porter
-                      </td>
-                      <td>
-                        Portugal
-                      </td>
-                      <td>
-                        Gloucester
-                      </td>
-                      <td class="text-right">
-                        $98,615
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+            <div class="input-group rounded">
+                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                  aria-describedby="search-addon" />
+                <span class="input-group-text border-0" id="search-addon">
+                  <i class="nc-icon nc-zoom-split"></i>
+                </span>
               </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-12">
-          <div class="card card-plain">
-            <div class="card-header">
-              <h4 class="card-title"> Table on Plain Background</h4>
-              <p class="card-category"> Here is a subtitle for this table</p>
-            </div>
+              <button class="btn" data-toggle="modal" data-target="#form"><i class="nc-icon nc-simple-add"> Tambah Data</i></button>
+              @include('main.form')
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table">
                   <thead class=" text-primary">
                     <th>
-                      Name
+                     Kelas
                     </th>
                     <th>
-                      Country
-                    </th>
-                    <th>
-                      City
-                    </th>
-                    <th class="text-right">
-                      Salary
+                      Jumlah Mahasiswa
                     </th>
                   </thead>
                   <tbody>
+                    @foreach ($kelas as $kelasa)
                     <tr>
                       <td>
-                        Dakota Rice
+                        {{ $kelasa->nama_kelas }}
                       </td>
                       <td>
-                        Niger
-                      </td>
-                      <td>
-                        Oud-Turnhout
-                      </td>
-                      <td class="text-right">
-                        $36,738
+                        {{ $kelas_count }}
                       </td>
                     </tr>
-                    <tr>
-                      <td>
-                        Minerva Hooper
-                      </td>
-                      <td>
-                        Curaçao
-                      </td>
-                      <td>
-                        Sinaai-Waas
-                      </td>
-                      <td class="text-right">
-                        $23,789
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Sage Rodriguez
-                      </td>
-                      <td>
-                        Netherlands
-                      </td>
-                      <td>
-                        Baileux
-                      </td>
-                      <td class="text-right">
-                        $56,142
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Philip Chaney
-                      </td>
-                      <td>
-                        Korea, South
-                      </td>
-                      <td>
-                        Overland Park
-                      </td>
-                      <td class="text-right">
-                        $38,735
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Doris Greene
-                      </td>
-                      <td>
-                        Malawi
-                      </td>
-                      <td>
-                        Feldkirchen in Kärnten
-                      </td>
-                      <td class="text-right">
-                        $63,542
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Mason Porter
-                      </td>
-                      <td>
-                        Chile
-                      </td>
-                      <td>
-                        Gloucester
-                      </td>
-                      <td class="text-right">
-                        $78,615
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Jon Porter
-                      </td>
-                      <td>
-                        Portugal
-                      </td>
-                      <td>
-                        Gloucester
-                      </td>
-                      <td class="text-right">
-                        $98,615
-                      </td>
-                    </tr>
+                    @endforeach
                   </tbody>
                 </table>
+                {{ $kelas->render("pagination::bootstrap-4") }}
               </div>
             </div>
           </div>
