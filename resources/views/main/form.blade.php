@@ -1,6 +1,5 @@
 @extends('main.header')
 @section('konten')
-<div class="main-panel">
     <!-- End Navbar -->
     <div class="content">
       <div class="row">

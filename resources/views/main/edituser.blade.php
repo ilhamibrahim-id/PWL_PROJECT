@@ -1,6 +1,5 @@
 @extends('main.header')
 @section('konten')
-<div class="main-panel">
     <div class="content">
       <div class="row">
         <div class="col-md-4">

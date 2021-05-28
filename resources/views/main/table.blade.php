@@ -1,6 +1,5 @@
 @extends('main.header')
 @section('konten')
-<div class="main-panel">
     <div class="content">
       <div class="row">
         <div class="col-md-12">
@@ -34,7 +33,7 @@
                         {{ $kelasa->nama_kelas }}
                       </td>
                       <td>
-                        {{ $kelas_count }}
+                        {{ $jumlah }}
                       </td>
                     </tr>
                     @endforeach

@@ -31,7 +31,7 @@
           <!-- <p>CT</p> -->
         </a>
         <a href="/main/edituser" class="simple-text logo-normal">
-          HI,{{ auth()->user()->username }}<br /> AS LOGIN
+          HI,{{ $data->nama }}<br /> Login By
           {{ auth()->user()->role }}
           <!-- <div class="logo-image-big">
             <img src="../assets/img/logo-big.png">
@@ -57,6 +57,7 @@
         </ul>
       </div>
     </div>
+    <div class="main-panel">
     <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
         <div class="container-fluid">
           <div class="navbar-wrapper">
@@ -67,6 +68,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
+            <a class="navbar-brand" href="javascript:;">Sistem Informasi Penilaian Mahasiswa</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
