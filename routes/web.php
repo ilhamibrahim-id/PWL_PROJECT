@@ -28,6 +28,7 @@ Route::middleware(['auth','cekrole:mahasiswa,admin'])->prefix('main')->group(fun
 Route::middleware(['auth','cekrole:mahasiswa,admin,dosen'])->prefix('main')->group(function() {
     Route::get('dashboard', [adminlte::class, 'index'])->name('main.dashboard');
     Route::get('edituser', [adminlte::class, 'user'])->name('main.user');
+    Route::get('form', [adminlte::class, 'form'])->name('main.form');
     Route::post('logout', [main::class, 'logout'])->name('logout');
 });
 

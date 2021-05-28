@@ -15,8 +15,7 @@
                   <i class="nc-icon nc-zoom-split"></i>
                 </span>
               </div>
-              <button class="btn" data-toggle="modal" data-target="#form"><i class="nc-icon nc-simple-add"> Tambah Data</i></button>
-              @include('main.form')
+              <button class="btn" data-toggle="modal" data-target="#form" onclick="location.href='/main/form';"><i class="nc-icon nc-simple-add"> Tambah Data</i></button>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table">
