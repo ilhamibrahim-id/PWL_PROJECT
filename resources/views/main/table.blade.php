@@ -20,20 +20,46 @@
                 <table class="table">
                   <thead class=" text-primary">
                     <th>
-                     Kelas
+                        @if((request()->is('main/table_kelas')))
+                        Kelas
+                        @elseif ((request()->is('main/table_mhs')))
+                        Nim
+                      @endif
                     </th>
                     <th>
-                      Jumlah Mahasiswa
+                        @if((request()->is('main/table_kelas')))
+                        Jumlah Mahasiswa
+                        @elseif ((request()->is('main/table_mhs')))
+                        Nama
+                      @endif
+                    </th>
+                    <th>
+                        @if ((request()->is('main/table_mhs')))
+                        Alamat
+                      @endif
                     </th>
                   </thead>
                   <tbody>
                     @foreach ($kelas as $kelasa)
                     <tr>
                       <td>
+                        @if((request()->is('main/table_kelas')))
                         {{ $kelasa->nama_kelas }}
+                        @elseif ((request()->is('main/table_mhs')))
+                        {{ $kelasa->nim }}
+                      @endif
                       </td>
                       <td>
+                        @if((request()->is('main/table_kelas')))
                         {{ $jumlah }}
+                        @elseif ((request()->is('main/table_mhs')))
+                        {{ $kelasa->nama }}
+                      @endif
+                      </td>
+                      <td>
+                        @if ((request()->is('main/table_mhs')))
+                        {{ $kelasa->alamat }}
+                      @endif
                       </td>
                     </tr>
                     @endforeach

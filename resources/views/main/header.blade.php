@@ -46,8 +46,16 @@
               <p>Dashboard</p>
             </a>
           </li>
-          <li class="{{ (request()->is('main/table')) ? 'active' : '' }}">
-            <a href="/main/table">
+          <li class="{{ (request()->is('main/table_mhs')) ? 'active' : '' }}">
+            <a href="/main/table_mhs">
+              <i class="nc-icon nc-bank"></i>
+              @if(auth()->user()->role =='admin')
+                  <p> Mahasiswa</p>
+                @endif
+            </a>
+          </li>
+          <li class="{{ (request()->is('main/table_kelas')) ? 'active' : '' }}">
+            <a href="/main/table_kelas">
               <i class="nc-icon nc-bank"></i>
               @if(auth()->user()->role =='admin')
                   <p> Kelas </p>

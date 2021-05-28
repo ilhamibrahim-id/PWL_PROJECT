@@ -23,7 +23,7 @@ class adminlte extends Controller
         }
         return view('main.dashboard',compact('data'));
     }
-    public function table()
+    public function table_kelas()
     {
         if(auth()->user()->role == 'admin'){
             $data = Admin::all()->where('username','=',auth()->user()->username)->first();
@@ -39,6 +39,18 @@ class adminlte extends Controller
 
         $kelas = DB::table('table_kelas')->paginate(5);
         return view('main.table',compact('data','kelas','jumlah'));
+    }
+    public function table_mhs()
+    {
+        if(auth()->user()->role == 'admin'){
+            $data = Admin::all()->where('username','=',auth()->user()->username)->first();
+        } else if(auth()->user()->role == 'dosen'){
+            $data = Dosen::all()->where('nip','=',auth()->user()->username)->first();
+        } else {
+            $data = Mahasiswa::all()->where('nim','=',auth()->user()->username)->first();
+        }
+        $kelas = DB::table('table_mahasiswa')->paginate(5);
+        return view('main.table',compact('data','kelas'));
     }
     public function user()
     {
