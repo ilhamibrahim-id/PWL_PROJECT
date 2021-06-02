@@ -14,10 +14,10 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
   <!-- CSS Files -->
-  <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="../assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
+  <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" />
+  <link href="{{asset('assets/css/paper-dashboard.css?v=2.0.1')}}" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="../assets/demo/demo.css" rel="stylesheet" />
+  <link href="{{asset('assets/demo/demo.css')}}" rel="stylesheet" />
 </head>
 
 <body style="background-image: url('{{ url('images/polinema.png') }}');">
@@ -33,9 +33,6 @@
         <a href="/main/edituser" class="simple-text logo-normal">
           HI,{{ $data->nama }}<br /> Login By
           {{ auth()->user()->role }}
-          <!-- <div class="logo-image-big">
-            <img src="../assets/img/logo-big.png">
-          </div> -->
         </a>
       </div>
       <div class="sidebar-wrapper">

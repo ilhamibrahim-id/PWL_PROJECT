@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
 use App\Models\Kelas;
+use App\Models\MataKuliah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -58,8 +59,8 @@ class adminlte extends Controller
             $data = Mahasiswa::all()->where('nim','=',auth()->user()->username)->first();
         }
         $kelas = Mahasiswa::with('kelas','matakuliah')->find($id);
-        //return $kelas;
-        return view('main.detailnilai',compact('data','kelas'));
+        $kelass = MataKuliah::with('dosen')->get();
+        return view('main.detailnilai',compact('data','kelas','kelass'));
     }
     public function user()
     {
