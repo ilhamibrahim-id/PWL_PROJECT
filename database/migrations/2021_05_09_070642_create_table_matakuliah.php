@@ -14,6 +14,7 @@ class CreateTableMatakuliah extends Migration
     public function up()
     {
         Schema::create('table_matakuliah', function (Blueprint $table) {
+            $table->id();
             $table->string('kode_mk');
             $table->string('nama_mk');
             $table->string('sks');

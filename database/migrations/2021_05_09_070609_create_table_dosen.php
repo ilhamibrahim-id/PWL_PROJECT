@@ -14,7 +14,8 @@ class CreateTableDosen extends Migration
     public function up()
     {
         Schema::create('table_dosen', function (Blueprint $table) {
-            $table->string('nip')->primary();
+            $table->id();
+            $table->string('nip')->unique();
             $table->string('nama');
             $table->string('alamat');
             $table->string('password');

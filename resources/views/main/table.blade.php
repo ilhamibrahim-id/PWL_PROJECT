@@ -33,34 +33,56 @@
                         Nama
                       @endif
                     </th>
+                    @if ((request()->is('main/table_mhs')))
                     <th>
-                        @if ((request()->is('main/table_mhs')))
                         Alamat
-                      @endif
                     </th>
+                    @endif
+                    @if ((request()->is('main/table_mhs')))
+                    <th>
+                      Kelas
+                    </th>
+                    @endif
+                    @if ((request()->is('main/table_mhs')))                    
+                    <th>
+                      Action
+                    </th>
+                    @endif
                   </thead>
                   <tbody>
                     @foreach ($kelas as $kelasa)
                     <tr>
                       <td>
                         @if((request()->is('main/table_kelas')))
-                        {{ $kelasa->nama_kelas }}
+                        {{ $kelasa->id_kelas }}
                         @elseif ((request()->is('main/table_mhs')))
                         {{ $kelasa->nim }}
                       @endif
                       </td>
                       <td>
                         @if((request()->is('main/table_kelas')))
-                        {{ $jumlah }}
+                        {{ $kelasa->mahasiswa_count ?? '' }}
                         @elseif ((request()->is('main/table_mhs')))
                         {{ $kelasa->nama }}
                       @endif
                       </td>
+                      @if ((request()->is('main/table_mhs')))
                       <td>
-                        @if ((request()->is('main/table_mhs')))
                         {{ $kelasa->alamat }}
-                      @endif
                       </td>
+                      @endif
+                      @if ((request()->is('main/table_mhs')))
+                      <td>
+                        {{ $kelasa->kelas->id_kelas }}
+                      </td>
+                      @endif
+                      @if ((request()->is('main/table_mhs')))
+                      <td>
+                        <form action="{{ route('main.detailnilai',$kelasa->id) }}" class="login-form">
+                          <button type="submit" class="btn form-control btn-primary rounded submit px-3">Detail Nilai</button>
+                        </form>
+                      </td>
+                      @endif
                     </tr>
                     @endforeach
                   </tbody>

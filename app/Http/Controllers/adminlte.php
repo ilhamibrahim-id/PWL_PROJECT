@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
-use App\Models\kelas;
+use App\Models\Kelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -32,13 +32,9 @@ class adminlte extends Controller
         } else {
             $data = Mahasiswa::all()->where('nim','=',auth()->user()->username)->first();
         }
-        $jumlah= DB::table('table_mahasiswa')
-        ->select(DB::raw('count(kelas)'))
-        ->groupBy('kelas')
-        ->get();
-
-        $kelas = DB::table('table_kelas')->paginate(5);
-        return view('main.table',compact('data','kelas','jumlah'));
+        $kelas = Kelas::withCount('mahasiswa')->paginate(5);
+        //return $kelas;
+        return view('main.table',compact('data','kelas'));
     }
     public function table_mhs()
     {
@@ -49,8 +45,21 @@ class adminlte extends Controller
         } else {
             $data = Mahasiswa::all()->where('nim','=',auth()->user()->username)->first();
         }
-        $kelas = DB::table('table_mahasiswa')->paginate(5);
+        $kelas = Mahasiswa::with('kelas')->paginate(5);
+        //return $kelas;
         return view('main.table',compact('data','kelas'));
+    }
+    public function detailnilai($id){
+        if(auth()->user()->role == 'admin'){
+            $data = Admin::all()->where('username','=',auth()->user()->username)->first();
+        } else if(auth()->user()->role == 'dosen'){
+            $data = Dosen::all()->where('nip','=',auth()->user()->username)->first();
+        } else {
+            $data = Mahasiswa::all()->where('nim','=',auth()->user()->username)->first();
+        }
+        $kelas = Mahasiswa::with('kelas','matakuliah')->find($id);
+        //return $kelas;
+        return view('main.detailnilai',compact('data','kelas'));
     }
     public function user()
     {
