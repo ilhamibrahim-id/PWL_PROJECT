@@ -16,6 +16,8 @@
               </div>
               @if((request()->is('main/table_mhs')))
               <button class="btn" data-toggle="modal" data-target="#form" onclick="location.href='/main/mahasiswa/tambah';"><i class="nc-icon nc-simple-add"> Tambah Data</i></button>
+              @elseif ((request()->is('main/table_matakuliah')))
+              <button class="btn" data-toggle="modal" data-target="#form" onclick="location.href='/main/matakuliah/tambah';"><i class="nc-icon nc-simple-add"> Tambah Data</i></button>
               @endif
             <div class="card-body">
               <div class="table-responsive">
@@ -26,6 +28,8 @@
                         Kelas
                         @elseif ((request()->is('main/table_mhs')))
                         Nim
+                        @elseif ((request()->is('main/table_matakuliah')))
+                        Kode Mata Kuliah
                       @endif
                     </th>
                     <th>
@@ -33,6 +37,8 @@
                         Jumlah Mahasiswa
                         @elseif ((request()->is('main/table_mhs')))
                         Nama
+                        @elseif ((request()->is('main/table_matakuliah')))
+                        Nama Mata Kuliah
                       @endif
                     </th>
                     <th>
@@ -40,6 +46,8 @@
                       Action
                       @elseif ((request()->is('main/table_mhs')))
                       Alamat
+                      @elseif ((request()->is('main/table_matakuliah')))
+                      Sks
                     @endif
                   </th>
                     @if ((request()->is('main/table_mhs')))
@@ -61,6 +69,8 @@
                         {{ $kelasa->id_kelas }}
                         @elseif ((request()->is('main/table_mhs')))
                         {{ $kelasa->nim }}
+                        @elseif ((request()->is('main/table_matakuliah')))
+                        {{ $kelasa->kode_mk }}
                       @endif
                       </td>
                       <td>
@@ -68,6 +78,8 @@
                         {{ $kelasa->mahasiswa_count ?? '' }}
                         @elseif ((request()->is('main/table_mhs')))
                         {{ $kelasa->nama }}
+                        @elseif ((request()->is('main/table_matakuliah')))
+                        {{ $kelasa->nama_mk }}
                       @endif
                       </td>
                       <td>
@@ -77,6 +89,8 @@
                         </form>
                         @elseif ((request()->is('main/table_mhs')))
                         {{ $kelasa->alamat }}
+                        @elseif ((request()->is('main/table_matakuliah')))
+                        {{ $kelasa->sks }}
                       @endif
                       </td>
                       @if ((request()->is('main/table_mhs')))

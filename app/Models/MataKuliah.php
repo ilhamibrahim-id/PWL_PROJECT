@@ -17,7 +17,7 @@ class MataKuliah extends Model
         'id',
         'kode_mk',
         'nama_mk',
-        'sks'
+        'sks',
     ];
 
     public function mahasiswa(){
