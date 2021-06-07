@@ -67,6 +67,14 @@
                 @endif
             </a>
           </li>
+          <li class="{{ (request()->is('main/table_dosen')) ? 'active' : '' }}">
+            <a href="/main/table_dosen">
+              <i class="nc-icon nc-bank"></i>
+              @if(auth()->user()->role =='admin')
+                  <p> Dosen </p>
+                @endif
+            </a>
+          </li>
         </ul>
       </div>
     </div>

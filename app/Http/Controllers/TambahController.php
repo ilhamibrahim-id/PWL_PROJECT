@@ -59,4 +59,31 @@ public function tambahmk()
 	]);
 	return redirect('/main/table_matakuliah');
 }
+public function tambahds()
+    {
+        if(auth()->user()->role == 'admin'){
+            $data = Admin::all()->where('username','=',auth()->user()->username)->first();
+        } else if(auth()->user()->role == 'dosen'){
+            $data = Dosen::all()->where('nip','=',auth()->user()->username)->first();
+        } else {
+            $data = Mahasiswa::all()->where('nim','=',auth()->user()->username)->first();
+        }
+        $kelas=Dosen::all();
+        return view('main.form_adddosen',compact('data','kelas'));
+    }
+    public function storeds(Request $request)
+{
+	DB::table('table_dosen')->insert([
+		'nip' => $request->nip,
+		'nama' => $request->nama,
+		'alamat' => $request->alamat,
+        'password' => bcrypt($request['password']),
+	]);
+    DB::table('users')->insert([
+        'username' => $request->nip,
+		'password' => bcrypt($request['password']),
+        'role' => 'dosen',
+	]);
+	return redirect('/main/table_dosen');
+}
 }
