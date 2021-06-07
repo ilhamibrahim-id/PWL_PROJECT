@@ -28,9 +28,9 @@
                         </td>
                         <td>
                           @if ($kelasa->kelas_id == null)
-                            <input class="form-check-input" type="checkbox" id="checkbox" name="checkbox" onchange="doit(this)">
+                            <input class="form-check-input" type="checkbox" id="checkbox" name="checkbox">
                           @else
-                            <input class="form-check-input" type="checkbox" id="checkbox" name="checkbox" onchange="doit(this)" checked>
+                            <input class="form-check-input" type="checkbox" id="checkbox" name="checkbox" checked>
                           @endif
                           </td>
                         @endforeach
@@ -52,9 +52,9 @@
     <script>
       function doit(checkboxElem) {
         if (checkboxElem.checked) {
-          $kelas->kelas_id == $id;
+          $kelas->update(['kelas_id'=>$id])
         } else {
-          $kelas->kelas_id == null;
+          $kelas->update(['kelas_id'=>null])
         }
       }
     </script>
