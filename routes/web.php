@@ -19,6 +19,8 @@ Route::prefix('register')->group(function() {
 Route::middleware(['auth','cekrole:admin'])->prefix('main')->group(function() {
     Route::get('table_kelas', [adminlte::class, 'table_kelas'])->name('main.table_kelas');
     Route::get('table_mhs', [adminlte::class, 'table_mhs'])->name('main.table_mhs');
+    Route::get('edit_kelas/{id}', [adminlte::class, 'edit_kelas'])->name('main.edit_kelas');
+    Route::get('update/{nim}/{id}', [adminlte::class, 'update'])->name('main.update_kelas');
 });
 
 Route::middleware(['auth','cekrole:mahasiswa,admin'])->prefix('main')->group(function() {

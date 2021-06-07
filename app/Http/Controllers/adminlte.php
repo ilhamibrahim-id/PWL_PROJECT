@@ -65,7 +65,7 @@ class adminlte extends Controller
         //    $q->where('kode_pengajar','=', 11 )->first();
         //}])->find($id);
         //return $kelas;
-        return view('main.form_editkelasmhs',compact('data','kelas'));
+        return view('main.detailnilai',compact('data','kelas'));
     }
     public function detailkelas($id){
         if(auth()->user()->role == 'admin'){
@@ -77,8 +77,27 @@ class adminlte extends Controller
         }
         //$kelas = Mahasiswa::with('kelas','matakuliah')->find($id);
         $kelas = Kelas::with('mahasiswa')->find($id);
+
         //return $kelas;
-        return view('main.detailkelas',compact('data','kelas'));
+        return view('main.detailkelas',compact('data','kelas','id'));
+    }
+    public function edit_kelas($id)
+    {
+        if(auth()->user()->role == 'admin'){
+            $data = Admin::all()->where('username','=',auth()->user()->username)->first();
+        } else if(auth()->user()->role == 'dosen'){
+            $data = Dosen::all()->where('nip','=',auth()->user()->username)->first();
+        } else {
+            $data = Mahasiswa::all()->where('nim','=',auth()->user()->username)->first();
+        }
+        $kelas = Mahasiswa::with('kelas')->where('kelas_id','=',$id)->orWhere('kelas_id','=',null)->paginate(5);
+        //return $kelas;
+        return view('main.editkelasmhs',compact('data','kelas','id'));
+    }
+    public function update_kelas($nim,$id)
+    {
+        Mahasiswa::where('nim','=',$nim)->update(['kelas_id'=>$id]);
+        return back();
     }
     public function form()
     {

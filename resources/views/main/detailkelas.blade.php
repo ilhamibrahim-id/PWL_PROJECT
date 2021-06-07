@@ -7,6 +7,7 @@
             <div class="card-header">
               <h4 class="card-title">Detail Kelas {{ $kelas->id_kelas }}</h4>
             </div>
+            <button class="btn" data-toggle="modal" data-target="#form" onclick="location.href='{{ route('main.edit_kelas',$id) }}';"><i class="nc-icon nc-simple-add"> Tambah Data</i></button>
             <div class="card-body">
                 <div class="table-responsive">
                 <table class="table">
