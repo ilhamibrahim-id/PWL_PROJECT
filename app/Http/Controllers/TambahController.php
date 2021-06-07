@@ -28,7 +28,7 @@ class TambahController extends Controller
 		'nama' => $request->nama,
 		'alamat' => $request->alamat,
         'password' => bcrypt($request['password']),
-        'kelas_id' => $request->kelas_id,
+        'kelas_id' => $request->kelas,
 	]);
     DB::table('users')->insert([
         'username' => $request->nim,

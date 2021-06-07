@@ -48,7 +48,7 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="kelas">Kelas</label>
-                    <select type="kelas" name="kelas" class="form-control" id="kelas">
+                    <select type="kelas" name="kelas" class="form-control" required="required">
                         <option selected disabled>TI-1A</option>
                         @foreach ($kelas as $kls)
                             <option value="{{ $kls->id }}">{{ $kls->nama_kelas }}</option>
