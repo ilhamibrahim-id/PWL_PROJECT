@@ -45,7 +45,7 @@
                       Kelas
                     </th>
                     @endif
-                    @if ((request()->is('main/table_mhs')))                    
+                    @if ((request()->is('main/table_mhs')))
                     <th>
                       Action
                     </th>

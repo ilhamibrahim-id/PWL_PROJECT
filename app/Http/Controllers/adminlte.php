@@ -65,7 +65,7 @@ class adminlte extends Controller
         //    $q->where('kode_pengajar','=', 11 )->first();
         //}])->find($id);
         //return $kelas;
-        return view('main.detailnilai',compact('data','kelas'));
+        return view('main.form_editkelasmhs',compact('data','kelas'));
     }
     public function detailkelas($id){
         if(auth()->user()->role == 'admin'){

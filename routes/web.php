@@ -22,7 +22,7 @@ Route::middleware(['auth','cekrole:admin'])->prefix('main')->group(function() {
 });
 
 Route::middleware(['auth','cekrole:mahasiswa,admin'])->prefix('main')->group(function() {
-    
+
 });
 
 Route::middleware(['auth','cekrole:dosen,admin'])->prefix('main')->group(function() {
