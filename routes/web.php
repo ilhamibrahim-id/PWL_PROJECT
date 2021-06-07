@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\{main, login, daftar, adminlte};
+use App\Http\Controllers\{main, login, daftar, adminlte, EUController};
 use App\Models\Admin;
 use Illuminate\Support\Facades\Route;
 
@@ -28,7 +28,9 @@ Route::middleware(['auth','cekrole:mahasiswa,admin'])->prefix('main')->group(fun
 
 Route::middleware(['auth','cekrole:mahasiswa,admin,dosen'])->prefix('main')->group(function() {
     Route::get('dashboard', [adminlte::class, 'index'])->name('main.dashboard');
-    Route::get('edituser', [adminlte::class, 'user'])->name('main.user');
+    Route::get('edituser', [EUController::class, 'index']);
+    Route::get('/edituser/edit/{id}',[EUController::class, 'edit']);
+    Route::post('/edituser/update',[EUController::class, 'update']);
     Route::get('form', [adminlte::class, 'form'])->name('main.form');
     Route::get('detailnilai/{id}', [adminlte::class, 'detailnilai'])->name('main.detailnilai');
     Route::post('logout', [main::class, 'logout'])->name('logout');

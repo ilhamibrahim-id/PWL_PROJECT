@@ -62,17 +62,6 @@ class adminlte extends Controller
         $kelass = MataKuliah::with('dosen')->get();
         return view('main.detailnilai',compact('data','kelas','kelass'));
     }
-    public function user()
-    {
-        if(auth()->user()->role == 'admin'){
-            $data = Admin::all()->where('username','=',auth()->user()->username)->first();
-        } else if(auth()->user()->role == 'dosen'){
-            $data = Dosen::all()->where('nip','=',auth()->user()->username)->first();
-        } else {
-            $data = Mahasiswa::all()->where('nim','=',auth()->user()->username)->first();
-        }
-        return view('main.edituser',compact('data'));
-    }
     public function form()
     {
         if(auth()->user()->role == 'admin'){
