@@ -80,17 +80,6 @@ class adminlte extends Controller
         //return $kelas;
         return view('main.detailkelas',compact('data','kelas'));
     }
-    public function user()
-    {
-        if(auth()->user()->role == 'admin'){
-            $data = Admin::all()->where('username','=',auth()->user()->username)->first();
-        } else if(auth()->user()->role == 'dosen'){
-            $data = Dosen::all()->where('nip','=',auth()->user()->username)->first();
-        } else {
-            $data = Mahasiswa::all()->where('nim','=',auth()->user()->username)->first();
-        }
-        return view('main.edituser',compact('data'));
-    }
     public function form()
     {
         if(auth()->user()->role == 'admin'){

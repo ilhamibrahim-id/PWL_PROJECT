@@ -15,6 +15,7 @@ class Admin extends Model
         'nama',
         'username',
         'jabatan',
+        'foto',
         'password',
     ];
 }

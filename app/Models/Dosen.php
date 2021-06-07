@@ -15,6 +15,7 @@ class Dosen extends Model
         'nip',
         'nama',
         'alamat',
+        'foto',
         'password',
     ];
 
