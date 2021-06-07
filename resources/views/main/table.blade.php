@@ -14,7 +14,9 @@
                   <i class="nc-icon nc-zoom-split"></i>
                 </span>
               </div>
-              <button class="btn" data-toggle="modal" data-target="#form" onclick="location.href='/main/form';"><i class="nc-icon nc-simple-add"> Tambah Data</i></button>
+              @if((request()->is('main/table_mhs')))
+              <button class="btn" data-toggle="modal" data-target="#form" onclick="location.href='/main/mahasiswa/tambah';"><i class="nc-icon nc-simple-add"> Tambah Data</i></button>
+              @endif
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table">
