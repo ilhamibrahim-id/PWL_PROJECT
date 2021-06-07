@@ -5,7 +5,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header">
-              <h4 class="card-title">Detail Nilai</h4>
+              <h4 class="card-title">Detail Kelas {{ $kelas->id_kelas }}</h4>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -15,45 +15,29 @@
                       Kelas
                     </th>
                     <th>
-                      Mata Kuliah
+                      Nim
                     </th>
                     <th>
-                      Dosen
-                    </th>
-                    <th>
-                        Sks
-                    </th>
-                    <th>
-                      Nilai
+                      Nama
                     </th>
                   </thead>
                   <tbody>
-                    @foreach ($kelas->matakuliah as $kelasa)
+                    @foreach ($kelas->mahasiswa as $kelasa)
                     <tr>
                       <td>
-                        {{ $kelas->kelas->id_kelas }}
+                        {{ $kelas->id_kelas }}
                       </td>
                       <td>
-                        {{ $kelasa->nama_mk }}
+                        {{ $kelasa->nim }}
                       </td>
                       <td>
-                        @foreach ($kelasa->dosen as $dosen)
-                            @if ($dosen->pivot->kode_pengajar === $kelasa->pivot->kode)
-                                {{ $dosen->nama }}
-                            @endif
-                        @endforeach
-                      </td>
-                      <td>
-                        {{ $kelasa->sks }}
-                      </td>
-                      <td>
-                        {{ $kelasa->pivot->nilai }}
+                        {{ $kelasa->nama }}
                       </td>
                     </tr>
                     @endforeach
                   </tbody>
                 </table>
-                <form action="{{ route('main.table_mhs') }}" class="login-form">
+                <form action="{{ route('main.table_kelas') }}" class="login-form">
                 <button type="submit" class="btn form-control btn-primary rounded submit px-3">Kembali</button>
                 </form>
                 </div>

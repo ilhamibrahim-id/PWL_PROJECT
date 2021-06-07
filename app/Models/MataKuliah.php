@@ -21,14 +21,14 @@ class MataKuliah extends Model
     ];
 
     public function mahasiswa(){
-        return $this->belongsToMany(Mahasiswa::class,'table_nilai','matakuliah_id','mahasiswa_id')->withPivot('nilai');
+        return $this->belongsToMany(Mahasiswa::class,'table_nilai','matakuliah_id','mahasiswa_id')->withPivot('nilai','kode');
     }
 
     public function dosen(){
-        return $this->belongsToMany(Dosen::class,'table_dosen_matakuliah','matakuliah_id','dosen_id');
+        return $this->belongsToMany(Dosen::class,'table_dosen_matakuliah','matakuliah_id','dosen_id')->withPivot('kode_pengajar');
     }
 
     public function kelas(){
-        return $this->belongsToMany(Kelas::class,'table_kelas_matakuliah','matakuliah_id','kelas_id');
+        return $this->belongsToMany(Kelas::class,'table_kelas_matakuliah','matakuliah_id','kelas_id')->withPivot('kode');
     }
 }

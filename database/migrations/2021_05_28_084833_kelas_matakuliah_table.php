@@ -19,6 +19,7 @@ class KelasMatakuliahTable extends Migration
             $table->unsignedBigInteger("matakuliah_id")->nullable();
             $table->foreign("kelas_id")->references('id')->on('table_kelas');
             $table->foreign("matakuliah_id")->references('id')->on('table_matakuliah');
+            $table->string('kode')->nullable();
             $table->timestamps();
         });
     }

@@ -22,8 +22,11 @@ Route::middleware(['auth','cekrole:admin'])->prefix('main')->group(function() {
 });
 
 Route::middleware(['auth','cekrole:mahasiswa,admin'])->prefix('main')->group(function() {
-    Route::get('dashboard', [adminlte::class, 'index'])->name('main.dashboard');
-    Route::post('logout', [main::class, 'logout'])->name('logout');
+    
+});
+
+Route::middleware(['auth','cekrole:dosen,admin'])->prefix('main')->group(function() {
+    Route::get('detailkelas/{id}', [adminlte::class, 'detailkelas'])->name('main.detailkelas');
 });
 
 Route::middleware(['auth','cekrole:mahasiswa,admin,dosen'])->prefix('main')->group(function() {

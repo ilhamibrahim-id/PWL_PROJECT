@@ -13,6 +13,7 @@ class KelasMatakuliah extends Model
     protected $fillable = [
         'id',
         'kelas_id',
-        'matakuliah_id'
+        'matakuliah_id',
+        'kode',
     ];
 }

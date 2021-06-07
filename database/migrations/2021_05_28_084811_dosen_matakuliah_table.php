@@ -19,6 +19,7 @@ class DosenMatakuliahTable extends Migration
             $table->unsignedBigInteger("matakuliah_id")->nullable();
             $table->foreign("dosen_id")->references('id')->on('table_dosen');
             $table->foreign("matakuliah_id")->references('id')->on('table_matakuliah');
+            $table->string('kode_pengajar');
             $table->timestamps();
         });
     }

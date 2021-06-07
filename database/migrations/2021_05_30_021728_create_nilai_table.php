@@ -19,6 +19,7 @@ class CreateNilaiTable extends Migration
             $table->unsignedBigInteger("matakuliah_id")->nullable();
             $table->foreign("mahasiswa_id")->references('id')->on('table_mahasiswa');
             $table->foreign("matakuliah_id")->references('id')->on('table_matakuliah');
+            $table->string('kode')->nullable();
             $table->string('nilai')->nullable();
             $table->timestamps();
         });

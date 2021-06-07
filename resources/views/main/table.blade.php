@@ -33,11 +33,13 @@
                         Nama
                       @endif
                     </th>
-                    @if ((request()->is('main/table_mhs')))
                     <th>
-                        Alamat
-                    </th>
+                      @if((request()->is('main/table_kelas')))
+                      Action
+                      @elseif ((request()->is('main/table_mhs')))
+                      Alamat
                     @endif
+                  </th>
                     @if ((request()->is('main/table_mhs')))
                     <th>
                       Kelas
@@ -66,21 +68,35 @@
                         {{ $kelasa->nama }}
                       @endif
                       </td>
-                      @if ((request()->is('main/table_mhs')))
                       <td>
+                        @if((request()->is('main/table_kelas')))
+                        <form action="{{ route('main.detailkelas',$kelasa->id) }}" class="login-form">
+                          <button type="submit" class="btn form-control btn-primary rounded submit px-3">Detail Kelas</button>
+                        </form>
+                        @elseif ((request()->is('main/table_mhs')))
                         {{ $kelasa->alamat }}
+                      @endif
+                      </td>
+                      @if ((request()->is('main/table_mhs')))
+                      <td>
+                        @if ($kelasa->kelas_id == null)
+                            -
+                        @else
+                          {{ $kelasa->kelas->id_kelas }}
+                        @endif
                       </td>
                       @endif
                       @if ((request()->is('main/table_mhs')))
                       <td>
-                        {{ $kelasa->kelas->id_kelas }}
-                      </td>
-                      @endif
-                      @if ((request()->is('main/table_mhs')))
-                      <td>
+                        @if ($kelasa->kelas_id == null)
+                        <form action="{{ route('main.detailnilai',$kelasa->id) }}" class="login-form">
+                          <button type="submit" class="btn form-control btn-primary rounded submit px-3" disabled>Detail Nilai</button>
+                        </form>
+                        @else
                         <form action="{{ route('main.detailnilai',$kelasa->id) }}" class="login-form">
                           <button type="submit" class="btn form-control btn-primary rounded submit px-3">Detail Nilai</button>
                         </form>
+                        @endif
                       </td>
                       @endif
                     </tr>

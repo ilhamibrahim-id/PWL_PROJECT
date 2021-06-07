@@ -19,6 +19,6 @@ class Dosen extends Model
     ];
 
     public function matakuliah(){
-        return $this->belongsToMany(MataKuliah::class,'table_dosen_matakuliah','dosen_id','matakuliah_id');
+        return $this->belongsToMany(MataKuliah::class,'table_dosen_matakuliah','dosen_id','matakuliah_id')->withPivot('kode_pengajar');
     }
 }
