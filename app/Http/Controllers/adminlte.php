@@ -51,6 +51,32 @@ class adminlte extends Controller
         //return $kelas;
         return view('main.table',compact('data','kelas'));
     }
+    public function table_matakuliah()
+    {
+        if(auth()->user()->role == 'admin'){
+            $data = Admin::all()->where('username','=',auth()->user()->username)->first();
+        } else if(auth()->user()->role == 'dosen'){
+            $data = Dosen::all()->where('nip','=',auth()->user()->username)->first();
+        } else {
+            $data = Mahasiswa::all()->where('nim','=',auth()->user()->username)->first();
+        }
+        $kelas = DB::table('table_matakuliah')->paginate(5);
+        //return $kelas;
+        return view('main.table',compact('data','kelas'));
+    }
+    public function table_dosen()
+    {
+        if(auth()->user()->role == 'admin'){
+            $data = Admin::all()->where('username','=',auth()->user()->username)->first();
+        } else if(auth()->user()->role == 'dosen'){
+            $data = Dosen::all()->where('nip','=',auth()->user()->username)->first();
+        } else {
+            $data = Mahasiswa::all()->where('nim','=',auth()->user()->username)->first();
+        }
+        $kelas = DB::table('table_dosen')->paginate(5);
+        //return $kelas;
+        return view('main.table',compact('data','kelas'));
+    }
     public function detailnilai($id){
         if(auth()->user()->role == 'admin'){
             $data = Admin::all()->where('username','=',auth()->user()->username)->first();

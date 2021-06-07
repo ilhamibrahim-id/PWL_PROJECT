@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\{main, login, daftar, adminlte, EUController};
+use App\Http\Controllers\{main, login, daftar, adminlte, EUController, TambahController};
 use App\Models\Admin;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +20,14 @@ Route::middleware(['auth','cekrole:admin'])->prefix('main')->group(function() {
     Route::get('table_kelas', [adminlte::class, 'table_kelas'])->name('main.table_kelas');
     Route::get('table_mhs', [adminlte::class, 'table_mhs'])->name('main.table_mhs');
     Route::get('edit_kelas/{id}', [adminlte::class, 'edit_kelas'])->name('main.edit_kelas');
-    Route::get('update/{nim}/{id}', [adminlte::class, 'update'])->name('main.update_kelas');
+    Route::get('table_dosen', [adminlte::class, 'table_dosen'])->name('main.table_dosen');
+    Route::get('table_matakuliah', [adminlte::class, 'table_matakuliah'])->name('main.table_matakuliah');
+    Route::get('/mahasiswa/tambah',[TambahController::class, 'tambah']);
+    Route::post('/mahasiswa/store',[TambahController::class, 'store']);
+    Route::get('/matakuliah/tambah',[TambahController::class, 'tambahmk']);
+    Route::post('/matakuliah/store',[TambahController::class, 'storemk']);
+    Route::get('/dosen/tambah',[TambahController::class, 'tambahds']);
+    Route::post('/dosen/store',[TambahController::class, 'storeds']);
 });
 
 Route::middleware(['auth','cekrole:mahasiswa,admin'])->prefix('main')->group(function() {

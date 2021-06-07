@@ -14,7 +14,13 @@
                   <i class="nc-icon nc-zoom-split"></i>
                 </span>
               </div>
-              <button class="btn" data-toggle="modal" data-target="#form" onclick="location.href='/main/form';"><i class="nc-icon nc-simple-add"> Tambah Data</i></button>
+              @if((request()->is('main/table_mhs')))
+              <button class="btn" data-toggle="modal" data-target="#form" onclick="location.href='/main/mahasiswa/tambah';"><i class="nc-icon nc-simple-add"> Tambah Data</i></button>
+              @elseif ((request()->is('main/table_matakuliah')))
+              <button class="btn" data-toggle="modal" data-target="#form" onclick="location.href='/main/matakuliah/tambah';"><i class="nc-icon nc-simple-add"> Tambah Data</i></button>
+              @elseif ((request()->is('main/table_dosen')))
+              <button class="btn" data-toggle="modal" data-target="#form" onclick="location.href='/main/dosen/tambah';"><i class="nc-icon nc-simple-add"> Tambah Data</i></button>
+              @endif
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table">
@@ -24,6 +30,10 @@
                         Kelas
                         @elseif ((request()->is('main/table_mhs')))
                         Nim
+                        @elseif ((request()->is('main/table_matakuliah')))
+                        Kode Mata Kuliah
+                        @elseif ((request()->is('main/table_dosen')))
+                        Nip
                       @endif
                     </th>
                     <th>
@@ -31,12 +41,20 @@
                         Jumlah Mahasiswa
                         @elseif ((request()->is('main/table_mhs')))
                         Nama
+                        @elseif ((request()->is('main/table_matakuliah')))
+                        Nama Mata Kuliah
+                        @elseif ((request()->is('main/table_dosen')))
+                        Nama
                       @endif
                     </th>
                     <th>
                       @if((request()->is('main/table_kelas')))
                       Action
                       @elseif ((request()->is('main/table_mhs')))
+                      Alamat
+                      @elseif ((request()->is('main/table_matakuliah')))
+                      Sks
+                      @elseif ((request()->is('main/table_dosen')))
                       Alamat
                     @endif
                   </th>
@@ -59,12 +77,20 @@
                         {{ $kelasa->id_kelas }}
                         @elseif ((request()->is('main/table_mhs')))
                         {{ $kelasa->nim }}
+                        @elseif ((request()->is('main/table_matakuliah')))
+                        {{ $kelasa->kode_mk }}
+                        @elseif ((request()->is('main/table_dosen')))
+                        {{ $kelasa->nip }}
                       @endif
                       </td>
                       <td>
                         @if((request()->is('main/table_kelas')))
                         {{ $kelasa->mahasiswa_count ?? '' }}
                         @elseif ((request()->is('main/table_mhs')))
+                        {{ $kelasa->nama }}
+                        @elseif ((request()->is('main/table_matakuliah')))
+                        {{ $kelasa->nama_mk }}
+                        @elseif ((request()->is('main/table_dosen')))
                         {{ $kelasa->nama }}
                       @endif
                       </td>
@@ -74,6 +100,10 @@
                           <button type="submit" class="btn form-control btn-primary rounded submit px-3">Detail Kelas</button>
                         </form>
                         @elseif ((request()->is('main/table_mhs')))
+                        {{ $kelasa->alamat }}
+                        @elseif ((request()->is('main/table_matakuliah')))
+                        {{ $kelasa->sks }}
+                        @elseif ((request()->is('main/table_dosen')))
                         {{ $kelasa->alamat }}
                       @endif
                       </td>
