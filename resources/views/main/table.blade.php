@@ -92,9 +92,15 @@
                         <form action="{{ route('main.detailnilai',$kelasa->id) }}" class="login-form">
                           <button type="submit" class="btn form-control btn-primary rounded submit px-3" disabled>Detail Nilai</button>
                         </form>
+                        <form action="{{ route('main.detailnilai',$kelasa->id) }}" class="login-form">
+                          <button type="submit" class="btn form-control btn-primary rounded submit px-3">Edit Data</button>
+                        </form>
                         @else
                         <form action="{{ route('main.detailnilai',$kelasa->id) }}" class="login-form">
                           <button type="submit" class="btn form-control btn-primary rounded submit px-3">Detail Nilai</button>
+                        </form>
+                        <form action="{{ route('main.detailnilai',$kelasa->id) }}" class="login-form">
+                          <button type="submit" class="btn form-control btn-primary rounded submit px-3">Edit Data</button>
                         </form>
                         @endif
                       </td>
