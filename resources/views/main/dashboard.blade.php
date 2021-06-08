@@ -101,6 +101,7 @@
           </div>
       </div>
       @include('main.att')
+    </div>
 @include('main.footer')
 @endsection
 
