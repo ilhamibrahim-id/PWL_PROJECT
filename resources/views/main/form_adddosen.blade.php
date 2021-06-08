@@ -23,6 +23,14 @@
                 <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
+                        <label>Masukan Password : </label>
+                        <input type="text" name="password" required="required" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+                <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
                         <label>Masukan Nama Dosen : </label>
                         <input type="text" name="nama" required="required" class="form-control">
                       </div>
