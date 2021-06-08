@@ -44,7 +44,7 @@
                         <div class="form-group">
                         @if(auth()->user()->role == 'admin')
                           <label>Username</label>
-                          <input type="text" class="form-control" placeholder="username" value="{{$data->username}}">
+                          <input type="text" class="form-control" placeholder="username" required="required" name="username" value="{{$data->username}}">
                         @endif
                         </div>
                       </div>
@@ -54,7 +54,7 @@
                           <div class="form-group">
                           @if(auth()->user()->role == 'admin')
                             <label>Nama</label>
-                            <input type="text" class="form-control" placeholder="username" value="{{$data->nama}}">
+                            <input type="text" class="form-control" placeholder="username" required="required" name="nama" value="{{$data->nama}}">
                           @endif
                           </div>
                         </div>
@@ -64,7 +64,7 @@
                           <div class="form-group">
                           @if(auth()->user()->role == 'admin')
                             <label>Jabatan</label>
-                            <input type="text" class="form-control" placeholder="jabatan" value="{{ $data->jabatan }}">
+                            <input type="text" class="form-control" placeholder="jabatan" required="required" name="jabatan" value="{{ $data->jabatan }}">
                           @endif
                           </div>
                         </div>
