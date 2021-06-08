@@ -4,12 +4,13 @@
 <div class="content">
     <div class="row">
           <div class="col-md-12">
-              <center>
-                <div class="alert alert-success" role="alert">
+                <div class="card">
+                    <center>
                 <p>Profile Telah Diperbarui <a href="/main/edituser" style="color:red"> Cek Profile </a></p>
+                <img src="{{asset('assets/img/sukses.png')}}" width="300px">
+                <br /> &nbsp;
+            </center>
             </div>
-            <img src="{{asset('assets/img/sukses.png')}}" width="300px">
-              </center>
           </div>
     </div>
 </div>
