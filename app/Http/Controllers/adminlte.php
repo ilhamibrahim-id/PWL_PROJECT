@@ -99,6 +99,22 @@ class adminlte extends Controller
         return view('main.table', compact('data', 'kelas','dosen','mk'));
     }
 
+    public function table_kelas_matakuliah()
+    {
+        if (auth()->user()->role == 'admin') {
+            $data = Admin::all()->where('username', '=', auth()->user()->username)->first();
+        } else if (auth()->user()->role == 'dosen') {
+            $data = Dosen::all()->where('nip', '=', auth()->user()->username)->first();
+        } else {
+            $data = Mahasiswa::all()->where('nim', '=', auth()->user()->username)->first();
+        }
+        $kelas = DB::table('table_kelas_matakuliah')->paginate(5);
+        $kls = Kelas::all();
+        $mk = MataKuliah::with('dosen')->get();
+        //return $mk;
+        return view('main.table', compact('data', 'kelas','kls','mk'));
+    }
+
     public function detailnilai($id)
     {
         if (auth()->user()->role == 'admin') {

@@ -10,7 +10,7 @@
             </div>
             <div class="card-body">
 
-    <form action="/main/dosen_mk/store" method="post">
+    <form action="/main/pelajaran/store" method="post">
 		{{ csrf_field() }}
                 <div class="row">
                     <div class="col-md-12">

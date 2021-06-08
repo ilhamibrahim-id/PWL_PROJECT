@@ -17,11 +17,13 @@
                     @if (!request()->is('main/table_kelas'))
                         <button class="btn" data-toggle="modal" data-target="#form" @if (request()->is('main/table_mhs')) onclick="location.href='/main/mahasiswa/tambah';"
                         @elseif ((request()->is('main/table_matakuliah')))
-                                      onclick="location.href='/main/matakuliah/tambah';"
+                                                  onclick="location.href='/main/matakuliah/tambah';"
                         @elseif ((request()->is('main/table_dosen')))
-                                      onclick="location.href='/main/dosen/tambah';"
+                                                  onclick="location.href='/main/dosen/tambah';"
                         @elseif ((request()->is('main/table_dosen_matakuliah')))
-                                      onclick="location.href='/main/dosen_mk/tambah';" @endif>
+                                                  onclick="location.href='/main/dosen_mk/tambah';" 
+                        @elseif ((request()->is('main/table_kelas_matakuliah')))
+                                                  onclick="location.href='/main/pelajaran/tambah';" @endif>
                             <i class="nc-icon nc-simple-add"> Tambah Data</i></button>
                     @endif
                     <div class="card-body">
@@ -39,6 +41,8 @@
                                             Nip
                                         @elseif ((request()->is('main/table_dosen_matakuliah')))
                                             Nama Dosen
+                                        @elseif ((request()->is('main/table_kelas_matakuliah')))
+                                            Kelas
                                         @endif
                                     </th>
                                     <th>
@@ -52,6 +56,8 @@
                                             Nama
                                         @elseif ((request()->is('main/table_dosen_matakuliah')))
                                             Nama Mata Kuliah
+                                        @elseif ((request()->is('main/table_kelas_matakuliah')))
+                                            Mata Kuliah
                                         @endif
                                     </th>
                                     <th>
@@ -65,13 +71,17 @@
                                             Alamat
                                         @elseif ((request()->is('main/table_dosen_matakuliah')))
                                             Kode Pengajar
+                                        @elseif ((request()->is('main/table_kelas_matakuliah')))
+                                            Dosen
                                         @endif
                                     </th>
-                                    @if (request()->is('main/table_mhs'))
-                                        <th>
+                                    <th>
+                                        @if (request()->is('main/table_mhs'))
                                             Kelas
-                                        </th>
-                                    @endif
+                                        @elseif ((request()->is('main/table_kelas_matakuliah')))
+                                            Kode Pengajar
+                                        @endif
+                                    </th>
                                     @if (request()->is('main/table_mhs'))
                                         <th>
                                             Action
@@ -109,6 +119,12 @@
                                                             {{ $data->nama }}
                                                         @endif
                                                     @endforeach
+                                                @elseif ((request()->is('main/table_kelas_matakuliah')))
+                                                    @foreach ($kls as $data)
+                                                        @if ($data->id == $kelasa->kelas_id)
+                                                            {{ $data->nama_kelas }}
+                                                        @endif
+                                                    @endforeach
                                                 @endif
                                             </td>
                                             <td>
@@ -125,6 +141,14 @@
                                                         @if ($data->id == $kelasa->matakuliah_id)
                                                             {{ $data->nama_mk }}
                                                         @endif
+                                                    @endforeach
+                                                @elseif ((request()->is('main/table_kelas_matakuliah')))
+                                                    @foreach ($mk as $data)
+                                                        @foreach ($data->dosen as $data1)
+                                                            @if ($data1->pivot->kode_pengajar == $kelasa->kode)
+                                                                {{ $data->nama_mk }}
+                                                            @endif
+                                                        @endforeach
                                                     @endforeach
                                                 @endif
                                             </td>
@@ -144,17 +168,27 @@
                                                     {{ $kelasa->alamat }}
                                                 @elseif ((request()->is('main/table_dosen_matakuliah')))
                                                     {{ $kelasa->kode_pengajar }}
+                                                @elseif ((request()->is('main/table_kelas_matakuliah')))
+                                                    @foreach ($mk as $data)
+                                                        @foreach ($data->dosen as $data1)
+                                                            @if ($data1->pivot->kode_pengajar == $kelasa->kode)
+                                                                {{ $data1->nama }}
+                                                            @endif
+                                                        @endforeach
+                                                    @endforeach
                                                 @endif
                                             </td>
-                                            @if (request()->is('main/table_mhs'))
-                                                <td>
+                                            <td>
+                                                @if (request()->is('main/table_mhs'))
                                                     @if ($kelasa->kelas_id == null)
                                                         -
                                                     @else
                                                         {{ $kelasa->kelas->id_kelas }}
                                                     @endif
-                                                </td>
-                                            @endif
+                                                @elseif ((request()->is('main/table_kelas_matakuliah')))
+                                                  {{ $kelasa->kode }}
+                                                @endif
+                                            </td>
                                             @if (request()->is('main/table_mhs'))
                                                 <td>
                                                     @if ($kelasa->kelas_id == null)
@@ -199,7 +233,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
     @include('main.footer')
 @endsection
