@@ -10,37 +10,39 @@
             </div>
             <div class="card-body">
 
-    <form action="/main/dosen/store" method="post">
+    <form action="/main/dosen_mk/store" method="post">
 		{{ csrf_field() }}
                 <div class="row">
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <label>Masukan NIP Dosen : </label>
-                      <input type="text" name="nip" required="required" class="form-control">
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label>Masukan Password : </label>
-                        <input type="text" name="password" required="required" class="form-control">
-                      </div>
-                    </div>
-                  </div>
-                <div class="row">
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label>Masukan Nama Dosen : </label>
-                        <input type="text" name="nama" required="required" class="form-control">
+                        <label>Nama Dosen : </label>
+                        <select class="custom-select" id="nama" name="nama" required="required">
+                            <option selected>Choose...</option>
+                            @foreach ($dosen as $data)
+                            <option value="{{ $data->id }}">{{ $data->nama }}</option>
+                            @endforeach
+                        </select>
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label>Masukan Alamat Dosen : </label>
-                        <input type="text" name="alamat" required="required" class="form-control">
+                        <label>Mata Kuliah : </label>
+                        <select class="custom-select" id="mk" name="mk" required="required">
+                            <option selected>Choose...</option>
+                            @foreach ($matakuliah as $data)
+                            <option value="{{ $data->id }}">{{ $data->nama_mk }}</option>
+                            @endforeach
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Kode Pengajar : </label>
+                        <input type="text" name="kode" required="required" class="form-control">
                       </div>
                     </div>
                   </div>
