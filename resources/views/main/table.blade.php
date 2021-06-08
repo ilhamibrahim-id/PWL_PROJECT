@@ -15,7 +15,9 @@
                         </span>
                     </div>
                     @if (!request()->is('main/table_kelas'))
-                        <button class="btn" data-toggle="modal" data-target="#form" @if (request()->is('main/table_mhs')) onclick="location.href='/main/mahasiswa/tambah';"
+                        <button class="btn" data-toggle="modal" data-target="#form" 
+                        @if (request()->is('main/table_mhs')) 
+                                                  onclick="location.href='/main/mahasiswa/tambah';"
                         @elseif ((request()->is('main/table_matakuliah')))
                                                   onclick="location.href='/main/matakuliah/tambah';"
                         @elseif ((request()->is('main/table_dosen')))

@@ -8,6 +8,7 @@ use App\Models\DosenMatakuliah;
 use App\Models\Mahasiswa;
 use App\Models\Kelas;
 use App\Models\MataKuliah;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -27,19 +28,25 @@ class TambahController extends Controller
     }
     public function store(Request $request)
     {
-        DB::table('table_mahasiswa')->insert([
-            'nim' => $request->nim,
-            'nama' => $request->nama,
-            'alamat' => $request->alamat,
-            'password' => bcrypt($request['password']),
-            'kelas_id' => $request->kelas,
-        ]);
-        DB::table('users')->insert([
-            'username' => $request->nim,
-            'password' => bcrypt($request['password']),
-            'role' => 'mahasiswa',
-        ]);
-        return redirect('/main/table_mhs');
+        //return $request;
+        $data = User::where('username','=', $request['nim'])->first();
+        if ($data !== null){
+            return back()->withErrors(['error' => 'Data Sudah Terdaftar']);
+        } else {
+            DB::table('table_mahasiswa')->insert([
+                'nim' => $request->nim,
+                'nama' => $request->nama,
+                'alamat' => $request->alamat,
+                'password' => bcrypt($request['password']),
+                'kelas_id' => $request->kelas,
+            ]);
+            DB::table('users')->insert([
+                'username' => $request->nim,
+                'password' => bcrypt($request['password']),
+                'role' => 'mahasiswa',
+            ]);
+            return redirect('/main/table_mhs');
+        }
     }
 
     public function tambahmk()
@@ -78,18 +85,23 @@ class TambahController extends Controller
     }
     public function storeds(Request $request)
     {
-        DB::table('table_dosen')->insert([
-            'nip' => $request->nip,
-            'nama' => $request->nama,
-            'alamat' => $request->alamat,
-            'password' => bcrypt($request['password']),
-        ]);
-        DB::table('users')->insert([
-            'username' => $request->nip,
-            'password' => bcrypt($request['password']),
-            'role' => 'dosen',
-        ]);
-        return redirect('/main/table_dosen');
+        $data = User::where('username','=', $request['nip'])->first();
+        if ($data !== null){
+            return back()->withErrors(['error' => 'Data Sudah Terdaftar']);
+        } else {
+            DB::table('table_dosen')->insert([
+                'nip' => $request->nip,
+                'nama' => $request->nama,
+                'alamat' => $request->alamat,
+                'password' => bcrypt($request['password']),
+            ]);
+            DB::table('users')->insert([
+                'username' => $request->nip,
+                'password' => bcrypt($request['password']),
+                'role' => 'dosen',
+            ]);
+            return redirect('/main/table_dosen');
+        }
     }
 
     public function tambahpengajar()
