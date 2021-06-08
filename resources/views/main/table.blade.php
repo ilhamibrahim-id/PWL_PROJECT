@@ -17,11 +17,11 @@
                     @if (!request()->is('main/table_kelas'))
                         <button class="btn" data-toggle="modal" data-target="#form" @if (request()->is('main/table_mhs')) onclick="location.href='/main/mahasiswa/tambah';"
                         @elseif ((request()->is('main/table_matakuliah')))
-                                  onclick="location.href='/main/matakuliah/tambah';"
+                                      onclick="location.href='/main/matakuliah/tambah';"
                         @elseif ((request()->is('main/table_dosen')))
-                                  onclick="location.href='/main/dosen/tambah';"
+                                      onclick="location.href='/main/dosen/tambah';"
                         @elseif ((request()->is('main/table_dosen_matakuliah')))
-                                  onclick="location.href='/main/dosen_mk/tambah';" @endif>
+                                      onclick="location.href='/main/dosen_mk/tambah';" @endif>
                             <i class="nc-icon nc-simple-add"> Tambah Data</i></button>
                     @endif
                     <div class="card-body">
@@ -77,6 +77,19 @@
                                             Action
                                         </th>
                                     @endif
+                                    @if (request()->is('main/table_mhs'))
+                                        <th>
+                                            Hapus Data
+                                        </th>
+                                    @elseif ((request()->is('main/table_dosen')))
+                                        <th>
+                                            Hapus Data
+                                        </th>
+                                    @elseif ((request()->is('main/table_matakuliah')))
+                                        <th>
+                                            Hapus Data
+                                        </th>
+                                    @endif
                                 </thead>
                                 <tbody>
                                     @foreach ($kelas as $kelasa)
@@ -91,11 +104,11 @@
                                                 @elseif ((request()->is('main/table_dosen')))
                                                     {{ $kelasa->nip }}
                                                 @elseif ((request()->is('main/table_dosen_matakuliah')))
-                                                 @foreach ($dosen as $data)
-                                                     @if ($data->id == $kelasa->dosen_id)
-                                                         {{ $data->nama }}
-                                                     @endif
-                                                 @endforeach
+                                                    @foreach ($dosen as $data)
+                                                        @if ($data->id == $kelasa->dosen_id)
+                                                            {{ $data->nama }}
+                                                        @endif
+                                                    @endforeach
                                                 @endif
                                             </td>
                                             <td>
@@ -108,11 +121,11 @@
                                                 @elseif ((request()->is('main/table_dosen')))
                                                     {{ $kelasa->nama }}
                                                 @elseif ((request()->is('main/table_dosen_matakuliah')))
-                                                @foreach ($mk as $data)
-                                                    @if ($data->id == $kelasa->matakuliah_id)
-                                                        {{ $data->nama_mk }}
-                                                    @endif
-                                                @endforeach
+                                                    @foreach ($mk as $data)
+                                                        @if ($data->id == $kelasa->matakuliah_id)
+                                                            {{ $data->nama_mk }}
+                                                        @endif
+                                                    @endforeach
                                                 @endif
                                             </td>
                                             <td>
@@ -161,6 +174,21 @@
                                                     @endif
                                                 </td>
                                             @endif
+                                            <td>
+                                                @if (request()->is('main/table_mhs'))
+                                                    <button type="button" class="btn btn-outline-danger"
+                                                        onclick="location.href='/main/mahasiswa/hapus/{{ $kelasa->id }}';"><i
+                                                            class="nc-icon nc-simple-remove"></i></button>
+                                                @elseif((request()->is('main/table_dosen')))
+                                                    <button type="button" class="btn btn-outline-danger"
+                                                        onclick="location.href='/main/dosen/hapus/{{ $kelasa->id }}';"><i
+                                                            class="nc-icon nc-simple-remove"></i></button>
+                                                @elseif((request()->is('main/table_matakuliah')))
+                                                    <button type="button" class="btn btn-outline-danger"
+                                                        onclick="location.href='/main/matakuliah/hapus/{{ $kelasa->id }}';"><i
+                                                            class="nc-icon nc-simple-remove"></i></button>
+                                                @endif
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -171,6 +199,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
     @include('main.footer')
 @endsection

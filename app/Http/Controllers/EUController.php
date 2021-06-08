@@ -74,7 +74,7 @@ class EUController extends Controller
     public function edit($id)
     {
         if(auth()->user()->role == 'admin'){
-            $data = DB::table('admin')->where('id',$id)->get();
+            $data = Admin::all()->where('username','=',auth()->user()->username)->first();
         } else if(auth()->user()->role == 'dosen'){
             $data = DB::table('dosen')->where('id',$id)->get();
         } else {
@@ -93,12 +93,12 @@ class EUController extends Controller
     public function update(Request $request)
     {
         if(auth()->user()->role == 'admin'){
-            $data = Admin::where('id',$request->id)->update([
+            $data = Admin::all()->where('username','=',auth()->user()->username)->first();
+            DB::table('table_admin')->where('username','=',auth()->user()->username)->update([
                 'username' => $request->username,
                 'nama' => $request->nama,
                 'jabatan' => $request->jabatan,
             ]);
-            $data = Dosen::all()->where('nip','=',auth()->user()->username)->first();
         } else if(auth()->user()->role == 'dosen'){
             $data = Dosen::all()->where('nip','=',auth()->user()->username)->first();
         } else {
