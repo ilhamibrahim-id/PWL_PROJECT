@@ -21,4 +21,11 @@ public function hapusds($id)
 
 	return redirect('/main/table_dosen');
 }
+public function hapusmk($id)
+{
+	// menghapus data pegawai berdasarkan id yang dipilih
+	DB::table('table_matakuliah')->where('id',$id)->delete();
+
+	return redirect('/main/table_matakuliah');
+}
 }

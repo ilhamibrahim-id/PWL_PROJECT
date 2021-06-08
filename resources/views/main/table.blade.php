@@ -76,6 +76,10 @@
                     <th>
                       Hapus Data
                     </th>
+                    @elseif ((request()->is('main/table_matakuliah')))
+                    <th>
+                      Hapus Data
+                    </th>
                     @endif
                   </thead>
                   <tbody align="center">
@@ -143,6 +147,8 @@
                         <button type="button" class="btn btn-outline-danger" onclick="location.href='/main/mahasiswa/hapus/{{ $kelasa->id }}';"><i class="nc-icon nc-simple-remove"></i></button>
                         @elseif((request()->is('main/table_dosen')))
                         <button type="button" class="btn btn-outline-danger" onclick="location.href='/main/dosen/hapus/{{ $kelasa->id }}';"><i class="nc-icon nc-simple-remove"></i></button>
+                        @elseif((request()->is('main/table_matakuliah')))
+                        <button type="button" class="btn btn-outline-danger" onclick="location.href='/main/matakuliah/hapus/{{ $kelasa->id }}';"><i class="nc-icon nc-simple-remove"></i></button>
                         @endif
                       </td>
                     </tr>
