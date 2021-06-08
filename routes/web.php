@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\{main, login, daftar, adminlte, EUController, TambahController};
+use App\Http\Controllers\{main, login, daftar, adminlte, EUController, TambahController,HapusController};
 use App\Models\Admin;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +28,7 @@ Route::middleware(['auth','cekrole:admin'])->prefix('main')->group(function() {
     Route::post('/matakuliah/store',[TambahController::class, 'storemk']);
     Route::get('/dosen/tambah',[TambahController::class, 'tambahds']);
     Route::post('/dosen/store',[TambahController::class, 'storeds']);
+    Route::get('/mahasiswa/hapus/{id}',[HapusController::class, 'hapus']);
 });
 
 Route::middleware(['auth','cekrole:mahasiswa,admin'])->prefix('main')->group(function() {

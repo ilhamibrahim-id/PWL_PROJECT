@@ -68,6 +68,11 @@
                       Action
                     </th>
                     @endif
+                    @if ((request()->is('main/table_mhs')))
+                    <th>
+                      Hapus Data
+                    </th>
+                    @endif
                   </thead>
                   <tbody>
                     @foreach ($kelas as $kelasa)
@@ -129,6 +134,11 @@
                         @endif
                       </td>
                       @endif
+                      <td align="center">
+                        @if((request()->is('main/table_mhs')))
+                        <button type="button" class="btn btn-outline-danger" onclick="location.href='/main/mahasiswa/hapus/{{ $kelasa->id }}';"><i class="nc-icon nc-simple-remove"></i></button>
+                        @endif
+                      </td>
                     </tr>
                     @endforeach
                   </tbody>
