@@ -24,15 +24,11 @@ class adminlte extends Controller
         } else {
             $data = Mahasiswa::all()->where('nim', '=', auth()->user()->username)->first();
         }
-<<<<<<< HEAD
-        return view('main.dashboard', compact('data'));
-=======
         $mhs = DB::table('table_mahasiswa')->count();
         $ds = DB::table('table_dosen')->count();
         $mk = DB::table('table_matakuliah')->count();
         $k = DB::table('table_kelas')->count();
         return view('main.dashboard',compact('data','mhs','ds','mk','k'));
->>>>>>> c2c1b710f7bd73bae9fc7d75dbb90da4e9aa8a7f
     }
 
     public function table_kelas()
