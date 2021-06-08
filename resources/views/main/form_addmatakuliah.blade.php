@@ -9,7 +9,15 @@
               <h5 class="card-title">Tambah Data Mahasiswa</h5>
             </div>
             <div class="card-body">
-
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            {{ $error }}
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
     <form action="/main/matakuliah/store" method="post">
 		{{ csrf_field() }}
                 <div class="row">

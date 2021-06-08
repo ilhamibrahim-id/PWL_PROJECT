@@ -63,6 +63,10 @@ class TambahController extends Controller
     }
     public function storemk(Request $request)
     {
+        $data = MataKuliah::where('kode_mk','=', $request['kode_mk'])->first();
+        if ($data !== null){
+            return back()->withErrors(['error' => 'Data Sudah Terdaftar']);
+        } else {
         DB::table('table_matakuliah')->insert([
             'kode_mk' => $request->kode_mk,
             'nama_mk' => $request->nama_mk,
@@ -70,6 +74,7 @@ class TambahController extends Controller
         ]);
         return redirect('/main/table_matakuliah');
     }
+}
 
     public function tambahds()
     {
