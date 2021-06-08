@@ -75,6 +75,14 @@
                 @endif
             </a>
           </li>
+          <li class="{{ (request()->is('main/table_dosen_matakuliah')) ? 'active' : '' }}">
+            <a href="/main/table_dosen_matakuliah">
+              <i class="nc-icon nc-bank"></i>
+              @if(auth()->user()->role =='admin')
+                  <p> Pengajar </p>
+                @endif
+            </a>
+          </li>
         </ul>
       </div>
     </div>
