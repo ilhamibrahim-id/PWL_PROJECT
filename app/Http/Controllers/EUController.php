@@ -104,7 +104,7 @@ class EUController extends Controller
         } else {
             $data = Mahasiswa::all()->where('nim','=',auth()->user()->username)->first();
         }
-        return view('main.dashboard', compact('data'));
+        return view('main.sukses', compact('data'));
     }
 
     /**
