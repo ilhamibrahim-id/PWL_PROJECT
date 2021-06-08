@@ -14,4 +14,11 @@ class HapusController extends Controller
 
 	return redirect('/main/table_mhs');
 }
+public function hapusds($id)
+{
+	// menghapus data pegawai berdasarkan id yang dipilih
+	DB::table('table_dosen')->where('id',$id)->delete();
+
+	return redirect('/main/table_dosen');
+}
 }

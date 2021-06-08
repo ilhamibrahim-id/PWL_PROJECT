@@ -24,7 +24,7 @@
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table">
-                  <thead class=" text-primary">
+                  <thead class=" text-primary"  align="center">
                     <th>
                         @if((request()->is('main/table_kelas')))
                         Kelas
@@ -72,9 +72,13 @@
                     <th>
                       Hapus Data
                     </th>
+                    @elseif ((request()->is('main/table_dosen')))
+                    <th>
+                      Hapus Data
+                    </th>
                     @endif
                   </thead>
-                  <tbody>
+                  <tbody align="center">
                     @foreach ($kelas as $kelasa)
                     <tr>
                       <td>
@@ -134,9 +138,11 @@
                         @endif
                       </td>
                       @endif
-                      <td align="center">
+                      <td>
                         @if((request()->is('main/table_mhs')))
                         <button type="button" class="btn btn-outline-danger" onclick="location.href='/main/mahasiswa/hapus/{{ $kelasa->id }}';"><i class="nc-icon nc-simple-remove"></i></button>
+                        @elseif((request()->is('main/table_dosen')))
+                        <button type="button" class="btn btn-outline-danger" onclick="location.href='/main/dosen/hapus/{{ $kelasa->id }}';"><i class="nc-icon nc-simple-remove"></i></button>
                         @endif
                       </td>
                     </tr>

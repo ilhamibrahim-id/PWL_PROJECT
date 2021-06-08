@@ -29,6 +29,7 @@ Route::middleware(['auth','cekrole:admin'])->prefix('main')->group(function() {
     Route::get('/dosen/tambah',[TambahController::class, 'tambahds']);
     Route::post('/dosen/store',[TambahController::class, 'storeds']);
     Route::get('/mahasiswa/hapus/{id}',[HapusController::class, 'hapus']);
+    Route::get('/dosen/hapus/{id}',[HapusController::class, 'hapusds']);
 });
 
 Route::middleware(['auth','cekrole:mahasiswa,admin'])->prefix('main')->group(function() {
