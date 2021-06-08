@@ -127,6 +127,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                   <a class="dropdown-item" type="button" href="/main/edituser">Edit Profile</a>
+                  <a class="dropdown-item" type="button" href="/main/gantipassword">Ganti Password</a>
                   <a class="dropdown-item" href="{{ route('logout') }}"
                   onclick="event.preventDefault();
                   document.getElementById('logout-form').submit();">

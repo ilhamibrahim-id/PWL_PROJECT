@@ -50,6 +50,8 @@ Route::middleware(['auth','cekrole:dosen,admin'])->prefix('main')->group(functio
 
 Route::middleware(['auth','cekrole:mahasiswa,admin,dosen'])->prefix('main')->group(function() {
     Route::get('dashboard', [adminlte::class, 'index'])->name('main.dashboard');
+    Route::get('gantipassword', [adminlte::class, 'password'])->name('main.password');
+    Route::post('/gantipassword/store',[adminlte::class, 'updatepassword']);
     Route::get('edituser', [EUController::class, 'index']);
     Route::get('/edituser/edit/{id}',[EUController::class, 'edit']);
     Route::post('/edituser/update',[EUController::class, 'update']);

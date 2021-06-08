@@ -6,12 +6,14 @@ use App\Models\Admin;
 use App\Models\Dosen;
 use App\Models\DosenMatakuliah;
 use App\Models\Mahasiswa;
+use App\Models\User;
 use App\Models\Kelas;
 use App\Models\MataKuliah;
 use App\Models\Nilai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class adminlte extends Controller
 {
@@ -190,4 +192,38 @@ class adminlte extends Controller
         }
         return view('main.form', compact('data'));
     }
+    public function password()
+    {
+        if (auth()->user()->role == 'admin') {
+            $data = Admin::all()->where('username', '=', auth()->user()->username)->first();
+        } else if (auth()->user()->role == 'dosen') {
+            $data = Dosen::all()->where('nip', '=', auth()->user()->username)->first();
+        } else {
+            $data = Mahasiswa::all()->where('nim', '=', auth()->user()->username)->first();
+        }
+        return view('main.form_editpassword',compact('data'));
+    }
+    public function updatepassword(Request $request)
+    {
+        if(auth()->user()->role == 'admin'){
+            if($request->password!=$request->password1)
+            {
+                return back()->withErrors(['error' => 'Password Tidak Sesuai']);
+            }
+            else if($request->password=$request->password1){
+                DB::table('table_admin')->where('username','=',auth()->user()->username)->update([
+                    'password' => $request->password,
+                ]);
+                DB::table('users')->where('username','=',auth()->user()->username)->update([
+                    'password' => $request->password,
+                ]);
+            }
+        } else if(auth()->user()->role == 'dosen'){
+            $data = Dosen::all()->where('nip','=',auth()->user()->username)->first();
+        } else {
+            $data = Mahasiswa::all()->where('nim','=',auth()->user()->username)->first();
+        }
+        return view('main.formeditpassword', compact('data'));
+    }
+
 }
