@@ -6,18 +6,10 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">
-                            @if (request()->is('main/table_kelas'))
+                            @if (request()->is('dosen/kelas'))
                                 Data Kelas
-                            @elseif ((request()->is('main/table_mhs')))
-                                Data Mahasiswa
-                            @elseif ((request()->is('main/table_matakuliah')))
-                                Data MataKuliah
-                            @elseif ((request()->is('main/table_dosen')))
-                                Data Dosen
-                            @elseif ((request()->is('main/table_dosen_matakuliah')))
-                                Data Pengajar
-                            @elseif ((request()->is('main/table_kelas_matakuliah')))
-                                Data Pelajaran
+                            @elseif ((request()->is('dosen/nilai')))
+                                Nilai
                             @endif
                         </h4>
                     </div>
@@ -28,92 +20,38 @@
                             <i class="nc-icon nc-zoom-split"></i>
                         </span>
                     </div>
-                    @if (!request()->is('main/table_kelas'))
-                        <button class="btn" data-toggle="modal" data-target="#form" @if (request()->is('main/table_mhs')) onclick="location.href='/main/mahasiswa/tambah';"
-                        @elseif ((request()->is('main/table_matakuliah')))
-                                                      onclick="location.href='/main/matakuliah/tambah';"
-                        @elseif ((request()->is('main/table_dosen')))
-                                                      onclick="location.href='/main/dosen/tambah';"
-                        @elseif ((request()->is('main/table_dosen_matakuliah')))
-                                                      onclick="location.href='/main/dosen_mk/tambah';" 
-                        @elseif ((request()->is('main/table_kelas_matakuliah')))
-                                                      onclick="location.href='/main/pelajaran/tambah';" @endif>
-                            <i class="nc-icon nc-simple-add"> Tambah Data</i></button>
-                    @endif
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table">
                                 <thead class=" text-primary">
                                     <th>
-                                        @if (request()->is('main/table_kelas'))
-                                            Kelas
-                                        @elseif ((request()->is('main/table_mhs')))
-                                            Nim
-                                        @elseif ((request()->is('main/table_matakuliah')))
-                                            Kode Mata Kuliah
-                                        @elseif ((request()->is('main/table_dosen')))
-                                            Nip
-                                        @elseif ((request()->is('main/table_dosen_matakuliah')))
-                                            Nama Dosen
-                                        @elseif ((request()->is('main/table_kelas_matakuliah')))
-                                            Kelas
-                                        @endif
+                                        @if (request()->is('dosen/kelas'))
+                                Data Kelas
+                            @elseif ((request()->is('dosen/nilai')))
+                                Nilai
+                            @endif
                                     </th>
                                     <th>
-                                        @if (request()->is('main/table_kelas'))
-                                            Jumlah Mahasiswa
-                                        @elseif ((request()->is('main/table_mhs')))
-                                            Nama
-                                        @elseif ((request()->is('main/table_matakuliah')))
-                                            Nama Mata Kuliah
-                                        @elseif ((request()->is('main/table_dosen')))
-                                            Nama
-                                        @elseif ((request()->is('main/table_dosen_matakuliah')))
-                                            Nama Mata Kuliah
-                                        @elseif ((request()->is('main/table_kelas_matakuliah')))
-                                            Mata Kuliah
-                                        @endif
+                                        @if (request()->is('dosen/kelas'))
+                                Data Kelas
+                            @elseif ((request()->is('dosen/nilai')))
+                                Nilai
+                            @endif
                                     </th>
                                     <th>
-                                        @if (request()->is('main/table_kelas'))
-                                            Action
-                                        @elseif ((request()->is('main/table_mhs')))
-                                            Alamat
-                                        @elseif ((request()->is('main/table_matakuliah')))
-                                            Sks
-                                        @elseif ((request()->is('main/table_dosen')))
-                                            Alamat
-                                        @elseif ((request()->is('main/table_dosen_matakuliah')))
-                                            Kode Pengajar
-                                        @elseif ((request()->is('main/table_kelas_matakuliah')))
-                                            Dosen
-                                        @endif
+                                        @if (request()->is('dosen/kelas'))
+                                Data Kelas
+                            @elseif ((request()->is('dosen/nilai')))
+                                Nilai
+                            @endif
                                     </th>
                                     <th>
-                                        @if (request()->is('main/table_mhs'))
-                                            Kelas
-                                        @elseif ((request()->is('main/table_kelas_matakuliah')))
-                                            Kode Pengajar
-                                        @endif
+                                        @if (request()->is('dosen/kelas'))
+                                Data Kelas
+                            @elseif ((request()->is('dosen/nilai')))
+                                Nilai
+                            @endif
                                     </th>
-                                    @if (request()->is('main/table_mhs'))
-                                        <th>
-                                            Action
-                                        </th>
-                                    @endif
-                                    @if (request()->is('main/table_mhs'))
-                                        <th>
-                                            Hapus Data
-                                        </th>
-                                    @elseif ((request()->is('main/table_dosen')))
-                                        <th>
-                                            Hapus Data
-                                        </th>
-                                    @elseif ((request()->is('main/table_matakuliah')))
-                                        <th>
-                                            Hapus Data
-                                        </th>
-                                    @endif
                                 </thead>
                                 <tbody>
                                     @foreach ($kelas as $kelasa)

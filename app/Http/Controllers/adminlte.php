@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use phpDocumentor\Reflection\Types\Null_;
 
 class adminlte extends Controller
 {
@@ -30,7 +31,7 @@ class adminlte extends Controller
         $ds = DB::table('table_dosen')->count();
         $mk = DB::table('table_matakuliah')->count();
         $k = DB::table('table_kelas')->count();
-        return view('main.dashboard',compact('data','mhs','ds','mk','k'));
+        return view('main.dashboard', compact('data', 'mhs', 'ds', 'mk', 'k'));
     }
 
     public function table_kelas()
@@ -102,7 +103,7 @@ class adminlte extends Controller
         $dosen = Dosen::all();
         $mk = MataKuliah::all();
         //return $kelas;
-        return view('main.table', compact('data', 'kelas','dosen','mk'));
+        return view('main.table', compact('data', 'kelas', 'dosen', 'mk'));
     }
 
     public function table_kelas_matakuliah()
@@ -118,7 +119,7 @@ class adminlte extends Controller
         $kls = Kelas::all();
         $mk = MataKuliah::with('dosen')->get();
         //return $mk;
-        return view('main.table', compact('data', 'kelas','kls','mk'));
+        return view('main.table', compact('data', 'kelas', 'kls', 'mk'));
     }
 
     public function detailnilai($id)
@@ -173,12 +174,32 @@ class adminlte extends Controller
     public function update_kelas(Request $request, $id)
     {
         $data = $request->all();
-        return $data;
-        foreach ($data['kumpulan_id'] as $item => $value) {
-            Mahasiswa::where('nim', '=', $data['kumpulan_id'][$item])->update(['kelas_id' => $id]);
+        $mahasiswa = Mahasiswa::select('nim')->where('kelas_id', '=', $id)->get();
+        //return $mahasiswa;
+        //return $data;
+        if (!$request->has('checkbox')) {
+            foreach ($mahasiswa as $mhs) {
+                Mahasiswa::where('nim', '=', $mhs->nim)->update(['kelas_id' => null]);
+                $mhsid = Mahasiswa::select('id')->where('nim', '=', $mhs->nim)->first();
+                DB::table('table_nilai')->where('mahasiswa_id', '=', $mhsid)->delete();
+            }
+        } else {
+            foreach ($mahasiswa as $mhs) {
+                foreach ($data['checkbox'] as $item => $value) {
+                    if ($mhs->nim == $data['checkbox'][$item]) {
+                        Mahasiswa::where('nim', '=', $data['checkbox'][$item])->update(['kelas_id' => $id]);
+                    } else {
+                        Mahasiswa::where('nim', '=', $mhs->nim)->update(['kelas_id' => null]);
+                        $mhsid = Mahasiswa::select('id')->where('nim', '=', $mhs->nim)->first();
+                        DB::table('table_nilai')->where('mahasiswa_id', '=', $mhsid)->delete();
+                    }
+                }
+            }
+            foreach ($data['checkbox'] as $item => $value) {
+                Mahasiswa::where('nim', '=', $data['checkbox'][$item])->update(['kelas_id' => $id]);
+            }
         }
-
-        return redirect('main.table_kelas');
+        return redirect('main/table_kelas');
     }
 
     public function form()
@@ -201,29 +222,26 @@ class adminlte extends Controller
         } else {
             $data = Mahasiswa::all()->where('nim', '=', auth()->user()->username)->first();
         }
-        return view('main.form_editpassword',compact('data'));
+        return view('main.form_editpassword', compact('data'));
     }
     public function updatepassword(Request $request)
     {
-        if(auth()->user()->role == 'admin'){
-            if($request->password!=$request->password1)
-            {
+        if (auth()->user()->role == 'admin') {
+            if ($request->password != $request->password1) {
                 return back()->withErrors(['error' => 'Password Tidak Sesuai']);
-            }
-            else if($request->password=$request->password1){
-                DB::table('table_admin')->where('username','=',auth()->user()->username)->update([
+            } else if ($request->password = $request->password1) {
+                DB::table('table_admin')->where('username', '=', auth()->user()->username)->update([
                     'password' => $request->password,
                 ]);
-                DB::table('users')->where('username','=',auth()->user()->username)->update([
+                DB::table('users')->where('username', '=', auth()->user()->username)->update([
                     'password' => $request->password,
                 ]);
             }
-        } else if(auth()->user()->role == 'dosen'){
-            $data = Dosen::all()->where('nip','=',auth()->user()->username)->first();
+        } else if (auth()->user()->role == 'dosen') {
+            $data = Dosen::all()->where('nip', '=', auth()->user()->username)->first();
         } else {
-            $data = Mahasiswa::all()->where('nim','=',auth()->user()->username)->first();
+            $data = Mahasiswa::all()->where('nim', '=', auth()->user()->username)->first();
         }
         return view('main.formeditpassword', compact('data'));
     }
-
 }

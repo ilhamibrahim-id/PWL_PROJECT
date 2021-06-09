@@ -29,21 +29,10 @@
                         </td>
                         <td>
                           @if ($kelasa->kelas_id == null)
-                            <input class="form-check-input" type="checkbox" id="checkbox" name="checkbox" onclick="cek()">
+                            <input class="form-check-input" type="checkbox" id="checkbox" name="checkbox[]" value="{{ $kelasa->nim }}">
                           @else
-                            <input class="form-check-input" type="checkbox" id="checkbox" name="checkbox" onclick="cek()" checked>
+                            <input class="form-check-input" type="checkbox" id="checkbox" name="checkbox[]" value="{{ $kelasa->nim }}" checked>
                           @endif
-                          <input id="kumpulan_id" name="kumpulan_id[]" type="text" value="">
-                          <script>
-                            function cek(){
-                                  if ($('input[type=checkbox]').is(':checked')) {
-                                      $('#kumpulan_id').val({{ $kelasa->nim }});
-                                  }
-                                  else{
-                                      $('#kumpulan_id').val('');
-                                  }
-                            }
-                          </script>
                         @endforeach
                     </tbody>
                   </table>

@@ -41,7 +41,7 @@ Route::middleware(['auth','cekrole:admin'])->prefix('main')->group(function() {
 });
 
 Route::middleware(['auth','cekrole:mahasiswa,admin'])->prefix('main')->group(function() {
-
+    Route::get('detailnilai/{id}', [adminlte::class, 'detailnilai'])->name('main.detailnilai');
 });
 
 Route::middleware(['auth','cekrole:dosen,admin'])->prefix('main')->group(function() {
@@ -56,7 +56,6 @@ Route::middleware(['auth','cekrole:mahasiswa,admin,dosen'])->prefix('main')->gro
     Route::get('/edituser/edit/{id}',[EUController::class, 'edit']);
     Route::post('/edituser/update',[EUController::class, 'update']);
     Route::get('form', [adminlte::class, 'form'])->name('main.form');
-    Route::get('detailnilai/{id}', [adminlte::class, 'detailnilai'])->name('main.detailnilai');
     Route::post('logout', [main::class, 'logout'])->name('logout');
 });
 
