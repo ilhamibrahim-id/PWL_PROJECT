@@ -15,15 +15,15 @@
                         </span>
                     </div>
                     @if (!request()->is('main/table_kelas'))
-                        <button class="btn" data-toggle="modal" data-target="#form" 
-                        @if (request()->is('main/table_mhs')) 
+                        <button class="btn" data-toggle="modal" data-target="#form"
+                        @if (request()->is('main/table_mhs'))
                                                   onclick="location.href='/main/mahasiswa/tambah';"
                         @elseif ((request()->is('main/table_matakuliah')))
                                                   onclick="location.href='/main/matakuliah/tambah';"
                         @elseif ((request()->is('main/table_dosen')))
                                                   onclick="location.href='/main/dosen/tambah';"
                         @elseif ((request()->is('main/table_dosen_matakuliah')))
-                                                  onclick="location.href='/main/dosen_mk/tambah';" 
+                                                  onclick="location.href='/main/dosen_mk/tambah';"
                         @elseif ((request()->is('main/table_kelas_matakuliah')))
                                                   onclick="location.href='/main/pelajaran/tambah';" @endif>
                             <i class="nc-icon nc-simple-add"> Tambah Data</i></button>
@@ -86,7 +86,9 @@
                                     </th>
                                     @if (request()->is('main/table_mhs'))
                                         <th>
+                                            <center>
                                             Action
+                                            </center>
                                         </th>
                                     @endif
                                     @if (request()->is('main/table_mhs'))
@@ -208,10 +210,12 @@
                                                                 Nilai</button>
                                                         </form>
                                                     @endif
+                                                    <button type="submit" class="btn form-control btn-primary rounded submit px-3" onclick="location.href='/main/mahasiswa/edit/{{ $kelasa->id }}';">Edit Data</button>
                                                 </td>
                                             @endif
                                             <td>
                                                 @if (request()->is('main/table_mhs'))
+                                                &nbsp;&nbsp;&nbsp;&nbsp;
                                                     <button type="button" class="btn btn-outline-danger"
                                                         onclick="location.href='/main/mahasiswa/hapus/{{ $kelasa->id }}';"><i
                                                             class="nc-icon nc-simple-remove"></i></button>

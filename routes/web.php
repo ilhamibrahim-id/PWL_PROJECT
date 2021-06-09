@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\{main, login, daftar, adminlte, EUController, TambahController,HapusController};
+use App\Http\Controllers\{main, login, daftar, adminlte, EUController, TambahController,HapusController,EditController};
 use App\Models\Admin;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +38,8 @@ Route::middleware(['auth','cekrole:admin'])->prefix('main')->group(function() {
     Route::get('/mahasiswa/hapus/{id}',[HapusController::class, 'hapus']);
     Route::get('/dosen/hapus/{id}',[HapusController::class, 'hapusds']);
     Route::get('/matakuliah/hapus/{id}',[HapusController::class, 'hapusmk']);
+    Route::get('/mahasiswa/edit/{id}',[EditController::class, 'edit']);
+    Route::post('/mahasiswa/update',[EditController::class, 'update']);
 });
 
 Route::middleware(['auth','cekrole:mahasiswa,admin'])->prefix('main')->group(function() {
