@@ -103,6 +103,18 @@
                                             Action
                                             </center>
                                         </th>
+                                    @elseif (request()->is('main/table_matakuliah'))
+                                        <th>
+                                            <center>
+                                            Action
+                                            </center>
+                                        </th>
+                                     @elseif (request()->is('main/table_dosen'))
+                                        <th>
+                                            <center>
+                                            Action
+                                            </center>
+                                        </th>
                                     @endif
                                     @if (request()->is('main/table_mhs'))
                                         <th>
@@ -224,6 +236,14 @@
                                                         </form>
                                                     @endif
                                                     <button type="submit" class="btn form-control btn-primary rounded submit px-3" onclick="location.href='/main/mahasiswa/edit/{{ $kelasa->id }}';">Edit Data</button>
+                                                </td>
+                                            @elseif (request()->is('main/table_matakuliah'))
+                                                <td>
+                                                    <button type="submit" class="btn form-control btn-primary rounded submit px-3" onclick="location.href='/main/matakuliah/edit/{{ $kelasa->id }}';">Edit Data</button>
+                                                </td>
+                                            @elseif (request()->is('main/table_dosen'))
+                                                <td>
+                                                    <button type="submit" class="btn form-control btn-primary rounded submit px-3" onclick="location.href='/main/dosen/edit/{{ $kelasa->id }}';">Edit Data</button>
                                                 </td>
                                             @endif
                                             <td>
