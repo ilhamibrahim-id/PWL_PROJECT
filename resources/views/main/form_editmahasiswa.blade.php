@@ -25,6 +25,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Masukan Nama : </label>
+                                        <input type="hidden" name="id" value="{{ $mhs->id }}">
                                         <input type="text" name="nama" required="required" class="form-control" value="{{$mhs->nama}}">
                                     </div>
                                 </div>

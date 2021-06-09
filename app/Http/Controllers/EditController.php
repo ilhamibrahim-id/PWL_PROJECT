@@ -30,10 +30,10 @@ class EditController extends Controller
 }
 public function update(Request $request)
 {
-        DB::table('table_mahasiswa')->update([
-            'nama' => $request->nama,
-            'alamat' => $request->alamat,
-        ]);
+    DB::table('table_mahasiswa')->where('id',$request->id)->update([
+		'nama' => $request->nama,
+		'alamat' => $request->alamat,
+	]);
         return redirect('/main/table_mhs');
     }
 }
