@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\{main, login, daftar, adminlte, EUController, TambahController,HapusController,EditController};
+use App\Http\Controllers\{main, login, daftar, adminlte, DosenController, EUController, TambahController,HapusController,EditController};
 use App\Models\Admin;
 use Illuminate\Support\Facades\Route;
 
@@ -48,6 +48,11 @@ Route::middleware(['auth','cekrole:mahasiswa,admin'])->prefix('main')->group(fun
 
 Route::middleware(['auth','cekrole:dosen,admin'])->prefix('main')->group(function() {
     Route::get('detailkelas/{id}', [adminlte::class, 'detailkelas'])->name('main.detailkelas');
+});
+
+Route::middleware(['auth','cekrole:dosen'])->prefix('dosen')->group(function() {
+    Route::get('kelas', [DosenController::class, 'tabel_kelas'])->name('dosen.kelas');
+    Route::get('nilai', [DosenController::class, 'tabel_nilai'])->name('dosen.nilai');
 });
 
 Route::middleware(['auth','cekrole:mahasiswa,admin,dosen'])->prefix('main')->group(function() {

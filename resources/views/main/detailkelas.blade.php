@@ -42,10 +42,17 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            <form action="{{ route('main.table_kelas') }}" class="login-form">
-                                <button type="submit"
-                                    class="btn form-control btn-primary rounded submit px-3">Kembali</button>
-                            </form>
+                            @if (auth()->user()->role == 'admin')
+                                <form action="{{ route('main.table_kelas') }}" class="login-form">
+                                    <button type="submit"
+                                        class="btn form-control btn-primary rounded submit px-3">Kembali</button>
+                                </form>
+                            @elseif (auth()->user()->role == 'dosen')
+                                <form action="{{ route('dosen.kelas') }}" class="login-form">
+                                    <button type="submit"
+                                        class="btn form-control btn-primary rounded submit px-3">Kembali</button>
+                                </form>
+                            @endif
                         </div>
                     </div>
                 </div>

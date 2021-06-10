@@ -118,10 +118,10 @@ class TambahController extends Controller
     public function storepelajaran(Request $request)
     {
         $id = DosenMatakuliah::select('matakuliah_id')->where('kode_pengajar','=',$request->kode)->first();
-        //return $id;
+        //return $id->matakuliah_id;
         DB::table('table_kelas_matakuliah')->insert([
             'kelas_id' => $request->kelas,
-            'matakuliah_id' => $id->value,
+            'matakuliah_id' => $id->matakuliah_id,
             'kode' => $request->kode,
         ]);
         return redirect('/main/table_kelas_matakuliah');
