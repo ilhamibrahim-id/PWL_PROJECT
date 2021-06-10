@@ -63,5 +63,7 @@ Route::middleware(['auth','cekrole:mahasiswa,admin,dosen'])->prefix('main')->gro
     Route::post('/edituser/update',[EUController::class, 'update']);
     Route::get('form', [adminlte::class, 'form'])->name('main.form');
     Route::post('logout', [main::class, 'logout'])->name('logout');
+    Route::get('image', [adminlte::class, 'indeximg']);
+    Route::post('image', [adminlte::class, 'saveimg']);
 });
 

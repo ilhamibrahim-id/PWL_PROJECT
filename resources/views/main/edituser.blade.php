@@ -10,7 +10,7 @@
             <div class="card-body">
               <div class="author">
                 <a href="#">
-                  <img class="avatar border-gray" src="../assets/img/mike.jpg" alt="...">
+                  <img class="avatar border-gray" src="{{asset('storage/'.$data->foto)}}">
                   <h5 class="title">{{ $data->nama }}</h5>
                 </a>
                 <p class="description">
@@ -71,15 +71,9 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                          <div class="form-group">
-                          @if(auth()->user()->role == 'admin')
-                          <div class="form-group">
-                            <label for="image">foto</label>
-
-                            </div>
-
-                          @endif
-                          </div>
+                            <label for="image">Foto</label>
+                            <input type="file" class="form-control"
+                            name="image" value="{{$data->foto}}">
                         </div>
                     </div>
                     <div class="row">

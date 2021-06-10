@@ -94,6 +94,14 @@ class EUController extends Controller
     {
         if(auth()->user()->role == 'admin'){
             $data = Admin::all()->where('username','=',auth()->user()->username)->first();
+            if ($data->foto && file_exists(storage_path('app/public/' . $data->foto))) {
+                Storage::delete('public/' . $data->foto);
+            }
+
+            $image_name = $request->file('image')->store('images','public');
+            $data->foto = $image_name;
+
+            $data->save();
             DB::table('table_admin')->where('username','=',auth()->user()->username)->update([
                 'username' => $request->username,
                 'nama' => $request->nama,
