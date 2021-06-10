@@ -23,16 +23,25 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Masukan Password : </label>
-                                        <input type="password" name="password1" required="required" class="form-control">
+                                        <label>Password Lama : </label>
+                                        <input type="password" name="old_password" required="required" class="form-control">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Konfirmasi Password : </label>
-                                        <input type="password" name="password2" required="required" class="form-control">
+                                        <label>Password Baru: </label>
+                                        <input type="password" name="password" required="required" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Konfirmasi Password Baru: </label>
+                                        <input type="password" name="password_confirmation" required="required"
+                                            class="form-control">
                                     </div>
                                 </div>
                             </div>

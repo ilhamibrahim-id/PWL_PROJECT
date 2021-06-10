@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GantiPasswdRequest;
 use App\Models\Admin;
 use App\Models\Dosen;
 use App\Models\DosenMatakuliah;
@@ -225,24 +226,25 @@ class adminlte extends Controller
         }
         return view('main.form_editpassword', compact('data'));
     }
-    public function updatepassword(Request $request)
+    public function updatepassword(GantiPasswdRequest $request)
     {
-        if (auth()->user()->role == 'admin') {
-            if ($request->password != $request->password1) {
-                return back()->withErrors(['error' => 'Password Tidak Sesuai']);
-            } else if ($request->password = $request->password1) {
-                DB::table('table_admin')->where('username', '=', auth()->user()->username)->update([
-                    'password' => $request->password,
-                ]);
-                DB::table('users')->where('username', '=', auth()->user()->username)->update([
-                    'password' => $request->password,
-                ]);
+        //return $request;
+        //return Hash::check($request->password, Auth::user()->password, []);
+        if (Hash::check($request->old_password, Auth::user()->password, [])) {
+            if (auth()->user()->role == 'admin') {
+                Admin::where('username', '=', auth()->user()->username)->update(['password' => bcrypt($request['password'])]);
+            } else if (auth()->user()->role == 'dosen') {
+                Dosen::where('nip', '=', auth()->user()->username)->update(['password' => bcrypt($request['password'])]);
+            } else {
+                Mahasiswa::where('nim', '=', auth()->user()->username)->update(['password' => bcrypt($request['password'])]);
             }
-        } else if (auth()->user()->role == 'dosen') {
-            $data = Dosen::all()->where('nip', '=', auth()->user()->username)->first();
+            User::where('username', '=', auth()->user()->username)->update(['password' => bcrypt($request['password'])]);
         } else {
-            $data = Mahasiswa::all()->where('nim', '=', auth()->user()->username)->first();
+            return back()->withErrors(['error' => 'Password Lama Tidak Sesuai']);
         }
-        return view('main.formeditpassword', compact('data'));
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
     }
 }
