@@ -40,6 +40,10 @@ Route::middleware(['auth','cekrole:admin'])->prefix('main')->group(function() {
     Route::get('/matakuliah/hapus/{id}',[HapusController::class, 'hapusmk']);
     Route::get('/mahasiswa/edit/{id}',[EditController::class, 'edit']);
     Route::post('/mahasiswa/update',[EditController::class, 'update']);
+    Route::get('/matakuliah/edit/{id}',[EditController::class, 'editmk']);
+    Route::post('/matakuliah/update',[EditController::class, 'updatemk']);
+    Route::get('/dosen/edit/{id}',[EditController::class, 'editds']);
+    Route::post('/dosen/update',[EditController::class, 'updateds']);
 });
 
 Route::middleware(['auth','cekrole:mahasiswa,admin'])->prefix('main')->group(function() {
@@ -64,5 +68,7 @@ Route::middleware(['auth','cekrole:mahasiswa,admin,dosen'])->prefix('main')->gro
     Route::post('/edituser/update',[EUController::class, 'update']);
     Route::get('form', [adminlte::class, 'form'])->name('main.form');
     Route::post('logout', [main::class, 'logout'])->name('logout');
+    Route::get('image', [adminlte::class, 'indeximg']);
+    Route::post('image', [adminlte::class, 'saveimg']);
 });
 
