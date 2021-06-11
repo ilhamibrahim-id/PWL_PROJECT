@@ -46,11 +46,12 @@
                     @if (auth()->user()->role == 'admin' || auth()->user()->role == 'mahasiswa')
                         <li class="{{ request()->is('main/table_mhs') ? 'active' : '' }}">
                             <a href="/main/table_mhs">
-                                <i class="nc-icon nc-bank"></i>
                                 @if (auth()->user()->role == 'admin')
+                                <i class="nc-icon nc-circle-10"></i>
                                     <p> Mahasiswa</p>
                                 @endif
                                 @if (auth()->user()->role == 'mahasiswa')
+                                <i class="nc-icon nc-circle-10"></i>
                                     <p> Nilai</p>
                                 @endif
                             </a>
@@ -67,7 +68,7 @@
                     @if (auth()->user()->role == 'admin')
                         <li class="{{ request()->is('main/table_matakuliah') ? 'active' : '' }}">
                             <a href="/main/table_matakuliah">
-                                <i class="nc-icon nc-bank"></i>
+                                <i class="nc-icon nc-ruler-pencil"></i>
                                 <p> MataKuliah </p>
                             </a>
                         </li>
@@ -75,7 +76,7 @@
                     @if (auth()->user()->role == 'admin')
                         <li class="{{ request()->is('main/table_dosen') ? 'active' : '' }}">
                             <a href="/main/table_dosen">
-                                <i class="nc-icon nc-bank"></i>
+                                <i class="nc-icon nc-single-02"></i>
                                 <p> Dosen </p>
                             </a>
                         </li>
@@ -83,7 +84,7 @@
                     @if (auth()->user()->role == 'admin')
                         <li class="{{ request()->is('main/table_dosen_matakuliah') ? 'active' : '' }}">
                             <a href="/main/table_dosen_matakuliah">
-                                <i class="nc-icon nc-bank"></i>
+                                <i class="nc-icon nc-glasses-2"></i>
                                 <p> Pengajar </p>
                             </a>
                         </li>
@@ -91,7 +92,7 @@
                     @if (auth()->user()->role == 'admin')
                         <li class="{{ request()->is('main/table_kelas_matakuliah') ? 'active' : '' }}">
                             <a href="/main/table_kelas_matakuliah">
-                                <i class="nc-icon nc-bank"></i>
+                                <i class="nc-icon nc-laptop"></i>
                                 <p> Pelajaran </p>
                             </a>
                         </li>
