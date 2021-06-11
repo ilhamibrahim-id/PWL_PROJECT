@@ -39,8 +39,15 @@
                   {{ $kelas->render("pagination::bootstrap-4") }}
                 </div>
                 <div class="row">
-                    <button type="submit" class="btn form-control btn-primary rounded submit px-3">Simpan</button>
+                    <div class="update ml-auto mr-auto">
+                        <button type="submit" class="btn btn-primary btn-round" value="Simpan Data">Simpan
+                            Data</button>
+                    </div>
                 </div>
+                <form action="{{ url('main/detailkelas/',$id) }}" class="login-form">
+                    <button type="submit"
+                        class="btn form-control btn-primary rounded submit px-3">Kembali</button>
+                </form>
               </form>
             </div>
           </div>

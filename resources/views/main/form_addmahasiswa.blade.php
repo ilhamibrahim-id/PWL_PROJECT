@@ -67,6 +67,10 @@
                                 </div>
                             </div>
                         </form>
+                        <form action="{{ route('main.table_mhs') }}" class="login-form">
+                            <button type="submit"
+                                class="btn form-control btn-primary rounded submit px-3">Kembali</button>
+                        </form>
                     </div>
                 </div>
             </div>
