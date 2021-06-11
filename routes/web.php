@@ -44,6 +44,9 @@ Route::middleware(['auth','cekrole:admin'])->prefix('main')->group(function() {
     Route::post('/matakuliah/update',[EditController::class, 'updatemk']);
     Route::get('/dosen/edit/{id}',[EditController::class, 'editds']);
     Route::post('/dosen/update',[EditController::class, 'updateds']);
+    Route::get('/carimhs',[adminlte::class,'carimhs']);
+    Route::get('/carids',[adminlte::class,'carids']);
+    Route::get('/carimk',[adminlte::class,'carimk']);
 });
 
 Route::middleware(['auth','cekrole:mahasiswa,admin'])->prefix('main')->group(function() {

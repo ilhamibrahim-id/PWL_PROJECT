@@ -247,4 +247,52 @@ class adminlte extends Controller
         $request->session()->regenerateToken();
         return redirect('/');
     }
+    public function carimhs(Request $request)
+    {
+        if (auth()->user()->role == 'admin') {
+            $data = Admin::all()->where('username', '=', auth()->user()->username)->first();
+        } else if (auth()->user()->role == 'dosen') {
+            $data = Dosen::all()->where('nip', '=', auth()->user()->username)->first();
+        } else {
+            $data = Mahasiswa::all()->where('nim', '=', auth()->user()->username)->first();
+        }
+     $keyword = $request->keyword;
+ $kelas = Mahasiswa::with('kelas', 'matakuliah')
+ ->where('nim','like',"%".$keyword."%")
+ ->orWhere('nama','like',"%".$keyword."%")
+ ->orWhere('alamat','like',"%".$keyword."%")->paginate();
+ return view('main.table',compact('kelas','data'));
+    }
+    public function carids(Request $request)
+    {
+        if (auth()->user()->role == 'admin') {
+            $data = Admin::all()->where('username', '=', auth()->user()->username)->first();
+        } else if (auth()->user()->role == 'dosen') {
+            $data = Dosen::all()->where('nip', '=', auth()->user()->username)->first();
+        } else {
+            $data = Mahasiswa::all()->where('nim', '=', auth()->user()->username)->first();
+        }
+     $keyword = $request->keyword;
+ $kelas = DB::table('table_dosen')
+ ->where('nip','like',"%".$keyword."%")
+ ->orWhere('nama','like',"%".$keyword."%")
+ ->orWhere('alamat','like',"%".$keyword."%")->paginate(5);
+ return view('main.table',compact('kelas','data'));
+    }
+    public function carimk(Request $request)
+    {
+        if (auth()->user()->role == 'admin') {
+            $data = Admin::all()->where('username', '=', auth()->user()->username)->first();
+        } else if (auth()->user()->role == 'dosen') {
+            $data = Dosen::all()->where('nip', '=', auth()->user()->username)->first();
+        } else {
+            $data = Mahasiswa::all()->where('nim', '=', auth()->user()->username)->first();
+        }
+     $keyword = $request->keyword;
+ $kelas = DB::table('table_matakuliah')
+ ->where('kode_mk','like',"%".$keyword."%")
+ ->orWhere('nama_mk','like',"%".$keyword."%")
+ ->orWhere('sks','like',"%".$keyword."%")->paginate(5);
+ return view('main.table',compact('kelas','data'));
+    }
 }
