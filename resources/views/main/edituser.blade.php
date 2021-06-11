@@ -73,7 +73,7 @@
                         <div class="col-md-12">
                             <label for="image">Foto</label>
                             <input type="file" class="form-control"
-                            name="image" value="{{$data->foto}}">
+                            name="image">
                         </div>
                     </div>
                     <div class="row">

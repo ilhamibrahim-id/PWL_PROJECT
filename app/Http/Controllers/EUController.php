@@ -94,6 +94,13 @@ class EUController extends Controller
     {
         if(auth()->user()->role == 'admin'){
             $data = Admin::all()->where('username','=',auth()->user()->username)->first();
+            if ($request->file('image') == ''){
+                DB::table('table_admin')->where('username','=',auth()->user()->username)->update([
+                    'username' => $request->username,
+                    'nama' => $request->nama,
+                    'jabatan' => $request->jabatan,
+                ]);
+            } else{
             if ($data->foto && file_exists(storage_path('app/public/' . $data->foto))) {
                 Storage::delete('public/' . $data->foto);
             }
@@ -107,6 +114,7 @@ class EUController extends Controller
                 'nama' => $request->nama,
                 'jabatan' => $request->jabatan,
             ]);
+        }
         } else if(auth()->user()->role == 'dosen'){
             $data = Dosen::all()->where('nip','=',auth()->user()->username)->first();
         } else {
