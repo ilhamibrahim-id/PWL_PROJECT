@@ -10,7 +10,7 @@
             <div class="card-body">
               <div class="author">
                 <a href="#">
-                  <img class="avatar border-gray" src="{{asset('storage/'.$data->foto)}}">
+                    <img class="avatar border-gray" src="{{asset('storage/'.$data->foto)}}">
                   <h5 class="title">{{ $data->nama }}</h5>
                 </a>
                 <p class="description">
@@ -45,6 +45,12 @@
                         @if(auth()->user()->role == 'admin')
                           <label>Username</label>
                           <input type="text" class="form-control" placeholder="username" required="required" name="username" value="{{$data->username}}">
+                        @elseif(auth()->user()->role == 'dosen')
+                          <label>Nip </label>
+                          <input type="text" class="form-control" placeholder="Nip" required="required" name="nip" value="{{$data->nip}}">
+                        @elseif(auth()->user()->role == 'mahasiswa')
+                          <label>Nim</label>
+                          <input type="text" class="form-control" placeholder="Nim" required="required" name="nim" value="{{$data->nim}}">
                         @endif
                         </div>
                       </div>
@@ -52,7 +58,7 @@
                     <div class="row">
                         <div class="col-md-12">
                           <div class="form-group">
-                          @if(auth()->user()->role == 'admin')
+                          @if(auth()->user()->role == 'admin' || auth()->user()->role == 'dosen'|| auth()->user()->role == 'mahasiswa')
                             <label>Nama</label>
                             <input type="text" class="form-control" placeholder="username" required="required" name="nama" value="{{$data->nama}}">
                           @endif
@@ -65,6 +71,9 @@
                           @if(auth()->user()->role == 'admin')
                             <label>Jabatan</label>
                             <input type="text" class="form-control" placeholder="jabatan" required="required" name="jabatan" value="{{ $data->jabatan }}">
+                        @elseif(auth()->user()->role == 'dosen' || auth()->user()->role == 'mahasiswa')
+                            <label>Alamat</label>
+                            <input type="text" class="form-control" placeholder="Alamat" required="required" name="alamat" value="{{$data->alamat}}">
                           @endif
                           </div>
                         </div>

@@ -76,9 +76,9 @@ class EUController extends Controller
         if(auth()->user()->role == 'admin'){
             $data = Admin::all()->where('username','=',auth()->user()->username)->first();
         } else if(auth()->user()->role == 'dosen'){
-            $data = DB::table('dosen')->where('id',$id)->get();
+            $data = Dosen::all()->where('nip','=',auth()->user()->username)->first();
         } else {
-            $data = DB::table('mahasiswa')->where('id',$id)->get();
+            $data = Mahasiswa::all()->where('nim', '=', auth()->user()->username)->first();
         }
         return view('main.edituser',compact('data'));
     }
@@ -100,6 +100,9 @@ class EUController extends Controller
                     'nama' => $request->nama,
                     'jabatan' => $request->jabatan,
                 ]);
+                DB::table('users')->where('username','=',auth()->user()->username)->update([
+                    'username' => $request->username,
+                ]);
             } else{
             if ($data->foto && file_exists(storage_path('app/public/' . $data->foto))) {
                 Storage::delete('public/' . $data->foto);
@@ -114,11 +117,68 @@ class EUController extends Controller
                 'nama' => $request->nama,
                 'jabatan' => $request->jabatan,
             ]);
+            DB::table('users')->where('username','=',auth()->user()->username)->update([
+                'username' => $request->username,
+            ]);
         }
         } else if(auth()->user()->role == 'dosen'){
             $data = Dosen::all()->where('nip','=',auth()->user()->username)->first();
+            if ($request->file('image') == ''){
+                DB::table('table_dosen')->where('nip','=',auth()->user()->username)->update([
+                    'nip' => $request->nip,
+                    'nama' => $request->nama,
+                    'alamat' => $request->alamat,
+                ]);
+                DB::table('users')->where('username','=',auth()->user()->username)->update([
+                    'username' => $request->nip,
+                ]);
+            } else{
+            if ($data->foto && file_exists(storage_path('app/public/' . $data->foto))) {
+                Storage::delete('public/' . $data->foto);
+            }
+
+            $image_name = $request->file('image')->store('images','public');
+            $data->foto = $image_name;
+
+            $data->save();
+            DB::table('table_dosen')->where('nip','=',auth()->user()->username)->update([
+                'nip' => $request->nip,
+                'nama' => $request->nama,
+                'alamat' => $request->alamat,
+            ]);
+            DB::table('users')->where('username','=',auth()->user()->username)->update([
+                'username' => $request->nip,
+            ]);
+        }
         } else {
             $data = Mahasiswa::all()->where('nim','=',auth()->user()->username)->first();
+            if ($request->file('image') == ''){
+                DB::table('table_mahasiswa')->where('nim','=',auth()->user()->username)->update([
+                    'nim' => $request->nim,
+                    'nama' => $request->nama,
+                    'alamat' => $request->alamat,
+                ]);
+                DB::table('users')->where('username','=',auth()->user()->username)->update([
+                    'username' => $request->nim,
+                ]);
+            } else{
+            if ($data->foto && file_exists(storage_path('app/public/' . $data->foto))) {
+                Storage::delete('public/' . $data->foto);
+            }
+
+            $image_name = $request->file('image')->store('images','public');
+            $data->foto = $image_name;
+
+            $data->save();
+            DB::table('table_mahasiswa')->where('nim','=',auth()->user()->username)->update([
+                'nim' => $request->nim,
+                'nama' => $request->nama,
+                'alamat' => $request->alamat,
+            ]);
+            DB::table('users')->where('username','=',auth()->user()->username)->update([
+                'username' => $request->nim,
+            ]);
+        }
         }
         return view('main.sukses', compact('data'));
     }
