@@ -8,6 +8,7 @@ use App\Models\Dosen;
 use App\Models\DosenMatakuliah;
 use App\Models\Mahasiswa;
 use App\Models\User;
+use \PDF;
 use App\Models\Kelas;
 use App\Models\MataKuliah;
 use App\Models\Nilai;
@@ -294,5 +295,18 @@ class adminlte extends Controller
  ->orWhere('nama_mk','like',"%".$keyword."%")
  ->orWhere('sks','like',"%".$keyword."%")->paginate(5);
  return view('main.table',compact('kelas','data'));
+    }
+    public function cetak_kelas($id)
+    {
+        if (auth()->user()->role == 'admin') {
+            $data = Admin::all()->where('username', '=', auth()->user()->username)->first();
+        } else if (auth()->user()->role == 'dosen') {
+            $data = Dosen::all()->where('nip', '=', auth()->user()->username)->first();
+        } else {
+            $data = Mahasiswa::all()->where('nim', '=', auth()->user()->username)->first();
+        }
+        $kelas = Kelas::with('mahasiswa')->find($id);
+        $pdf = PDF::loadview('main.detailkelas_pdf' ,compact('data', 'kelas', 'id'));
+        return $pdf->stream();
     }
 }

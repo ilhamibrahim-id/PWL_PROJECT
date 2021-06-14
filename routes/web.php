@@ -17,6 +17,7 @@ Route::prefix('register')->group(function() {
 });
 
 Route::middleware(['auth','cekrole:admin'])->prefix('main')->group(function() {
+    Route::get('cetak_detailkelas/{id}', [adminlte::class, 'cetak_kelas'])->name('cetak_detailkelas');
     Route::get('table_kelas', [adminlte::class, 'table_kelas'])->name('main.table_kelas');
     Route::get('table_mhs', [adminlte::class, 'table_mhs'])->name('main.table_mhs');
     Route::get('edit_kelas/{id}', [adminlte::class, 'edit_kelas'])->name('main.edit_kelas');
