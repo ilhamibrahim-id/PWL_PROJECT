@@ -13,7 +13,7 @@ class TambahDsnRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class TambahDsnRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'nip' => ['required'],
+            'nama'     => ['required'],
+            'alamat'   => ['required'],
+            'password' => ['required', 'confirmed','min:5']
         ];
     }
 }

@@ -38,6 +38,8 @@ Route::middleware(['auth','cekrole:admin'])->prefix('main')->group(function() {
     Route::get('/mahasiswa/hapus/{id}',[HapusController::class, 'hapus']);
     Route::get('/dosen/hapus/{id}',[HapusController::class, 'hapusds']);
     Route::get('/matakuliah/hapus/{id}',[HapusController::class, 'hapusmk']);
+    Route::get('/pengajar/hapus/{id}',[HapusController::class, 'hapuspengajar']);
+    Route::get('/pelajaran/hapus/{id}/{kode}',[HapusController::class, 'hapuspelajaran']);
     Route::get('/mahasiswa/edit/{id}',[EditController::class, 'edit']);
     Route::post('/mahasiswa/update',[EditController::class, 'update']);
     Route::get('/matakuliah/edit/{id}',[EditController::class, 'editmk']);
@@ -60,6 +62,9 @@ Route::middleware(['auth','cekrole:dosen,admin'])->prefix('main')->group(functio
 Route::middleware(['auth','cekrole:dosen'])->prefix('dosen')->group(function() {
     Route::get('kelas', [DosenController::class, 'tabel_kelas'])->name('dosen.kelas');
     Route::get('nilai', [DosenController::class, 'tabel_nilai'])->name('dosen.nilai');
+    Route::get('detailkelas/{id}/{kode}', [DosenController::class, 'detailkelas'])->name('dosen.detailkelas');
+    Route::get('berinilai/{id}/{kode}/{kelas}', [DosenController::class, 'berinilai'])->name('dosen.berinilai');
+    Route::post('nilai/store', [DosenController::class, 'nilaistore'])->name('dosen.nilaistore');
 });
 
 Route::middleware(['auth','cekrole:mahasiswa,admin,dosen'])->prefix('main')->group(function() {

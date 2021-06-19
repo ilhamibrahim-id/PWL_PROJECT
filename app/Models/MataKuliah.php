@@ -21,7 +21,7 @@ class MataKuliah extends Model
     ];
 
     public function mahasiswa(){
-        return $this->belongsToMany(Mahasiswa::class,'table_nilai','matakuliah_id','mahasiswa_id')->withPivot('nilai','kode');
+        return $this->belongsToMany(Mahasiswa::class,'table_nilai','matakuliah_id','mahasiswa_id')->withPivot('nilai','kode','kelas_id');
     }
 
     public function dosen(){

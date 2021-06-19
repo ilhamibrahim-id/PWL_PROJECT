@@ -44,13 +44,13 @@
                         <div class="form-group">
                         @if(auth()->user()->role == 'admin')
                           <label>Username</label>
-                          <input type="text" class="form-control" placeholder="username" required="required" name="username" value="{{$data->username}}">
+                          <input type="text" class="form-control" placeholder="Username" required="required" name="username" value="{{$data->username}}">
                         @elseif(auth()->user()->role == 'dosen')
                           <label>Nip </label>
-                          <input type="text" class="form-control" placeholder="Nip" required="required" name="nip" value="{{$data->nip}}">
+                          <input type="text" class="form-control" placeholder="Nip" required="required" name="username" value="{{$data->nip}}">
                         @elseif(auth()->user()->role == 'mahasiswa')
                           <label>Nim</label>
-                          <input type="text" class="form-control" placeholder="Nim" required="required" name="nim" value="{{$data->nim}}">
+                          <input type="text" class="form-control" placeholder="Nim" required="required" name="username" value="{{$data->nim}}">
                         @endif
                         </div>
                       </div>

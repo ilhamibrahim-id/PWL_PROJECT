@@ -44,10 +44,10 @@
                             Data</button>
                     </div>
                 </div>
-                <form action="{{ url('main/detailkelas/',$id) }}" class="login-form">
-                    <button type="submit"
-                        class="btn form-control btn-primary rounded submit px-3">Kembali</button>
-                </form>
+              </form>
+              <form action="{{ url('main/detailkelas',$id) }}" class="login-form">
+                <button type="submit"
+                    class="btn form-control btn-primary rounded submit px-3">Kembali</button>
               </form>
             </div>
           </div>

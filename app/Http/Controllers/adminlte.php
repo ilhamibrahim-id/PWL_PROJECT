@@ -9,6 +9,7 @@ use App\Models\DosenMatakuliah;
 use App\Models\Mahasiswa;
 use App\Models\User;
 use App\Models\Kelas;
+use App\Models\KelasMatakuliah;
 use App\Models\MataKuliah;
 use App\Models\Nilai;
 use Illuminate\Http\Request;
@@ -22,12 +23,13 @@ class adminlte extends Controller
 {
     public function index()
     {
+        $data = null;
         if (auth()->user()->role == 'admin') {
-            $data = Admin::all()->where('username', '=', auth()->user()->username)->first();
+            $data = Admin::where('username', '=', auth()->user()->username)->first();
         } else if (auth()->user()->role == 'dosen') {
-            $data = Dosen::all()->where('nip', '=', auth()->user()->username)->first();
+            $data = Dosen::where('nip', '=', auth()->user()->username)->first();
         } else {
-            $data = Mahasiswa::all()->where('nim', '=', auth()->user()->username)->first();
+            $data = Mahasiswa::where('nim', '=', auth()->user()->username)->first();
         }
         $mhs = DB::table('table_mahasiswa')->count();
         $ds = DB::table('table_dosen')->count();
@@ -66,13 +68,7 @@ class adminlte extends Controller
 
     public function table_matakuliah()
     {
-        if (auth()->user()->role == 'admin') {
-            $data = Admin::all()->where('username', '=', auth()->user()->username)->first();
-        } else if (auth()->user()->role == 'dosen') {
-            $data = Dosen::all()->where('nip', '=', auth()->user()->username)->first();
-        } else {
-            $data = Mahasiswa::all()->where('nim', '=', auth()->user()->username)->first();
-        }
+        $data = Admin::all()->where('username', '=', auth()->user()->username)->first();
         $kelas = DB::table('table_matakuliah')->paginate(5);
         //return $kelas;
         return view('main.table', compact('data', 'kelas'));
@@ -80,13 +76,7 @@ class adminlte extends Controller
 
     public function table_dosen()
     {
-        if (auth()->user()->role == 'admin') {
-            $data = Admin::all()->where('username', '=', auth()->user()->username)->first();
-        } else if (auth()->user()->role == 'dosen') {
-            $data = Dosen::all()->where('nip', '=', auth()->user()->username)->first();
-        } else {
-            $data = Mahasiswa::all()->where('nim', '=', auth()->user()->username)->first();
-        }
+        $data = Admin::all()->where('username', '=', auth()->user()->username)->first();
         $kelas = DB::table('table_dosen')->paginate(5);
         //return $kelas;
         return view('main.table', compact('data', 'kelas'));
@@ -94,34 +84,22 @@ class adminlte extends Controller
 
     public function table_dosen_matakuliah()
     {
-        if (auth()->user()->role == 'admin') {
-            $data = Admin::all()->where('username', '=', auth()->user()->username)->first();
-        } else if (auth()->user()->role == 'dosen') {
-            $data = Dosen::all()->where('nip', '=', auth()->user()->username)->first();
-        } else {
-            $data = Mahasiswa::all()->where('nim', '=', auth()->user()->username)->first();
-        }
+        $data = Admin::all()->where('username', '=', auth()->user()->username)->first();
         $kelas = DB::table('table_dosen_matakuliah')->paginate(5);
         $dosen = Dosen::all();
         $mk = MataKuliah::all();
-        //return $kelas;
-        return view('main.table', compact('data', 'kelas', 'dosen', 'mk'));
+        //return $data;
+        return view('main.table_relasi', compact('data', 'kelas', 'dosen', 'mk'));
     }
 
     public function table_kelas_matakuliah()
     {
-        if (auth()->user()->role == 'admin') {
-            $data = Admin::all()->where('username', '=', auth()->user()->username)->first();
-        } else if (auth()->user()->role == 'dosen') {
-            $data = Dosen::all()->where('nip', '=', auth()->user()->username)->first();
-        } else {
-            $data = Mahasiswa::all()->where('nim', '=', auth()->user()->username)->first();
-        }
+        $data = Admin::all()->where('username', '=', auth()->user()->username)->first();
         $kelas = DB::table('table_kelas_matakuliah')->paginate(5);
         $kls = Kelas::all();
         $mk = MataKuliah::with('dosen')->get();
         //return $mk;
-        return view('main.table', compact('data', 'kelas', 'kls', 'mk'));
+        return view('main.table_relasi', compact('data', 'kelas', 'kls', 'mk'));
     }
 
     public function detailnilai($id)
@@ -160,13 +138,7 @@ class adminlte extends Controller
 
     public function edit_kelas($id)
     {
-        if (auth()->user()->role == 'admin') {
-            $data = Admin::all()->where('username', '=', auth()->user()->username)->first();
-        } else if (auth()->user()->role == 'dosen') {
-            $data = Dosen::all()->where('nip', '=', auth()->user()->username)->first();
-        } else {
-            $data = Mahasiswa::all()->where('nim', '=', auth()->user()->username)->first();
-        }
+        $data = Admin::all()->where('username', '=', auth()->user()->username)->first();
         $kelas = Mahasiswa::with('kelas')->where('kelas_id', '=', $id)->orWhere('kelas_id', '=', null)->paginate(5);
         $kelas1 = Mahasiswa::count('id');
         //return $kelas;
@@ -176,31 +148,113 @@ class adminlte extends Controller
     public function update_kelas(Request $request, $id)
     {
         $data = $request->all();
-        $mahasiswa = Mahasiswa::select('nim')->where('kelas_id', '=', $id)->get();
+        $mahasiswa = Mahasiswa::where('kelas_id', '=', $id)->orWhere('kelas_id', '=', null)->get();
+        $matakuliah = KelasMatakuliah::select('matakuliah_id', 'kode')->where('kelas_id', '=', $id)->get();
+        $nilai = Nilai::all();
         //return $mahasiswa;
+        //return $matakuliah;
         //return $data;
+        //return $id;
         if (!$request->has('checkbox')) {
             foreach ($mahasiswa as $mhs) {
                 Mahasiswa::where('nim', '=', $mhs->nim)->update(['kelas_id' => null]);
-                $mhsid = Mahasiswa::select('id')->where('nim', '=', $mhs->nim)->first();
-                DB::table('table_nilai')->where('mahasiswa_id', '=', $mhsid)->delete();
+                DB::table('table_nilai')->where('mahasiswa_id', '=', $mhs->id)->delete();
             }
         } else {
+            $x = 0;
             foreach ($mahasiswa as $mhs) {
-                foreach ($data['checkbox'] as $item => $value) {
-                    if ($mhs->nim == $data['checkbox'][$item]) {
-                        Mahasiswa::where('nim', '=', $data['checkbox'][$item])->update(['kelas_id' => $id]);
-                    } else {
+                if ($data['checkbox'] == null){
+                    if ($mhs->kelas_id == $id) {
                         Mahasiswa::where('nim', '=', $mhs->nim)->update(['kelas_id' => null]);
                         $mhsid = Mahasiswa::select('id')->where('nim', '=', $mhs->nim)->first();
-                        DB::table('table_nilai')->where('mahasiswa_id', '=', $mhsid)->delete();
+                        DB::table('table_nilai')->where('mahasiswa_id', '=', $mhsid->id)->delete();
+                    }
+                }
+                foreach ($data['checkbox'] as $item => $value) {
+                    if ($mhs->nim != $data['checkbox'][$item]) {
+                        if ($mhs->kelas_id == $id) {
+                            Mahasiswa::where('nim', '=', $mhs->nim)->update(['kelas_id' => null]);
+                            $mhsid = Mahasiswa::select('id')->where('nim', '=', $mhs->nim)->first();
+                            DB::table('table_nilai')->where('mahasiswa_id', '=', $mhsid->id)->delete();
+                            break;
+                        }
+                    } else {
+                        if ($mhs->kelas_id == null) {
+                            Mahasiswa::where('nim', '=', $data['checkbox'][$item])->update(['kelas_id' => $id]);
+                            foreach ($matakuliah as $mk) {
+                                Nilai::create([
+                                    'mahasiswa_id' => $mhs->id,
+                                    'matakuliah_id' => $mk->matakuliah_id,
+                                    'kelas_id' => $id,
+                                    'kode' => $mk->kode,
+                                    'nilai' => '0',
+                                ]);
+                            }
+                        }
+                        unset($data['checkbox'][$x]);
+                        // return $data['checkbox'];
+                        $x ++;
+                        break;
                     }
                 }
             }
-            foreach ($data['checkbox'] as $item => $value) {
-                Mahasiswa::where('nim', '=', $data['checkbox'][$item])->update(['kelas_id' => $id]);
-            }
         }
+
+        // if (!$request->has('checkbox')) {
+        //     foreach ($mahasiswa as $mhs) {
+        //         Mahasiswa::where('nim', '=', $mhs->nim)->update(['kelas_id' => null]);
+        //         $mhsid = Mahasiswa::select('id')->where('nim', '=', $mhs->nim)->first();
+        //         DB::table('table_nilai')->where('mahasiswa_id', '=', $mhsid->id)->delete();
+        //     }
+        // } else {
+        //     foreach ($mahasiswa as $mhs) {
+        //         foreach ($data['checkbox'] as $item => $value) {
+        //             if ($mhs->nim != $data['checkbox'][$item]) {
+        //                 Mahasiswa::where('nim', '=', $data['checkbox'][$item])->update(['kelas_id' => $id]);
+        //             } else {
+        //                 Mahasiswa::where('nim', '=', $mhs->nim)->update(['kelas_id' => null]);
+        //                 $mhsid = Mahasiswa::select('id')->where('nim', '=', $mhs->nim)->first();
+        //                 DB::table('table_nilai')->where('mahasiswa_id', '=', $mhsid->id)->delete();
+        //             }
+        //         }
+        //     }
+        //     foreach ($data['checkbox'] as $item => $value) {
+        //         Mahasiswa::where('nim', '=', $data['checkbox'][$item])->update(['kelas_id' => $id]);
+        //         $mhsid = Mahasiswa::select('id', 'kelas_id')->where('nim', '=', $data['checkbox'][$item])->first();
+        //         // foreach ($nilai as $nl) {
+        //         //     foreach ($matakuliah as $mk) {
+        //         //         // $ada = 0;
+        //         //         if ($nl->mahasiswa_id == $mhsid->id && $nl->matakuliah_id == $mk->matakuliah_id) {
+        //         //             // $ada += 1;
+        //         //         } else {
+        //         //             Nilai::create([
+        //         //                 'mahasiswa_id' => $mhsid->id,
+        //         //                 'matakuliah_id' => $mk->matakuliah_id,
+        //         //                 'kelas_id' => $mhsid->kelas_id,
+        //         //                 'kode' => $mk->kode,
+        //         //                 'nilai' => '0',
+        //         //             ]);
+        //         //         }
+        //         //     }
+        //         //     // if ($ada == 0) {
+        //         //     //     Nilai::create([
+        //         //     //         'mahasiswa_id' => $mhsid->id,
+        //         //     //         'matakuliah_id' => $mk->matakuliah_id,
+        //         //     //         'kelas_id' => $mhsid->kelas_id,
+        //         //     //         'kode' => $mk->kode,
+        //         //     //         'nilai' => '0',
+        //         //     //     ]);
+        //         //     // }
+        //         //     // Nilai::create([
+        //         //     //     'mahasiswa_id' => $mhsid->id,
+        //         //     //     'matakuliah_id' => $mk->matakuliah_id,
+        //         //     //     'kelas_id' => $mhsid->kelas_id,
+        //         //     //     'kode' => $mk->kode,
+        //         //     //     'nilai' => '0',
+        //         //     // ]);
+        //         // }
+        //     }
+        // }
         return redirect('main/table_kelas');
     }
 
@@ -253,31 +307,37 @@ class adminlte extends Controller
             $data = Admin::all()->where('username', '=', auth()->user()->username)->first();
         } else if (auth()->user()->role == 'dosen') {
             $data = Dosen::all()->where('nip', '=', auth()->user()->username)->first();
-        } else {
-            $data = Mahasiswa::all()->where('nim', '=', auth()->user()->username)->first();
         }
-     $keyword = $request->keyword;
- $kelas = Mahasiswa::with('kelas', 'matakuliah')
- ->where('nim','like',"%".$keyword."%")
- ->orWhere('nama','like',"%".$keyword."%")
- ->orWhere('alamat','like',"%".$keyword."%")->paginate();
- return view('main.table',compact('kelas','data'));
+        $keyword = $request->keyword;
+        return $request;
+        $kls = Kelas::select('id')->where('nama_kelas', 'like', "%" . $keyword . "%");
+        return $kls;
+        //return $kelas;
+        if ($kls->id == null) {
+
+            $kelas = Mahasiswa::with('kelas', 'matakuliah')
+                ->where('kelas_id', 'like', "%" . $kls->id . "%")->paginate(5);
+        } else {
+            $kelas = Mahasiswa::with('kelas', 'matakuliah')
+                ->where('nim', 'like', "%" . $keyword . "%")
+                ->orWhere('nama', 'like', "%" . $keyword . "%")
+                ->orWhere('alamat', 'like', "%" . $keyword . "%")->paginate(5);
+        }
+        return view('main.table', compact('kelas', 'data'));
     }
     public function carids(Request $request)
     {
         if (auth()->user()->role == 'admin') {
             $data = Admin::all()->where('username', '=', auth()->user()->username)->first();
-        } else if (auth()->user()->role == 'dosen') {
-            $data = Dosen::all()->where('nip', '=', auth()->user()->username)->first();
-        } else {
+        } else if (auth()->user()->role == 'mahasiswa') {
             $data = Mahasiswa::all()->where('nim', '=', auth()->user()->username)->first();
         }
-     $keyword = $request->keyword;
- $kelas = DB::table('table_dosen')
- ->where('nip','like',"%".$keyword."%")
- ->orWhere('nama','like',"%".$keyword."%")
- ->orWhere('alamat','like',"%".$keyword."%")->paginate(5);
- return view('main.table',compact('kelas','data'));
+        $keyword = $request->keyword;
+        $kelas = DB::table('table_dosen')
+            ->where('nip', 'like', "%" . $keyword . "%")
+            ->orWhere('nama', 'like', "%" . $keyword . "%")
+            ->orWhere('alamat', 'like', "%" . $keyword . "%")->paginate(5);
+        return view('main.table', compact('kelas', 'data'));
     }
     public function carimk(Request $request)
     {
@@ -288,11 +348,11 @@ class adminlte extends Controller
         } else {
             $data = Mahasiswa::all()->where('nim', '=', auth()->user()->username)->first();
         }
-     $keyword = $request->keyword;
- $kelas = DB::table('table_matakuliah')
- ->where('kode_mk','like',"%".$keyword."%")
- ->orWhere('nama_mk','like',"%".$keyword."%")
- ->orWhere('sks','like',"%".$keyword."%")->paginate(5);
- return view('main.table',compact('kelas','data'));
+        $keyword = $request->keyword;
+        $kelas = DB::table('table_matakuliah')
+            ->where('kode_mk', 'like', "%" . $keyword . "%")
+            ->orWhere('nama_mk', 'like', "%" . $keyword . "%")
+            ->orWhere('sks', 'like', "%" . $keyword . "%")->paginate(5);
+        return view('main.table', compact('kelas', 'data'));
     }
 }

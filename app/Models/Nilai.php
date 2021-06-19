@@ -14,6 +14,7 @@ class Nilai extends Model
         'mahasiswa_id',
         'matakuliah_id',
         'nilai',
-        'kode'
+        'kode',
+        'kelas_id'
     ];
 }

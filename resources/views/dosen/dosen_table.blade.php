@@ -62,57 +62,63 @@
                                 <tbody>
                                     @if (request()->is('dosen/kelas'))
                                         @foreach ($kelas as $kelasa)
-                                            @foreach ($kelasa->kelas as $kls)
-                                                @if ($kls->pivot->kode == $kode->kode_pengajar)
-                                                    <tr>
-                                                        <td>
-                                                            {{ $kls->nama_kelas }}
-                                                        </td>
-                                                        <td>
-                                                            {{ $kls->mahasiswa_count }}
-                                                        </td>
-                                                        <td>
-                                                            {{ $kelasa->nama_mk }}
-                                                        </td>
-                                                        <td>
-                                                            <form action="{{ route('main.detailkelas', $kls->id) }}"
-                                                                class="login-form">
-                                                                <button type="submit"
-                                                                    class="btn form-control btn-primary rounded submit px-3">Detail
-                                                                    Kelas</button>
-                                                            </form>
-                                                        </td>
-                                                    </tr>
-                                                @endif
+                                            @foreach ($kode as $kd)
+                                                @foreach ($kelasa->kelas as $kls)
+                                                    @if ($kls->pivot->kode == $kd->kode_pengajar)
+                                                        <tr>
+                                                            <td>
+                                                                {{ $kls->nama_kelas }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $kls->mahasiswa_count }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $kelasa->nama_mk }}
+                                                            </td>
+                                                            <td>
+                                                                <form action="{{ route('main.detailkelas', $kls->id) }}"
+                                                                    class="login-form">
+                                                                    <button type="submit"
+                                                                        class="btn form-control btn-primary rounded submit px-3">Detail
+                                                                        Kelas</button>
+                                                                </form>
+                                                            </td>
+                                                        </tr>
+                                                    @endif
+                                                @endforeach
                                             @endforeach
                                         @endforeach
                                     @elseif ((request()->is('dosen/nilai')))
                                         @foreach ($kelas as $kelasa)
-                                            <tr>
-                                                <td>
-                                                    Nilai Terendah
-                                                </td>
-                                                <td>
-                                                    Nilai Terendah
-                                                </td>
-                                                <td>
-                                                    Nilai Terendah
-                                                </td>
-                                                <td>
-                                                    Nilai Terendah
-                                                </td>
-                                                <td>
-                                                    Nilai Terendah
-                                                </td>
-                                                <td>
-                                                    <form action="{{ route('main.detailkelas', $kelasa->id) }}"
-                                                        class="login-form">
-                                                        <button type="submit"
-                                                            class="btn form-control btn-primary rounded submit px-3">Detail
-                                                            Kelas</button>
-                                                    </form>
-                                                </td>
-                                            </tr>
+                                            @foreach ($kode as $kd)
+                                                @foreach ($kelasa->kelas as $kls)
+                                                    @if ($kls->pivot->kode == $kd->kode_pengajar)
+                                                        <tr>
+                                                            <td>
+                                                                {{ $kls->nama_kelas }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $kelasa->nama_mk }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $nilai->where('kode','=',$kd->kode_pengajar)->where('kelas_id','=',$kls->id)->max('nilai') }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $nilai->where('kode','=',$kd->kode_pengajar)->where('kelas_id','=',$kls->id)->min('nilai') }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $nilai->where('kode','=',$kd->kode_pengajar)->where('kelas_id','=',$kls->id)->avg('nilai') }}
+                                                            </td>
+                                                            <td>
+                                                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                                                    <button type="submit"
+                                                                        class="btn form-control btn-primary rounded submit px-3"
+                                                                        onclick="location.href='/dosen/detailkelas/{{ $kls->id }}/{{ $kd->kode_pengajar }}';">Beri Nilai</button>
+                                                            </td>
+                                                        </tr>
+                                                    @endif
+                                                @endforeach
+                                            @endforeach
                                         @endforeach
                                     @endif
                                 </tbody>

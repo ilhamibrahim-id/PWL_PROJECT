@@ -39,6 +39,14 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
+                                        <label>Konfirmasi Password : </label>
+                                        <input type="password" name="password_confirmation" required="required" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
                                         <label>Masukan Nama Dosen : </label>
                                         <input type="text" name="nama" required="required" class="form-control">
                                     </div>

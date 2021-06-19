@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TambahDsnRequest;
 use App\Models\Admin;
 use App\Models\Dosen;
 use App\Models\DosenMatakuliah;
@@ -10,6 +11,7 @@ use App\Models\Kelas;
 use App\Models\MataKuliah;
 use App\Models\User;
 use App\Http\Requests\TambahMhsRequest;
+use App\Models\Nilai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -24,8 +26,8 @@ class TambahController extends Controller
     public function store(TambahMhsRequest $request)
     {
         //return $request;
-        $data = User::where('username','=', $request['nim'])->first();
-        if ($data !== null){
+        $data = User::where('username', '=', $request['nim'])->first();
+        if ($data !== null) {
             return back()->withErrors(['error' => 'Data Sudah Terdaftar']);
         } else {
             DB::table('table_mahasiswa')->insert([
@@ -51,18 +53,18 @@ class TambahController extends Controller
     }
     public function storemk(Request $request)
     {
-        $data = MataKuliah::where('kode_mk','=', $request['kode_mk'])->first();
-        if ($data !== null){
+        $data = MataKuliah::where('kode_mk', '=', $request['kode_mk'])->first();
+        if ($data !== null) {
             return back()->withErrors(['error' => 'Data Sudah Terdaftar']);
         } else {
-        DB::table('table_matakuliah')->insert([
-            'kode_mk' => $request->kode_mk,
-            'nama_mk' => $request->nama_mk,
-            'sks' => $request->sks,
-        ]);
-        return redirect('/main/table_matakuliah');
+            DB::table('table_matakuliah')->insert([
+                'kode_mk' => $request->kode_mk,
+                'nama_mk' => $request->nama_mk,
+                'sks' => $request->sks,
+            ]);
+            return redirect('/main/table_matakuliah');
+        }
     }
-}
 
     public function tambahds()
     {
@@ -70,10 +72,10 @@ class TambahController extends Controller
         $kelas = Dosen::all();
         return view('main.form_adddosen', compact('data', 'kelas'));
     }
-    public function storeds(Request $request)
+    public function storeds(TambahDsnRequest $request)
     {
-        $data = User::where('username','=', $request['nip'])->first();
-        if ($data !== null){
+        $data = User::where('username', '=', $request['nip'])->first();
+        if ($data !== null) {
             return back()->withErrors(['error' => 'Data Sudah Terdaftar']);
         } else {
             DB::table('table_dosen')->insert([
@@ -117,13 +119,24 @@ class TambahController extends Controller
     }
     public function storepelajaran(Request $request)
     {
-        $id = DosenMatakuliah::select('matakuliah_id')->where('kode_pengajar','=',$request->kode)->first();
+        $id = DosenMatakuliah::select('matakuliah_id')->where('kode_pengajar', '=', $request->kode)->first();
         //return $id->matakuliah_id;
         DB::table('table_kelas_matakuliah')->insert([
             'kelas_id' => $request->kelas,
             'matakuliah_id' => $id->matakuliah_id,
             'kode' => $request->kode,
         ]);
+        $mahasiswa = Mahasiswa::where('kelas_id', '=',$request->kelas)->get();
+        foreach ($mahasiswa as $mhs) {
+            $mhsid = Mahasiswa::select('id','kelas_id')->where('nim', '=', $mhs->nim)->first();
+            Nilai::create([
+                'mahasiswa_id' => $mhsid->id,
+                'matakuliah_id' => $id->matakuliah_id,
+                'kelas_id' => $mhsid->kelas_id,
+                'kode' => $request->kode,
+                'nilai' => '0',
+            ]);
+        }
         return redirect('/main/table_kelas_matakuliah');
     }
 }
