@@ -10,7 +10,12 @@
                     @if (auth()->user()->role == 'admin')
                         <button class="btn" data-toggle="modal" data-target="#form"
                             onclick="location.href='{{ route('main.edit_kelas', $id) }}';"><i
-                                class="nc-icon nc-simple-add"> Tambah Data</i></button>
+                                class="nc-icon nc-simple-add">Tambah Data</i></button>
+                                <form action="{{ route('cetak_detailkelas' , $kelas->id) }}"
+                                    class="login-form">
+                                    <button type="submit"
+                                        class="btn form-control btn-primary rounded submit px-3">Cetak Pdf</button>
+                                </form>
                     @endif
                     <div class="card-body">
                         <div class="table-responsive">
