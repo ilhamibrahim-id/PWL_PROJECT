@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\{main, login, daftar, adminlte, DosenController, EUController, TambahController,HapusController,EditController};
+use App\Http\Controllers\{main, login, daftar, adminlte, DosenController, EUController, TambahController,HapusController,EditController,MahasiswaController};
 use App\Models\Admin;
 use Illuminate\Support\Facades\Route;
 
@@ -50,10 +50,13 @@ Route::middleware(['auth','cekrole:admin'])->prefix('main')->group(function() {
     Route::get('/carimhs',[adminlte::class,'carimhs']);
     Route::get('/carids',[adminlte::class,'carids']);
     Route::get('/carimk',[adminlte::class,'carimk']);
+    Route::get('detailnilai/{id}', [adminlte::class, 'detailnilai'])->name('main.detailnilai');
 });
 
-Route::middleware(['auth','cekrole:mahasiswa,admin'])->prefix('main')->group(function() {
-    Route::get('detailnilai/{id}', [adminlte::class, 'detailnilai'])->name('main.detailnilai');
+Route::middleware(['auth','cekrole:mahasiswa'])->prefix('mahasiswa')->group(function() {
+    Route::get('kelas', [MahasiswaController::class, 'tabel_kelas'])->name('mahasiswa.kelas');
+    Route::get('nilai', [MahasiswaController::class, 'tabel_nilai'])->name('mahasiswa.nilai');
+    Route::get('matakuliah', [MahasiswaController::class, 'tabel_matakuliah'])->name('mahasiswa.matakuliah');
 });
 
 Route::middleware(['auth','cekrole:dosen,admin'])->prefix('main')->group(function() {

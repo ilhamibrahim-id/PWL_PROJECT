@@ -2,22 +2,23 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href="{{asset('assets/img/apple-icon.png')}}">
-  <link rel="icon" type="image/png" href="{{asset('assets/img/favicon.png')}}">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>
-    Sistem Informasi Nilai Mahasiswa Polinema
-  </title>
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-  <!--     Fonts and icons     -->
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-  <!-- CSS Files -->
-  <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" />
-  <link href="{{asset('assets/css/paper-dashboard.css?v=2.0.1')}}" rel="stylesheet" />
-  <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="{{asset('assets/demo/demo.css')}}" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/apple-icon.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>
+        Sistem Informasi Nilai Mahasiswa Polinema
+    </title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+        name='viewport' />
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <!-- CSS Files -->
+    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/paper-dashboard.css?v=2.0.1') }}" rel="stylesheet" />
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="{{ asset('assets/demo/demo.css') }}" rel="stylesheet" />
 </head>
 
 <body style="background-image: url('{{ url('images/polinema.png') }}');">
@@ -43,17 +44,12 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    @if (auth()->user()->role == 'admin' || auth()->user()->role == 'mahasiswa')
-                        <li class="{{ request()->is('main/table_mhs') || request()->is('main/mahasiswa/tambah') ? 'active' : ''}} ">
+                    @if (auth()->user()->role == 'admin')
+                        <li
+                            class="{{ request()->is('main/table_mhs') || request()->is('main/mahasiswa/tambah') ? 'active' : '' }} ">
                             <a href="/main/table_mhs">
-                                @if (auth()->user()->role == 'admin')
                                 <i class="nc-icon nc-circle-10"></i>
-                                    <p> Mahasiswa</p>
-                                @endif
-                                @if (auth()->user()->role == 'mahasiswa')
-                                <i class="nc-icon nc-circle-10"></i>
-                                    <p> Nilai</p>
-                                @endif
+                                <p> Mahasiswa</p>
                             </a>
                         </li>
                     @endif
@@ -66,7 +62,8 @@
                         </li>
                     @endif
                     @if (auth()->user()->role == 'admin')
-                        <li class="{{ request()->is('main/table_matakuliah') || request()->is('main/matakuliah/tambah') ? 'active' : '' }}">
+                        <li
+                            class="{{ request()->is('main/table_matakuliah') || request()->is('main/matakuliah/tambah') ? 'active' : '' }}">
                             <a href="/main/table_matakuliah">
                                 <i class="nc-icon nc-ruler-pencil"></i>
                                 <p> MataKuliah </p>
@@ -74,7 +71,8 @@
                         </li>
                     @endif
                     @if (auth()->user()->role == 'admin')
-                        <li class="{{ request()->is('main/table_dosen') || request()->is('main/dosen/tambah') ? 'active' : '' }}">
+                        <li
+                            class="{{ request()->is('main/table_dosen') || request()->is('main/dosen/tambah') ? 'active' : '' }}">
                             <a href="/main/table_dosen">
                                 <i class="nc-icon nc-single-02"></i>
                                 <p> Dosen </p>
@@ -82,7 +80,8 @@
                         </li>
                     @endif
                     @if (auth()->user()->role == 'admin')
-                        <li class="{{ request()->is('main/table_dosen_matakuliah') || request()->is('main/dosen_mk/tambah') ? 'active' : '' }}">
+                        <li
+                            class="{{ request()->is('main/table_dosen_matakuliah') || request()->is('main/dosen_mk/tambah') ? 'active' : '' }}">
                             <a href="/main/table_dosen_matakuliah">
                                 <i class="nc-icon nc-glasses-2"></i>
                                 <p> Pengajar </p>
@@ -90,7 +89,8 @@
                         </li>
                     @endif
                     @if (auth()->user()->role == 'admin')
-                        <li class="{{ request()->is('main/table_kelas_matakuliah') || request()->is('main/pelajaran/tambah') ? 'active' : '' }}">
+                        <li
+                            class="{{ request()->is('main/table_kelas_matakuliah') || request()->is('main/pelajaran/tambah') ? 'active' : '' }}">
                             <a href="/main/table_kelas_matakuliah">
                                 <i class="nc-icon nc-laptop"></i>
                                 <p> Pelajaran </p>
@@ -108,6 +108,30 @@
                     @if (auth()->user()->role == 'dosen')
                         <li class="{{ request()->is('dosen/nilai') ? 'active' : '' }}">
                             <a href="/dosen/nilai">
+                                <i class="nc-icon nc-bank"></i>
+                                <p> Nilai </p>
+                            </a>
+                        </li>
+                    @endif
+                    @if (auth()->user()->role == 'mahasiswa')
+                        <li class="{{ request()->is('mahasiswa/kelas') ? 'active' : '' }}">
+                            <a href="/mahasiswa/kelas">
+                                <i class="nc-icon nc-bank"></i>
+                                <p> Kelas </p>
+                            </a>
+                        </li>
+                    @endif
+                    @if (auth()->user()->role == 'mahasiswa')
+                        <li class="{{ request()->is('mahasiswa/matakuliah') ? 'active' : '' }}">
+                            <a href="/mahasiswa/matakuliah">
+                                <i class="nc-icon nc-bank"></i>
+                                <p> Mata Kuliah </p>
+                            </a>
+                        </li>
+                    @endif
+                    @if (auth()->user()->role == 'mahasiswa')
+                        <li class="{{ request()->is('mahasiswa/nilai') ? 'active' : '' }}">
+                            <a href="/mahasiswa/nilai">
                                 <i class="nc-icon nc-bank"></i>
                                 <p> Nilai </p>
                             </a>

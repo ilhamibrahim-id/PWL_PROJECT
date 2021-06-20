@@ -105,13 +105,7 @@ class adminlte extends Controller
 
     public function detailnilai($id)
     {
-        if (auth()->user()->role == 'admin') {
-            $data = Admin::all()->where('username', '=', auth()->user()->username)->first();
-        } else if (auth()->user()->role == 'dosen') {
-            $data = Dosen::all()->where('nip', '=', auth()->user()->username)->first();
-        } else {
-            $data = Mahasiswa::all()->where('nim', '=', auth()->user()->username)->first();
-        }
+        $data = Admin::all()->where('username', '=', auth()->user()->username)->first();
         //$kelas = Mahasiswa::with('kelas','matakuliah')->find($id);
         $kelas = Mahasiswa::with('kelas', 'matakuliah.dosen')->find($id);
         //$kelas = Mahasiswa::with('kelas')->with(['matakuliah.dosen' => function($q){
@@ -200,62 +194,6 @@ class adminlte extends Controller
                 }
             }
         }
-
-        // if (!$request->has('checkbox')) {
-        //     foreach ($mahasiswa as $mhs) {
-        //         Mahasiswa::where('nim', '=', $mhs->nim)->update(['kelas_id' => null]);
-        //         $mhsid = Mahasiswa::select('id')->where('nim', '=', $mhs->nim)->first();
-        //         DB::table('table_nilai')->where('mahasiswa_id', '=', $mhsid->id)->delete();
-        //     }
-        // } else {
-        //     foreach ($mahasiswa as $mhs) {
-        //         foreach ($data['checkbox'] as $item => $value) {
-        //             if ($mhs->nim != $data['checkbox'][$item]) {
-        //                 Mahasiswa::where('nim', '=', $data['checkbox'][$item])->update(['kelas_id' => $id]);
-        //             } else {
-        //                 Mahasiswa::where('nim', '=', $mhs->nim)->update(['kelas_id' => null]);
-        //                 $mhsid = Mahasiswa::select('id')->where('nim', '=', $mhs->nim)->first();
-        //                 DB::table('table_nilai')->where('mahasiswa_id', '=', $mhsid->id)->delete();
-        //             }
-        //         }
-        //     }
-        //     foreach ($data['checkbox'] as $item => $value) {
-        //         Mahasiswa::where('nim', '=', $data['checkbox'][$item])->update(['kelas_id' => $id]);
-        //         $mhsid = Mahasiswa::select('id', 'kelas_id')->where('nim', '=', $data['checkbox'][$item])->first();
-        //         // foreach ($nilai as $nl) {
-        //         //     foreach ($matakuliah as $mk) {
-        //         //         // $ada = 0;
-        //         //         if ($nl->mahasiswa_id == $mhsid->id && $nl->matakuliah_id == $mk->matakuliah_id) {
-        //         //             // $ada += 1;
-        //         //         } else {
-        //         //             Nilai::create([
-        //         //                 'mahasiswa_id' => $mhsid->id,
-        //         //                 'matakuliah_id' => $mk->matakuliah_id,
-        //         //                 'kelas_id' => $mhsid->kelas_id,
-        //         //                 'kode' => $mk->kode,
-        //         //                 'nilai' => '0',
-        //         //             ]);
-        //         //         }
-        //         //     }
-        //         //     // if ($ada == 0) {
-        //         //     //     Nilai::create([
-        //         //     //         'mahasiswa_id' => $mhsid->id,
-        //         //     //         'matakuliah_id' => $mk->matakuliah_id,
-        //         //     //         'kelas_id' => $mhsid->kelas_id,
-        //         //     //         'kode' => $mk->kode,
-        //         //     //         'nilai' => '0',
-        //         //     //     ]);
-        //         //     // }
-        //         //     // Nilai::create([
-        //         //     //     'mahasiswa_id' => $mhsid->id,
-        //         //     //     'matakuliah_id' => $mk->matakuliah_id,
-        //         //     //     'kelas_id' => $mhsid->kelas_id,
-        //         //     //     'kode' => $mk->kode,
-        //         //     //     'nilai' => '0',
-        //         //     // ]);
-        //         // }
-        //     }
-        // }
         return redirect('main/table_kelas');
     }
 
