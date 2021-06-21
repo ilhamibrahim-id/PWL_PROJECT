@@ -99,7 +99,7 @@ class adminlte extends Controller
         $kelas = DB::table('table_kelas_matakuliah')->paginate(5);
         $kls = Kelas::all();
         $mk = MataKuliah::with('dosen')->get();
-        //return $mk;
+        //return $data;
         return view('main.table_relasi', compact('data', 'kelas', 'kls', 'mk'));
     }
 
@@ -248,11 +248,11 @@ class adminlte extends Controller
             $data = Dosen::all()->where('nip', '=', auth()->user()->username)->first();
         }
         $keyword = $request->keyword;
-        return $request;
-        $kls = Kelas::select('id')->where('nama_kelas', 'like', "%" . $keyword . "%");
-        return $kls;
+        //return $request;
+        $kls = Kelas::select('id')->where('nama_kelas', 'like', "%" . $keyword . "%")->first();
+        //return $kls;
         //return $kelas;
-        if ($kls->id == null) {
+        if ($kls != null) {
 
             $kelas = Mahasiswa::with('kelas', 'matakuliah')
                 ->where('kelas_id', 'like', "%" . $kls->id . "%")->paginate(5);

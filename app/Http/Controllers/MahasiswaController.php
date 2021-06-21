@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kelas;
 use App\Models\Mahasiswa;
 use App\Models\Nilai;
+use \PDF;
 use Illuminate\Http\Request;
 
 class MahasiswaController extends Controller
@@ -37,5 +38,17 @@ class MahasiswaController extends Controller
         //return $kelas;
         // return $nilai;
         return view('mahasiswa.mahasiswa_table', compact('data', 'kelas'));
+    }
+
+    public function cetak()
+    {
+        $data = Mahasiswa::all()->where('nim', '=', auth()->user()->username)->first();
+        //return $data;
+        $kelas = Mahasiswa::with('kelas','matakuliah')->where('nim', '=', auth()->user()->username)->get();
+        //return $kelas;
+        $nilai = Nilai::where('mahasiswa_id',$data->id);
+        //return $nilai;
+        $pdf = PDF::loadview('mahasiswa.cetak_nilai', compact('data', 'kelas','nilai'));
+        return $pdf->stream();
     }
 }

@@ -25,12 +25,19 @@
     <div class="wrapper ">
         <div class="sidebar" data-color="white" data-active-color="danger">
             <div class="logo">
-                <a href="https://www.creative-tim.com" class="simple-text logo-mini">
-                    <div class="logo-image-small">
-                        <img src="{{ asset('assets/img/logo-small.png') }}">
-                    </div>
-                    <!-- <p>CT</p> -->
-                </a>
+                @if ($data->foto == null)
+                    <a class="simple-text logo-mini">
+                        <div class="logo-image-small">
+                            <img src="{{ asset('assets/img/logo-small.png') }}">
+                        </div>
+                    </a>
+                @else
+                    <a class="simple-text logo-mini">
+                        <div class="logo-image-small">
+                            <img src="{{ asset('storage/' . $data->foto) }}">
+                        </div>
+                    </a>
+                @endif
                 <a href="/main/edituser" class="simple-text logo-normal">
                     HI,{{ $data->nama }}<br /> Login By
                     {{ auth()->user()->role }}

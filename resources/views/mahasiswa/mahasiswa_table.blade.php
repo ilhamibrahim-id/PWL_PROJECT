@@ -15,14 +15,11 @@
                             @endif
                         </h4>
                     </div>
-                    <div class="input-group rounded">
-                        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-                            aria-describedby="search-addon" />
-                        <span class="input-group-text border-0" id="search-addon">
-                            <i class="nc-icon nc-zoom-split"></i>
-                        </span>
-                    </div>
                     @if (request()->is('mahasiswa/nilai'))
+                        <form action="{{ route('cetak') }}" class="login-form">
+                            <button type="submit" class="btn form-control btn-primary rounded submit px-3">Cetak
+                                Pdf</button>
+                        </form>
                         Rata-Rata = {{ $nilai->avg('nilai') }}
                     @endif
                     <div class="card-body">
@@ -85,21 +82,21 @@
                                         @foreach ($kelas as $kelasa)
                                             @foreach ($kelasa->matakuliah as $mk)
                                                 @foreach ($mk->dosen as $dsn)
-                                                @if ($mk->pivot->kode == $dsn->pivot->kode_pengajar)
-                                                    <tr>
-                                                        <td>
-                                                            {{ $kelasa->kelas->nama_kelas }}
-                                                        </td>
-                                                        <td>
-                                                            {{ $mk->nama_mk }}
-                                                        </td>
-                                                        <td>
-                                                            {{ $dsn->nama }}
-                                                        </td>
-                                                        <td>
-                                                            {{ $mk->sks }}
-                                                        </td>
-                                                    </tr>
+                                                    @if ($mk->pivot->kode == $dsn->pivot->kode_pengajar)
+                                                        <tr>
+                                                            <td>
+                                                                {{ $kelasa->kelas->nama_kelas }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $mk->nama_mk }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $dsn->nama }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $mk->sks }}
+                                                            </td>
+                                                        </tr>
                                                     @endif
                                                 @endforeach
                                             @endforeach
