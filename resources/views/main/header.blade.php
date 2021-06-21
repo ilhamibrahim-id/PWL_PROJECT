@@ -25,11 +25,13 @@
     <div class="wrapper ">
         <div class="sidebar" data-color="white" data-active-color="danger">
             <div class="logo">
-                @if ($data->foto == null)
-                            <img src="{{ asset('assets/img/logo-small.png') }}">
-                @else
-                            <img src="{{ asset('storage/' . $data->foto) }}">
-                @endif
+                <center>
+                    @if ($data->foto == null)
+                        <img src="{{ asset('assets/img/logo-small.png') }}" width="150px">
+                    @else
+                        <img src="{{ asset('storage/' . $data->foto) }}" width="150px">
+                    @endif
+                </center>
                 <a href="/main/edituser" class="simple-text logo-normal">
                     HI,{{ $data->nama }}<br /> Login By
                     {{ auth()->user()->role }}
