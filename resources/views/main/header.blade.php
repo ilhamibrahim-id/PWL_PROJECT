@@ -26,17 +26,9 @@
         <div class="sidebar" data-color="white" data-active-color="danger">
             <div class="logo">
                 @if ($data->foto == null)
-                    <a class="simple-text logo-mini">
-                        <div class="logo-image-small">
                             <img src="{{ asset('assets/img/logo-small.png') }}">
-                        </div>
-                    </a>
                 @else
-                    <a class="simple-text logo-mini">
-                        <div class="logo-image-small">
                             <img src="{{ asset('storage/' . $data->foto) }}">
-                        </div>
-                    </a>
                 @endif
                 <a href="/main/edituser" class="simple-text logo-normal">
                     HI,{{ $data->nama }}<br /> Login By
@@ -115,7 +107,7 @@
                     @if (auth()->user()->role == 'dosen')
                         <li class="{{ request()->is('dosen/nilai') ? 'active' : '' }}">
                             <a href="/dosen/nilai">
-                                <i class="nc-icon nc-bank"></i>
+                                <i class="nc-icon nc-globe-2"></i>
                                 <p> Nilai </p>
                             </a>
                         </li>
@@ -131,7 +123,7 @@
                     @if (auth()->user()->role == 'mahasiswa')
                         <li class="{{ request()->is('mahasiswa/matakuliah') ? 'active' : '' }}">
                             <a href="/mahasiswa/matakuliah">
-                                <i class="nc-icon nc-bank"></i>
+                                <i class="nc-icon nc-ruler-pencil"></i>
                                 <p> Mata Kuliah </p>
                             </a>
                         </li>
@@ -139,7 +131,7 @@
                     @if (auth()->user()->role == 'mahasiswa')
                         <li class="{{ request()->is('mahasiswa/nilai') ? 'active' : '' }}">
                             <a href="/mahasiswa/nilai">
-                                <i class="nc-icon nc-bank"></i>
+                                <i class="nc-icon nc-globe-2"></i>
                                 <p> Nilai </p>
                             </a>
                         </li>
