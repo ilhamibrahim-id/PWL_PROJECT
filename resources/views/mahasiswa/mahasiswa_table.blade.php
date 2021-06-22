@@ -86,7 +86,9 @@
                                     @endif
                                 </tbody>
                             </table>
+                            @if (request()->is('mahasiswa/nilai'))
                             Rata-Rata = {{ $nilai->avg('nilai') }}
+                            @endif
                             {{ $kelas->render('pagination::bootstrap-4') ?? '' }}
                         </div>
                     </div>
