@@ -48,7 +48,7 @@ class adminlte extends Controller
         } else {
             $data = Mahasiswa::all()->where('nim', '=', auth()->user()->username)->first();
         }
-        $kelas = Kelas::withCount('mahasiswa')->paginate(5);
+        $kelas = Kelas::withCount('mahasiswa')->paginate(10);
         //return $kelas;
         return view('main.table', compact('data', 'kelas'));
     }
@@ -62,7 +62,7 @@ class adminlte extends Controller
         } else {
             $data = Mahasiswa::all()->where('nim', '=', auth()->user()->username)->first();
         }
-        $kelas = Mahasiswa::with('kelas', 'matakuliah')->paginate(5);
+        $kelas = Mahasiswa::with('kelas', 'matakuliah')->paginate(10);
         //return $kelas;
         return view('main.table', compact('data', 'kelas'));
     }
@@ -70,7 +70,7 @@ class adminlte extends Controller
     public function table_matakuliah()
     {
         $data = Admin::all()->where('username', '=', auth()->user()->username)->first();
-        $kelas = DB::table('table_matakuliah')->paginate(5);
+        $kelas = DB::table('table_matakuliah')->paginate(10);
         //return $kelas;
         return view('main.table', compact('data', 'kelas'));
     }
@@ -78,7 +78,7 @@ class adminlte extends Controller
     public function table_dosen()
     {
         $data = Admin::all()->where('username', '=', auth()->user()->username)->first();
-        $kelas = DB::table('table_dosen')->paginate(5);
+        $kelas = DB::table('table_dosen')->paginate(10);
         //return $kelas;
         return view('main.table', compact('data', 'kelas'));
     }
@@ -86,7 +86,7 @@ class adminlte extends Controller
     public function table_dosen_matakuliah()
     {
         $data = Admin::all()->where('username', '=', auth()->user()->username)->first();
-        $kelas = DB::table('table_dosen_matakuliah')->paginate(5);
+        $kelas = DB::table('table_dosen_matakuliah')->paginate(10);
         $dosen = Dosen::all();
         $mk = MataKuliah::all();
         //return $data;
@@ -96,7 +96,7 @@ class adminlte extends Controller
     public function table_kelas_matakuliah()
     {
         $data = Admin::all()->where('username', '=', auth()->user()->username)->first();
-        $kelas = DB::table('table_kelas_matakuliah')->paginate(5);
+        $kelas = DB::table('table_kelas_matakuliah')->paginate(10);
         $kls = Kelas::all();
         $mk = MataKuliah::with('dosen')->get();
         //return $data;
@@ -134,7 +134,7 @@ class adminlte extends Controller
     public function edit_kelas($id)
     {
         $data = Admin::all()->where('username', '=', auth()->user()->username)->first();
-        $kelas = Mahasiswa::with('kelas')->where('kelas_id', '=', $id)->orWhere('kelas_id', '=', null)->paginate(5);
+        $kelas = Mahasiswa::with('kelas')->where('kelas_id', '=', $id)->orWhere('kelas_id', '=', null)->paginate(10);
         $kelas1 = Mahasiswa::count('id');
         //return $kelas;
         return view('main.editkelasmhs', compact('data', 'kelas', 'id', 'kelas1'));
@@ -255,12 +255,12 @@ class adminlte extends Controller
         if ($kls != null) {
 
             $kelas = Mahasiswa::with('kelas', 'matakuliah')
-                ->where('kelas_id', 'like', "%" . $kls->id . "%")->paginate(5);
+                ->where('kelas_id', 'like', "%" . $kls->id . "%")->paginate(10);
         } else {
             $kelas = Mahasiswa::with('kelas', 'matakuliah')
                 ->where('nim', 'like', "%" . $keyword . "%")
                 ->orWhere('nama', 'like', "%" . $keyword . "%")
-                ->orWhere('alamat', 'like', "%" . $keyword . "%")->paginate(5);
+                ->orWhere('alamat', 'like', "%" . $keyword . "%")->paginate(10);
         }
         return view('main.table', compact('kelas', 'data'));
     }
@@ -275,7 +275,7 @@ class adminlte extends Controller
         $kelas = DB::table('table_dosen')
             ->where('nip', 'like', "%" . $keyword . "%")
             ->orWhere('nama', 'like', "%" . $keyword . "%")
-            ->orWhere('alamat', 'like', "%" . $keyword . "%")->paginate(5);
+            ->orWhere('alamat', 'like', "%" . $keyword . "%")->paginate(10);
         return view('main.table', compact('kelas', 'data'));
     }
     public function carimk(Request $request)
@@ -291,7 +291,7 @@ class adminlte extends Controller
         $kelas = DB::table('table_matakuliah')
             ->where('kode_mk', 'like', "%" . $keyword . "%")
             ->orWhere('nama_mk', 'like', "%" . $keyword . "%")
-            ->orWhere('sks', 'like', "%" . $keyword . "%")->paginate(5);
+            ->orWhere('sks', 'like', "%" . $keyword . "%")->paginate(10);
         return view('main.table', compact('kelas', 'data'));
     }
     public function cetak_kelas($id)

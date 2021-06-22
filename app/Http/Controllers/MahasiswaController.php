@@ -14,7 +14,7 @@ class MahasiswaController extends Controller
     {
         $data = Mahasiswa::all()->where('nim', '=', auth()->user()->username)->first();
         //return $data;
-        $kelas = Mahasiswa::with('kelas')->where('kelas_id',$data->kelas_id)->orderBy('nama','ASC')->paginate(5);
+        $kelas = Mahasiswa::with('kelas')->where('kelas_id',$data->kelas_id)->orderBy('nama','ASC')->paginate(10);
         //return $kelas;
         return view('mahasiswa.mahasiswa_table', compact('data', 'kelas'));
     }
@@ -23,7 +23,7 @@ class MahasiswaController extends Controller
     {
         $data = Mahasiswa::all()->where('nim', '=', auth()->user()->username)->first();
         //return $data;
-        $kelas = Mahasiswa::with('kelas','matakuliah')->where('nim', '=', auth()->user()->username)->paginate(5);
+        $kelas = Mahasiswa::with('kelas','matakuliah')->where('nim', '=', auth()->user()->username)->paginate(10);
         //return $kelas;
         $nilai = Nilai::where('mahasiswa_id',$data->id);
         //return $nilai;

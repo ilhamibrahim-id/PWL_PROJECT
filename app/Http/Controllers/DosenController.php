@@ -20,7 +20,7 @@ class DosenController extends Controller
         $kode = DosenMatakuliah::select('kode_pengajar')->where('dosen_id','=',$id->id)->get();
         $kelas = MataKuliah::with(['kelas'=> function($q){
             $q->withCount('mahasiswa')->get();
-        }])->paginate(5);
+        }])->paginate(10);
         //return $kode;
         return view('dosen.dosen_table', compact('data', 'kelas', 'kode'));
     }
@@ -32,7 +32,7 @@ class DosenController extends Controller
         $id = $data->id;
         //return $kelas;
         $kode = DosenMatakuliah::select('kode_pengajar')->where('dosen_id','=',$id)->get();
-        $kelas = MataKuliah::with('kelas','kelas.mahasiswa')->paginate(5);
+        $kelas = MataKuliah::with('kelas','kelas.mahasiswa')->paginate(10);
         //return $kelas;
         // $mahasiswa = Mahasiswa::with('kelas','matakuliah')->where('kelas_id','=',$kelas->kelas_id)->get();
         // // return $mahasiswa;
