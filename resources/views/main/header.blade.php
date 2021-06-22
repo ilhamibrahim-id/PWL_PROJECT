@@ -123,14 +123,6 @@
                         </li>
                     @endif
                     @if (auth()->user()->role == 'mahasiswa')
-                        <li class="{{ request()->is('mahasiswa/matakuliah') ? 'active' : '' }}">
-                            <a href="/mahasiswa/matakuliah">
-                                <i class="nc-icon nc-ruler-pencil"></i>
-                                <p> Mata Kuliah </p>
-                            </a>
-                        </li>
-                    @endif
-                    @if (auth()->user()->role == 'mahasiswa')
                         <li class="{{ request()->is('mahasiswa/nilai') ? 'active' : '' }}">
                             <a href="/mahasiswa/nilai">
                                 <i class="nc-icon nc-globe-2"></i>

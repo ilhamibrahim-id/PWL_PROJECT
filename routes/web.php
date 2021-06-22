@@ -56,7 +56,6 @@ Route::middleware(['auth','cekrole:admin'])->prefix('main')->group(function() {
 Route::middleware(['auth','cekrole:mahasiswa'])->prefix('mahasiswa')->group(function() {
     Route::get('kelas', [MahasiswaController::class, 'tabel_kelas'])->name('mahasiswa.kelas');
     Route::get('nilai', [MahasiswaController::class, 'tabel_nilai'])->name('mahasiswa.nilai');
-    Route::get('matakuliah', [MahasiswaController::class, 'tabel_matakuliah'])->name('mahasiswa.matakuliah');
     Route::get('cetak', [MahasiswaController::class, 'cetak'])->name('cetak');
 });
 

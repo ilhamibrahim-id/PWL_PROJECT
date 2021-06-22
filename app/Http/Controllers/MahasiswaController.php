@@ -30,16 +30,6 @@ class MahasiswaController extends Controller
         return view('mahasiswa.mahasiswa_table', compact('data', 'kelas','nilai'));
     }
 
-    public function tabel_matakuliah()
-    {
-        $data = Mahasiswa::all()->where('nim', '=', auth()->user()->username)->first();
-        //return $data;
-        $kelas = Mahasiswa::with('kelas','matakuliah.dosen')->where('nim', '=', auth()->user()->username)->paginate(5);
-        //return $kelas;
-        // return $nilai;
-        return view('mahasiswa.mahasiswa_table', compact('data', 'kelas'));
-    }
-
     public function cetak()
     {
         $data = Mahasiswa::all()->where('nim', '=', auth()->user()->username)->first();

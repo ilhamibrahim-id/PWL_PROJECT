@@ -17,35 +17,45 @@
     </style>
     <center>
         <h5>Transkrip Nilai {{ $data->nama }}</h5>
-          <br>  Rata-Rata = {{ $nilai->avg('nilai') }}
+        <br>Nim {{$data->nim}}
+        @foreach ($kelas as $kelasa)
+        <br> Kelas {{$kelasa->kelas->nama_kelas }}
+        @endforeach
     </center>
 
     <table class='table table-bordered'>
         <thead>
             <tr>
-                <th>Kelas</th>
                 <th>Matakuliah</th>
+                <th>Dosen</th>
+                <th>Sks</th>
                 <th>Nilai</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($kelas as $kelasa)
                 @foreach ($kelasa->matakuliah as $mk)
+                @foreach ($mk->dosen as $dsn)
                     <tr>
                         <td>
-                            {{ $kelasa->kelas->nama_kelas }}
+                            {{ $mk->nama_mk }}
                         </td>
                         <td>
-                            {{ $mk->nama_mk }}
+                            {{ $dsn->nama }}
+                        </td>
+                        <td>
+                            {{ $mk->sks }}
                         </td>
                         <td>
                             {{ $mk->pivot->nilai }}
                         </td>
                     </tr>
+                    @endforeach
                 @endforeach
             @endforeach
         </tbody>
     </table>
+    <br>  Rata-Rata = {{ $nilai->avg('nilai') }}
 
 </body>
 
