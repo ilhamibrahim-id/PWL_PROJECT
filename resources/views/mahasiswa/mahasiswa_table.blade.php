@@ -34,17 +34,17 @@
                                             Mata kuliah
                                         @endif
                                     </th>
-                                    @if ((request()->is('mahasiswa/nilai')))
-                                    <th>
+                                    @if (request()->is('mahasiswa/nilai'))
+                                        <th>
                                             Dosen
-                                    </th>
-                                    <th>
+                                        </th>
+                                        <th>
                                             SKS
-                                    </th>
-                                    <th>
-                                        Nilai
+                                        </th>
+                                        <th>
+                                            Nilai
 
-                                    </th>
+                                        </th>
                                     @endif
                                 </thead>
                                 <tbody>
@@ -60,35 +60,37 @@
                                             </tr>
                                         @endforeach
                                     @elseif ((request()->is('mahasiswa/nilai')))
+                                        @if (request()->is('mahasiswa/nilai'))
+                                            Rata-Rata = {{ $nilai->avg('nilai') }}
+                                        @endif
                                         @foreach ($kelas as $kelasa)
                                             @foreach ($kelasa->matakuliah as $mk)
-                                            @foreach ($mk->dosen as $dsn)
-                                                <tr>
-                                                    <td>
-                                                        {{ $kelasa->kelas->nama_kelas }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $mk->nama_mk }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $dsn->nama }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $mk->sks }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $mk->pivot->nilai }}
-                                                    </td>
-                                                </tr>
+                                                @foreach ($mk->dosen as $dsn)
+                                                    @if ($mk->pivot->kode == $dsn->pivot->kode_pengajar)
+                                                        <tr>
+                                                            <td>
+                                                                {{ $kelasa->kelas->nama_kelas }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $mk->nama_mk }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $dsn->nama }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $mk->sks }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $mk->pivot->nilai }}
+                                                            </td>
+                                                        </tr>
+                                                    @endif
                                                 @endforeach
                                             @endforeach
                                         @endforeach
                                     @endif
                                 </tbody>
                             </table>
-                            @if (request()->is('mahasiswa/nilai'))
-                            Rata-Rata = {{ $nilai->avg('nilai') }}
-                            @endif
                             {{ $kelas->render('pagination::bootstrap-4') ?? '' }}
                         </div>
                     </div>

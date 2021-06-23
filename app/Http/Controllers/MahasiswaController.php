@@ -23,7 +23,7 @@ class MahasiswaController extends Controller
     {
         $data = Mahasiswa::all()->where('nim', '=', auth()->user()->username)->first();
         //return $data;
-        $kelas = Mahasiswa::with('kelas','matakuliah')->where('nim', '=', auth()->user()->username)->paginate(10);
+        $kelas = Mahasiswa::with('kelas','matakuliah.dosen')->where('nim', '=', auth()->user()->username)->paginate(10);
         //return $kelas;
         $nilai = Nilai::where('mahasiswa_id',$data->id);
         //return $nilai;
