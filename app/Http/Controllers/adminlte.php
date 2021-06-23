@@ -32,11 +32,27 @@ class adminlte extends Controller
         } else {
             $data = Mahasiswa::where('nim', '=', auth()->user()->username)->first();
         }
-        $mhs = DB::table('table_mahasiswa')->count();
-        $ds = DB::table('table_dosen')->count();
-        $mk = DB::table('table_matakuliah')->count();
-        $k = DB::table('table_kelas')->count();
-        return view('main.dashboard', compact('data', 'mhs', 'ds', 'mk', 'k'));
+        if (auth()->user()->role == 'dosen') {
+            $kode = DosenMatakuliah::where('dosen_id', '=', $data->id)->get();
+            $dsn = Dosen::with('matakuliah.kelas.mahasiswa')->where('nip', '=', auth()->user()->username)->first();
+            $mk = $dsn->matakuliah->count();
+            $k = 0;
+            $mhs = 0;
+            foreach ($dsn->matakuliah as $mak) {
+                $k += $mak->kelas->count();
+                foreach ($mak->kelas as $kls) {
+                    $mhs += $kls->mahasiswa->count();
+                }
+            }
+            //return $mhs;
+            return view('dosen.dashboard', compact('data', 'mhs', 'mk', 'k'));
+        } else {
+            $mhs = DB::table('table_mahasiswa')->count();
+            $ds = DB::table('table_dosen')->count();
+            $mk = DB::table('table_matakuliah')->count();
+            $k = DB::table('table_kelas')->count();
+            return view('main.dashboard', compact('data', 'mhs', 'ds', 'mk', 'k'));
+        }
     }
 
     public function table_kelas()
@@ -158,7 +174,7 @@ class adminlte extends Controller
         } else {
             $x = 0;
             foreach ($mahasiswa as $mhs) {
-                if ($data['checkbox'] == null){
+                if ($data['checkbox'] == null) {
                     if ($mhs->kelas_id == $id) {
                         Mahasiswa::where('nim', '=', $mhs->nim)->update(['kelas_id' => null]);
                         $mhsid = Mahasiswa::select('id')->where('nim', '=', $mhs->nim)->first();
@@ -188,7 +204,7 @@ class adminlte extends Controller
                         }
                         unset($data['checkbox'][$x]);
                         // return $data['checkbox'];
-                        $x ++;
+                        $x++;
                         break;
                     }
                 }
@@ -208,6 +224,7 @@ class adminlte extends Controller
         }
         return view('main.form', compact('data'));
     }
+
     public function password()
     {
         if (auth()->user()->role == 'admin') {
@@ -219,6 +236,7 @@ class adminlte extends Controller
         }
         return view('main.form_editpassword', compact('data'));
     }
+
     public function updatepassword(GantiPasswdRequest $request)
     {
         //return $request;
@@ -240,6 +258,7 @@ class adminlte extends Controller
         $request->session()->regenerateToken();
         return redirect('/');
     }
+
     public function carimhs(Request $request)
     {
         if (auth()->user()->role == 'admin') {
@@ -264,6 +283,7 @@ class adminlte extends Controller
         }
         return view('main.table', compact('kelas', 'data'));
     }
+
     public function carids(Request $request)
     {
         if (auth()->user()->role == 'admin') {
@@ -278,6 +298,7 @@ class adminlte extends Controller
             ->orWhere('alamat', 'like', "%" . $keyword . "%")->paginate(10);
         return view('main.table', compact('kelas', 'data'));
     }
+
     public function carimk(Request $request)
     {
         if (auth()->user()->role == 'admin') {
@@ -294,6 +315,7 @@ class adminlte extends Controller
             ->orWhere('sks', 'like', "%" . $keyword . "%")->paginate(10);
         return view('main.table', compact('kelas', 'data'));
     }
+
     public function cetak_kelas($id)
     {
         if (auth()->user()->role == 'admin') {
@@ -304,7 +326,7 @@ class adminlte extends Controller
             $data = Mahasiswa::all()->where('nim', '=', auth()->user()->username)->first();
         }
         $kelas = Kelas::with('mahasiswa')->find($id);
-        $pdf = PDF::loadview('main.detailkelas_pdf' ,compact('data', 'kelas', 'id'));
+        $pdf = PDF::loadview('main.detailkelas_pdf', compact('data', 'kelas', 'id'));
         return $pdf->stream();
     }
 }

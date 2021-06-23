@@ -20,6 +20,12 @@
                             <i class="nc-icon nc-zoom-split"></i>
                         </span>
                     </div>
+                    @if (request()->is('dosen/nilai'))
+                        <form action="{{ route('dosen_cetak') }}" class="login-form">
+                            <button type="submit" class="btn form-control btn-primary rounded submit px-3">Cetak
+                                Pdf</button>
+                        </form>
+                    @endif
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table">
@@ -101,19 +107,20 @@
                                                                 {{ $kelasa->nama_mk }}
                                                             </td>
                                                             <td>
-                                                                {{ $nilai->where('kode','=',$kd->kode_pengajar)->where('kelas_id','=',$kls->id)->max('nilai') }}
+                                                                {{ $nilai->where('kode', '=', $kd->kode_pengajar)->where('kelas_id', '=', $kls->id)->max('nilai') }}
                                                             </td>
                                                             <td>
-                                                                {{ $nilai->where('kode','=',$kd->kode_pengajar)->where('kelas_id','=',$kls->id)->min('nilai') }}
+                                                                {{ $nilai->where('kode', '=', $kd->kode_pengajar)->where('kelas_id', '=', $kls->id)->min('nilai') }}
                                                             </td>
                                                             <td>
-                                                                {{ $nilai->where('kode','=',$kd->kode_pengajar)->where('kelas_id','=',$kls->id)->avg('nilai') }}
+                                                                {{ $nilai->where('kode', '=', $kd->kode_pengajar)->where('kelas_id', '=', $kls->id)->avg('nilai') }}
                                                             </td>
                                                             <td>
                                                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                                                    <button type="submit"
-                                                                        class="btn form-control btn-primary rounded submit px-3"
-                                                                        onclick="location.href='/dosen/detailkelas/{{ $kls->id }}/{{ $kd->kode_pengajar }}';">Beri Nilai</button>
+                                                                <button type="submit"
+                                                                    class="btn form-control btn-primary rounded submit px-3"
+                                                                    onclick="location.href='/dosen/detailkelas/{{ $kls->id }}/{{ $kd->kode_pengajar }}';">Beri
+                                                                    Nilai</button>
                                                             </td>
                                                         </tr>
                                                     @endif

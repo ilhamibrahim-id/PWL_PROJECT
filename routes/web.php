@@ -68,7 +68,8 @@ Route::middleware(['auth','cekrole:dosen'])->prefix('dosen')->group(function() {
     Route::get('nilai', [DosenController::class, 'tabel_nilai'])->name('dosen.nilai');
     Route::get('detailkelas/{id}/{kode}', [DosenController::class, 'detailkelas'])->name('dosen.detailkelas');
     Route::get('berinilai/{id}/{kode}/{kelas}', [DosenController::class, 'berinilai'])->name('dosen.berinilai');
-    Route::post('nilai/store', [DosenController::class, 'nilaistore'])->name('dosen.nilaistore');
+    Route::post('nilai/faststore', [DosenController::class, 'faststore'])->name('dosen.faststore');
+    Route::get('cetak', [DosenController::class, 'cetak'])->name('dosen_cetak');
 });
 
 Route::middleware(['auth','cekrole:mahasiswa,admin,dosen'])->prefix('main')->group(function() {
