@@ -17,10 +17,11 @@
     </style>
     <center>
         <h5>Transkrip Nilai {{ $data->nama }}</h5>
-        <br>Nim {{$data->nim}}
+        <br>Nim {{ $data->nim }}
         @foreach ($kelas as $kelasa)
-        <br> Kelas {{$kelasa->kelas->nama_kelas }}
+            <br> Kelas {{ $kelasa->kelas->nama_kelas }}
         @endforeach
+        <br> Rata-Rata = {{ $nilai->avg('nilai') }}
     </center>
 
     <table class='table table-bordered'>
@@ -35,28 +36,28 @@
         <tbody>
             @foreach ($kelas as $kelasa)
                 @foreach ($kelasa->matakuliah as $mk)
-                @foreach ($mk->dosen as $dsn)
-                    <tr>
-                        <td>
-                            {{ $mk->nama_mk }}
-                        </td>
-                        <td>
-                            {{ $dsn->nama }}
-                        </td>
-                        <td>
-                            {{ $mk->sks }}
-                        </td>
-                        <td>
-                            {{ $mk->pivot->nilai }}
-                        </td>
-                    </tr>
+                    @foreach ($mk->dosen as $dsn)
+                        @if ($mk->pivot->kode == $dsn->pivot->kode_pengajar)
+                            <tr>
+                                <td>
+                                    {{ $mk->nama_mk }}
+                                </td>
+                                <td>
+                                    {{ $dsn->nama }}
+                                </td>
+                                <td>
+                                    {{ $mk->sks }}
+                                </td>
+                                <td>
+                                    {{ $mk->pivot->nilai }}
+                                </td>
+                            </tr>
+                        @endif
                     @endforeach
                 @endforeach
             @endforeach
         </tbody>
     </table>
-    <br>  Rata-Rata = {{ $nilai->avg('nilai') }}
-
 </body>
 
 </html>
