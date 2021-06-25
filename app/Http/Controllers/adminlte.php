@@ -38,14 +38,18 @@ class adminlte extends Controller
             $mk = $dsn->matakuliah->count();
             $k = 0;
             $mhs = 0;
-            foreach ($dsn->matakuliah as $mak) {
-                $k += $mak->kelas->count();
-                foreach ($mak->kelas as $kls) {
-                    $mhs += $kls->mahasiswa->count();
+            foreach ($kode as $kd) {
+                foreach ($dsn->matakuliah as $mak) {
+                    foreach ($mak->kelas as $kls) {
+                        if ($kd->kode_pengajar == $kls->pivot->kode) {
+                            $mhs += $kls->mahasiswa->count();
+                            $k++;
+                        }
+                    }
                 }
             }
             //return $mhs;
-            return view('dosen.dashboard', compact('data', 'mhs', 'mk', 'k'));
+            return view('dosen.dashboard', compact('data', 'mhs', 'mk', 'k', 'dsn'));
         } else {
             $mhs = DB::table('table_mahasiswa')->count();
             $ds = DB::table('table_dosen')->count();
