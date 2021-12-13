@@ -1,1 +1,0 @@
-coba update vm
